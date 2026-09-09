@@ -1,0 +1,46 @@
+import ProfileSidebar from "@/components/demo/ProfileSidebar";
+import AiPanel from "@/components/demo/AiPanel";
+import Sparkline from "@/components/demo/Sparkline";
+import { overviewStats, overviewSeries } from "@/lib/demo-data";
+
+export default function DashboardPage() {
+  return (
+    <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)_320px]">
+      <ProfileSidebar />
+
+      <main className="min-w-0 space-y-4">
+        <div>
+          <h1 className="text-lg font-semibold text-neutral-900">Обзор</h1>
+          <p className="mt-1 text-sm text-neutral-500">
+            Показатели компании за текущий месяц
+          </p>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          {overviewStats.map((s) => (
+            <div key={s.label} className="border border-neutral-200 p-4">
+              <div className="text-xs text-neutral-500">{s.label}</div>
+              <div className="num mt-2 font-mono text-2xl text-neutral-900">
+                {s.value}
+                <span className="ml-1 text-sm text-neutral-400">
+                  {s.unit}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="border border-neutral-200 p-4">
+          <div className="text-sm font-medium text-neutral-900">
+            Динамика продаж
+          </div>
+          <div className="mt-3 h-52">
+            <Sparkline data={overviewSeries} height={200} />
+          </div>
+        </div>
+      </main>
+
+      <AiPanel />
+    </div>
+  );
+}
