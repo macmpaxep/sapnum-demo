@@ -1,5 +1,6 @@
 import TopicsSidebar from "@/components/demo/TopicsSidebar";
 import AiPanel from "@/components/demo/AiPanel";
+import Chat from "@/components/demo/Chat";
 import Avatar from "@/components/demo/Avatar";
 import Sparkline from "@/components/demo/Sparkline";
 import { feedPosts } from "@/lib/demo-data";
@@ -97,6 +98,11 @@ export default function FeedPage() {
       {/* AiPanel — скрыт на мобильном, показывается на десктопе */}
       <div>
         <AiPanel />
+      </div>
+
+      {/* Chat */}
+      <div>
+        <Chat />
       </div>
 
     </div>
