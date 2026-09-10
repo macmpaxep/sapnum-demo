@@ -95,7 +95,7 @@ export default function FeedPage() {
       </main>
 
       {/* AiPanel — скрыт на мобильном, показывается на десктопе */}
-      <div className="hidden lg:block">
+      <div>
         <AiPanel />
       </div>
 
