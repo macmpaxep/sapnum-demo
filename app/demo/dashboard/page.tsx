@@ -6,7 +6,9 @@ import { overviewStats, overviewSeries } from "@/lib/demo-data";
 export default function DashboardPage() {
   return (
     <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)_320px]">
-      <ProfileSidebar />
+      <div className="lg:col-start-1">
+  <ProfileSidebar />
+</div>
 
       <main className="min-w-0 space-y-4">
         <div>
@@ -16,15 +18,14 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        {/* на мобильном: 2 колонки (продажи + эффективность), тенденция на след. строке */}
+        <div className="grid grid-cols-2 gap-4">
           {overviewStats.map((s) => (
             <div key={s.label} className="border border-neutral-200 p-4">
               <div className="text-xs text-neutral-500">{s.label}</div>
               <div className="num mt-2 font-mono text-2xl text-neutral-900">
                 {s.value}
-                <span className="ml-1 text-sm text-neutral-400">
-                  {s.unit}
-                </span>
+                <span className="ml-1 text-sm text-neutral-400">{s.unit}</span>
               </div>
             </div>
           ))}
@@ -40,7 +41,9 @@ export default function DashboardPage() {
         </div>
       </main>
 
-      <AiPanel />
+      <div>
+        <AiPanel />
+      </div>
     </div>
   );
 }

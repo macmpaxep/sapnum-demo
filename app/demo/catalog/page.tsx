@@ -4,7 +4,7 @@ import { products, services } from "@/lib/demo-data";
 
 function ItemGrid({ items }: { items: { name: string; note: string }[] }) {
   return (
-    <div className="grid grid-cols-5 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
       {items.map((item) => (
         <div key={item.name} className="text-center">
           <div className="aspect-square border border-neutral-200 bg-neutral-50" />
@@ -21,7 +21,9 @@ function ItemGrid({ items }: { items: { name: string; note: string }[] }) {
 export default function CatalogPage() {
   return (
     <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)_320px]">
-      <ProfileSidebar />
+      <div className="lg:col-start-1">
+        <ProfileSidebar />
+      </div>
 
       <main className="min-w-0 space-y-8">
         <h1 className="text-lg font-semibold text-neutral-900">Каталог</h1>
@@ -51,7 +53,9 @@ export default function CatalogPage() {
         </button>
       </main>
 
-      <AiPanel />
+      <div>
+        <AiPanel />
+      </div>
     </div>
   );
 }
