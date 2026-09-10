@@ -9,7 +9,11 @@ const postTypeIcons = ["Фото", "График", "Файл"];
 export default function FeedPage() {
   return (
     <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)_320px]">
-      <TopicsSidebar />
+      
+      {/* На мобильном TopicsSidebar — аккордеон сверху, на десктопе — левая колонка */}
+      <div className="lg:block">
+        <TopicsSidebar />
+      </div>
 
       <main className="min-w-0 space-y-4">
         {/* Composer */}
@@ -22,7 +26,7 @@ export default function FeedPage() {
               readOnly
             />
           </div>
-          <div className="mt-3 flex items-center gap-4 pl-[44px] text-xs text-neutral-400">
+          <div className="mt-3 flex flex-wrap items-center gap-2 pl-0 sm:pl-[44px] text-xs text-neutral-400">
             <span>Тип записи:</span>
             {postTypeIcons.map((t) => (
               <span
@@ -39,7 +43,7 @@ export default function FeedPage() {
         {feedPosts.map((post, i) => (
           <article key={i} className="border border-neutral-200 p-4">
             <div className="flex items-center gap-3">
-              <Avatar initials={post.author.split(" ").map((w) => w[0]).join("")} />
+              <Avatar initials={post.author.split(" ").map((w: string) => w[0]).join("")} />
               <div className="min-w-0 flex-1">
                 <div className="text-sm font-medium text-neutral-900">
                   {post.author}
@@ -90,7 +94,11 @@ export default function FeedPage() {
         ))}
       </main>
 
-      <AiPanel />
+      {/* AiPanel — скрыт на мобильном, показывается на десктопе */}
+      <div className="hidden lg:block">
+        <AiPanel />
+      </div>
+
     </div>
   );
 }
