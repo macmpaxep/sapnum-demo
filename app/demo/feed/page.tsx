@@ -100,11 +100,6 @@ export default function FeedPage() {
         <AiPanel />
       </div>
 
-      {/* Chat */}
-      <div>
-        <Chat />
-      </div>
-
     </div>
   );
 }
