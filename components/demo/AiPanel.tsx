@@ -5,7 +5,7 @@ const suggestions = ["Почему упала маржа?", "Сравни с к�
 
 export default function AiPanel() {
   return (
-    <aside className="flex flex-col gap-6">
+    <aside className="flex flex-col gap-6 min-w-0 overflow-hidden">
       <section className="border border-neutral-200 p-4">
         <h2 className="text-sm font-semibold text-neutral-900">
           ИИ-ассистент
