@@ -12,14 +12,9 @@ export default async function ProfileSidebarData() {
   const items: ProfileMenuItem[] = [
     { label: "Записи", href: user ? `/u/${user.username}` : "/login" },
     { label: "Компания", href: companySlug ? `/company/${companySlug}` : "/company/new" },
-    { label: "Каталог", href: "/catalog" },
-    { label: "Показатели", href: "/metrics" },
-    { label: "Люди", href: "/people" },
-    { label: "Компании", href: "/companies" },
     { label: "Заявки", href: "/applications" },
     { label: "Активность", href: "/activity" },
     { label: "Сохранённое", href: "/saved" },
-    { label: "Сообщения", href: "/messages" },
   ];
 
   return <ProfileSidebar items={items} />;

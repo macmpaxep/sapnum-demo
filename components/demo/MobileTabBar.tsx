@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useUser } from "@/lib/hooks/useUser";
 
-const tabs = [
+const staticTabs = [
   {
     href: "/feed",
     label: "Лента",
@@ -27,6 +28,18 @@ const tabs = [
     ),
   },
   {
+    href: "/people",
+    label: "Люди",
+    icon: (active: boolean) => (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <circle cx="9" cy="8" r="2.6" stroke="currentColor" strokeWidth={active ? 2 : 1.6} />
+        <path d="M4 19c.8-3 3-4.6 5-4.6s4.2 1.6 5 4.6" stroke="currentColor" strokeWidth={active ? 2 : 1.6} strokeLinecap="round" />
+        <circle cx="17" cy="9" r="2.1" stroke="currentColor" strokeWidth={active ? 2 : 1.6} />
+        <path d="M15.2 14.6c1.8.4 3.2 1.7 3.8 4" stroke="currentColor" strokeWidth={active ? 2 : 1.6} strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
     href: "/messages",
     label: "Сообщения",
     icon: (active: boolean) => (
@@ -36,20 +49,21 @@ const tabs = [
       </svg>
     ),
   },
-  {
-    href: "/dashboard",
-    label: "Профиль",
-    icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth={active ? 2 : 1.6} />
-        <path d="M5 20c1.2-3.6 4-5.4 7-5.4s5.8 1.8 7 5.4" stroke="currentColor" strokeWidth={active ? 2 : 1.6} strokeLinecap="round" />
-      </svg>
-    ),
-  },
 ];
+
+const profileIcon = (active: boolean) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth={active ? 2 : 1.6} />
+    <path d="M5 20c1.2-3.6 4-5.4 7-5.4s5.8 1.8 7 5.4" stroke="currentColor" strokeWidth={active ? 2 : 1.6} strokeLinecap="round" />
+  </svg>
+);
 
 export default function MobileTabBar() {
   const pathname = usePathname();
+  const { user } = useUser();
+  const profileHref = user ? `/u/${user.username}` : "/login";
+
+  const tabs = [...staticTabs, { href: profileHref, label: "Профиль", icon: profileIcon }];
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-20 border-t border-neutral-200 bg-white pb-[env(safe-area-inset-bottom)]">

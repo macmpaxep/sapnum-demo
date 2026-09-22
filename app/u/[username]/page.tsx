@@ -63,12 +63,12 @@ export default async function UserProfilePage({ params }: { params: Promise<{ us
         {profile.bio && <p className="mt-4 text-sm leading-relaxed text-neutral-700">{profile.bio}</p>}
 
         <div className="mt-4 flex gap-4 text-sm text-neutral-500">
-          <span>
+          <Link href={`/u/${profile.username}/followers`} className="hover:underline">
             <span className="font-medium text-neutral-900">{profile.followerCount}</span> подписчиков
-          </span>
-          <span>
+          </Link>
+          <Link href={`/u/${profile.username}/following`} className="hover:underline">
             <span className="font-medium text-neutral-900">{profile.followingCount}</span> подписок
-          </span>
+          </Link>
         </div>
       </div>
 

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ProfileSidebarData from "@/components/demo/ProfileSidebarData";
 import AiPanel from "@/components/demo/AiPanel";
 import Chat from "@/components/demo/Chat";
@@ -12,11 +13,16 @@ export default function DashboardPage() {
 </div>
 
       <main className="min-w-0 space-y-4">
-        <div>
-          <h1 className="text-lg font-semibold text-neutral-900">Обзор</h1>
-          <p className="mt-1 text-sm text-neutral-500">
-            Показатели компании за текущий месяц
-          </p>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-lg font-semibold text-neutral-900">Обзор</h1>
+            <p className="mt-1 text-sm text-neutral-500">
+              Показатели компании за текущий месяц
+            </p>
+          </div>
+          <Link href="/metrics" className="shrink-0 border border-neutral-300 px-3 py-1.5 text-xs text-neutral-700 hover:border-neutral-400">
+            Показатели →
+          </Link>
         </div>
 
         {/* на мобильном: 2 колонки (продажи + эффективность), тенденция на след. строке */}

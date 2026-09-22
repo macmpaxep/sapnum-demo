@@ -56,6 +56,62 @@ export async function getPublicProfile(username: string): Promise<PublicProfile 
   };
 }
 
+export async function listFollowers(userId: string): Promise<DirectoryPerson[]> {
+  const supabase = await createSupabaseServerClient();
+  const { data } = await supabase
+    .from("follows")
+    .select("profiles!follows_follower_id_fkey(id, username, display_name, avatar_url, bio, user_roles(role))")
+    .eq("following_id", userId)
+    .order("created_at", { ascending: false });
+
+  return (data ?? [])
+    .map((row) => row.profiles as unknown as {
+      id: string;
+      username: string;
+      display_name: string;
+      avatar_url: string | null;
+      bio: string | null;
+      user_roles: { role: string }[];
+    } | null)
+    .filter((p): p is NonNullable<typeof p> => p !== null)
+    .map((p) => ({
+      id: p.id,
+      username: p.username,
+      displayName: p.display_name,
+      avatarUrl: p.avatar_url,
+      bio: p.bio,
+      roles: (p.user_roles ?? []).map((r) => r.role as UserRole),
+    }));
+}
+
+export async function listFollowing(userId: string): Promise<DirectoryPerson[]> {
+  const supabase = await createSupabaseServerClient();
+  const { data } = await supabase
+    .from("follows")
+    .select("profiles!follows_following_id_fkey(id, username, display_name, avatar_url, bio, user_roles(role))")
+    .eq("follower_id", userId)
+    .order("created_at", { ascending: false });
+
+  return (data ?? [])
+    .map((row) => row.profiles as unknown as {
+      id: string;
+      username: string;
+      display_name: string;
+      avatar_url: string | null;
+      bio: string | null;
+      user_roles: { role: string }[];
+    } | null)
+    .filter((p): p is NonNullable<typeof p> => p !== null)
+    .map((p) => ({
+      id: p.id,
+      username: p.username,
+      displayName: p.display_name,
+      avatarUrl: p.avatar_url,
+      bio: p.bio,
+      roles: (p.user_roles ?? []).map((r) => r.role as UserRole),
+    }));
+}
+
 export interface DirectoryPerson {
   id: string;
   username: string;

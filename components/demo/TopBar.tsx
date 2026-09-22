@@ -7,13 +7,15 @@ import Avatar from "./Avatar";
 import UserMenu from "./UserMenu";
 import NotificationBell from "./NotificationBell";
 import { useUser } from "@/lib/hooks/useUser";
+import { useMyCompany } from "@/lib/hooks/useMyCompany";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
-const tabs = [
+const baseTabs = [
   { label: "Лента", href: "/feed" },
-  { label: "Дашборд", href: "/dashboard" },
   { label: "Каталог", href: "/catalog" },
-  { label: "Показатели", href: "/metrics" },
+  { label: "Люди", href: "/people" },
+  { label: "Компании", href: "/companies" },
+  { label: "Сообщения", href: "/messages" },
 ];
 
 export default function TopBar() {
@@ -21,6 +23,9 @@ export default function TopBar() {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, loading } = useUser();
+  const companySlug = useMyCompany(user?.id);
+
+  const tabs = companySlug ? [...baseTabs.slice(0, 1), { label: "Дашборд", href: "/dashboard" }, ...baseTabs.slice(1)] : baseTabs;
 
   async function handleLogout() {
     const supabase = createSupabaseBrowserClient();
@@ -32,9 +37,9 @@ export default function TopBar() {
   return (
     <header className="sticky top-0 z-10 border-b border-neutral-200 bg-white">
       <div className="mx-auto flex max-w-[1400px] items-center gap-8 px-6 py-3">
-        <span className="font-display text-base font-bold tracking-tight text-neutral-900">
+        <Link href="/feed" className="font-display text-base font-bold tracking-tight text-neutral-900">
           SAPNUM
-        </span>
+        </Link>
 
         {/* Десктоп навигация */}
         <nav className="hidden md:flex items-center gap-1">
@@ -54,16 +59,6 @@ export default function TopBar() {
               </Link>
             );
           })}
-          <Link
-            href="/messages"
-            className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
-              pathname === "/messages"
-                ? "bg-neutral-100 font-medium text-neutral-900"
-                : "text-neutral-500 hover:text-neutral-900"
-            }`}
-          >
-            Сообщения
-          </Link>
         </nav>
 
         <div className="ml-auto flex items-center gap-4 text-neutral-500">
