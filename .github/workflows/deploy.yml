@@ -17,8 +17,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            set -e
             cd /home/sapnum/sapnum-demo
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
             npm install
             npm run build
             pm2 restart sapnum
