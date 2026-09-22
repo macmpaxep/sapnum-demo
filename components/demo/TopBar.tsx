@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import Avatar from "./Avatar";
+import { useUser } from "@/lib/hooks/useUser";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const tabs = [
   { label: "Лента", href: "/demo/feed" },
@@ -14,7 +16,25 @@ const tabs = [
 
 export default function TopBar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, loading } = useUser();
+
+  async function handleLogout() {
+    const supabase = createSupabaseBrowserClient();
+    await supabase.auth.signOut();
+    router.push("/login");
+    router.refresh();
+  }
+
+  const initials = user
+    ? user.displayName
+        .split(" ")
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((w) => w[0]?.toUpperCase())
+        .join("")
+    : "ВЫ";
 
   return (
     <header className="sticky top-0 z-10 border-b border-neutral-200 bg-white">
@@ -41,16 +61,19 @@ export default function TopBar() {
               </Link>
             );
           })}
+          <Link
+            href="/messages"
+            className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
+              pathname === "/messages"
+                ? "bg-neutral-100 font-medium text-neutral-900"
+                : "text-neutral-500 hover:text-neutral-900"
+            }`}
+          >
+            Сообщения
+          </Link>
         </nav>
 
         <div className="ml-auto flex items-center gap-4 text-neutral-500">
-          {/* Иконки — скрыты на мобильном */}
-          <button aria-label="Сообщения" className="hidden md:block hover:text-neutral-900">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M4 6h16v12H4z" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M4 7l8 6 8-6" stroke="currentColor" strokeWidth="1.6" />
-            </svg>
-          </button>
           <button aria-label="Создать" className="hidden md:block hover:text-neutral-900">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
@@ -58,7 +81,22 @@ export default function TopBar() {
             </svg>
           </button>
 
-          <Avatar initials="ВЫ" size={30} />
+          {!loading && !user && (
+            <Link
+              href="/login"
+              className="hidden md:block rounded-md border border-neutral-300 px-3 py-1.5 text-sm text-neutral-700 hover:border-neutral-400"
+            >
+              Войти
+            </Link>
+          )}
+
+          {!loading && user && (
+            <button onClick={handleLogout} className="hidden md:block" title={`${user.displayName} — выйти`}>
+              <Avatar initials={initials} size={30} />
+            </button>
+          )}
+
+          {loading && <Avatar initials="…" size={30} />}
 
           {/* Бургер — только мобильный */}
           <button
@@ -100,20 +138,23 @@ export default function TopBar() {
             );
           })}
 
-          {/* Иконки в мобильном меню */}
-          <div className="flex gap-4 px-3 pt-2 mt-1 border-t border-neutral-100 text-neutral-500">
-            <button aria-label="Сообщения" className="hover:text-neutral-900">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4 6h16v12H4z" stroke="currentColor" strokeWidth="1.6" />
-                <path d="M4 7l8 6 8-6" stroke="currentColor" strokeWidth="1.6" />
-              </svg>
-            </button>
+          <div className="flex items-center justify-between px-3 pt-2 mt-1 border-t border-neutral-100 text-neutral-500">
             <button aria-label="Создать" className="hover:text-neutral-900">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
                 <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.6" />
               </svg>
             </button>
+            {!loading && !user && (
+              <Link href="/login" onClick={() => setMenuOpen(false)} className="text-sm text-neutral-700">
+                Войти
+              </Link>
+            )}
+            {!loading && user && (
+              <button onClick={handleLogout} className="text-sm text-neutral-700">
+                Выйти
+              </button>
+            )}
           </div>
         </div>
       )}

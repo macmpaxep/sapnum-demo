@@ -19,8 +19,8 @@ export type ProfileMenuItem = {
 };
 
 export const profileMenu: ProfileMenuItem[] = [
-  { label: "Записи", href: "/demo/dashboard" },
-  { label: "Компания", href: "/demo/dashboard" },
+  { label: "Записи", href: "/demo/feed" },
+  { label: "Компания", href: "/company/nurtech" },
   {
     label: "Каталог",
     href: "/demo/catalog",
@@ -31,9 +31,9 @@ export const profileMenu: ProfileMenuItem[] = [
     ],
   },
   { label: "Показатели", href: "/demo/metrics" },
-  { label: "Инструменты", href: "/demo/dashboard" },
-  { label: "Запросы", href: "/demo/dashboard" },
-  { label: "Сотрудничество", href: "/demo/dashboard" },
+  { label: "Активность", href: "/activity" },
+  { label: "Сохранённое", href: "/saved" },
+  { label: "Сообщения", href: "/messages" },
   { label: "Реклама", href: "/demo/dashboard" },
 ];
 

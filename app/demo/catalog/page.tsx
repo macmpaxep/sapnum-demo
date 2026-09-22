@@ -1,5 +1,6 @@
 import ProfileSidebar from "@/components/demo/ProfileSidebar";
 import AiPanel from "@/components/demo/AiPanel";
+import Chat from "@/components/demo/Chat";
 import { products, services } from "@/lib/demo-data";
 
 function ItemGrid({ items }: { items: { name: string; note: string }[] }) {
@@ -20,7 +21,7 @@ function ItemGrid({ items }: { items: { name: string; note: string }[] }) {
 
 export default function CatalogPage() {
   return (
-    <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)_320px]">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[240px_minmax(0,1fr)_320px]">
       <div className="lg:col-start-1">
         <ProfileSidebar />
       </div>
@@ -53,8 +54,9 @@ export default function CatalogPage() {
         </button>
       </main>
 
-      <div>
+      <div className="flex flex-col gap-6 min-w-0">
         <AiPanel />
+        <Chat />
       </div>
     </div>
   );

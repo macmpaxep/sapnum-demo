@@ -1,15 +1,17 @@
 import Avatar from "./Avatar";
-import { chatContacts, conversations } from "@/lib/demo-data";
+import { getChatConversations } from "@/lib/queries";
 
-export default function Chat() {
+export default async function Chat() {
+  const { contacts, conversations } = await getChatConversations();
+
   return (
     <aside className="flex flex-col gap-6 min-w-0 w-full overflow-hidden">
       <section className="border border-neutral-200 p-4 w-full min-w-0 box-border">
         <h2 className="text-sm font-semibold text-neutral-900">Чат</h2>
 
-        {/* Добавлена обертка flex-wrap для контактов, чтобы аватарки не распирали ширину */}
+        {/* flex-wrap не даёт аватаркам распирать ширину контейнера */}
         <div className="mt-3 flex flex-wrap items-center gap-2 min-w-0">
-          {chatContacts.map((c) => (
+          {contacts.map((c) => (
             <Avatar key={c.initials} initials={c.initials} size={30} />
           ))}
           <div className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border border-dashed border-neutral-300 text-neutral-400">
@@ -19,10 +21,8 @@ export default function Chat() {
 
         <div className="mt-4 space-y-3 min-w-0">
           {conversations.map((c) => (
-            /* Добавлен min-w-0 и w-full для каждого элемента диалога */
-            <div key={c.name} className="flex items-start gap-2.5 min-w-0 w-full">
+            <div key={c.id} className="flex items-start gap-2.5 min-w-0 w-full">
               <Avatar initials={c.initials} size={32} />
-              {/* min-w-0 обязателен на родителе с truncate */}
               <div className="min-w-0 flex-1">
                 <div className="truncate text-sm text-neutral-900">
                   {c.name}
