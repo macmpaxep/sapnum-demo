@@ -45,9 +45,11 @@ export default function TelegramLoginButton() {
         if (!res.ok) throw new Error(data.error ?? "Ошибка авторизации");
 
         const supabase = createSupabaseBrowserClient();
+        // generateLink() on the server returns a pre-hashed token meant for
+        // the token_hash param — passing it as `token` (the raw 6-digit OTP
+        // param) makes Supabase treat it as garbage and reject it as expired/invalid.
         const { error: verifyError } = await supabase.auth.verifyOtp({
-          email: data.email,
-          token: data.tokenHash,
+          token_hash: data.tokenHash,
           type: "magiclink",
         });
         if (verifyError) throw verifyError;
@@ -65,6 +67,7 @@ export default function TelegramLoginButton() {
     script.async = true;
     script.setAttribute("data-telegram-login", botUsername);
     script.setAttribute("data-size", "large");
+    script.setAttribute("data-radius", "20");
     script.setAttribute("data-onauth", "onTelegramAuth(user)");
     script.setAttribute("data-request-access", "write");
     containerRef.current.appendChild(script);
@@ -76,7 +79,9 @@ export default function TelegramLoginButton() {
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <div ref={containerRef} />
+      {/* Telegram's iframe paints dark corners outside its rounded pill when
+          the visitor's OS is in dark mode — clip them with our own mask. */}
+      <div ref={containerRef} className="overflow-hidden rounded-full leading-none" />
       {error && <p className="text-xs text-red-600">{error}</p>}
     </div>
   );
