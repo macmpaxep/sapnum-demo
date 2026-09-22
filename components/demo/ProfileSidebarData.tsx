@@ -10,18 +10,12 @@ export default async function ProfileSidebarData() {
   const companySlug = user ? await getCompanySlugForUser(user.id) : null;
 
   const items: ProfileMenuItem[] = [
-    { label: "Записи", href: "/demo/feed" },
+    { label: "Записи", href: user ? `/u/${user.username}` : "/login" },
     { label: "Компания", href: companySlug ? `/company/${companySlug}` : "/company/new" },
-    {
-      label: "Каталог",
-      href: "/demo/catalog",
-      sub: [
-        { label: "Категории", href: "/demo/catalog" },
-        { label: "Товары", href: "/demo/catalog" },
-        { label: "Услуги", href: "/demo/catalog" },
-      ],
-    },
-    { label: "Показатели", href: "/demo/metrics" },
+    { label: "Каталог", href: "/catalog" },
+    { label: "Показатели", href: "/metrics" },
+    { label: "Люди", href: "/people" },
+    { label: "Компании", href: "/companies" },
     { label: "Заявки", href: "/applications" },
     { label: "Активность", href: "/activity" },
     { label: "Сохранённое", href: "/saved" },

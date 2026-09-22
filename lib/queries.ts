@@ -82,6 +82,7 @@ export async function getChatConversations(): Promise<{
 export type FeedPost = {
   id: string;
   authorId: string;
+  authorUsername: string;
   author: string;
   role: string;
   topic: string;
@@ -109,6 +110,7 @@ function mockTextPosts(): FeedPost[] {
     .map((p, i) => ({
       id: `mock-${i}`,
       authorId: `mock-author-${i}`,
+      authorUsername: "",
       author: p.author,
       role: p.role,
       topic: p.topic,
@@ -122,24 +124,25 @@ function mockTextPosts(): FeedPost[] {
     }));
 }
 
-export async function getFeedPosts(topicFilter?: string): Promise<FeedPost[]> {
+export async function getFeedPosts(filters?: { topic?: string; authorId?: string }): Promise<FeedPost[]> {
   const supabase = getSupabaseAdmin();
   if (!supabase) return mockTextPosts();
 
   let query = supabase
     .from("posts")
     .select(
-      "id, author_id, body, media_urls, topic, created_at, profiles!posts_author_id_fkey(display_name), companies(name, industry), post_likes(user_id), post_comments(id)"
+      "id, author_id, body, media_urls, topic, created_at, profiles!posts_author_id_fkey(display_name, username), companies(name, industry), post_likes(user_id), post_comments(id)"
     )
     .order("created_at", { ascending: false })
-    .limit(30);
+    .limit(50);
 
-  if (topicFilter) query = query.eq("topic", topicFilter);
+  if (filters?.topic) query = query.eq("topic", filters.topic);
+  if (filters?.authorId) query = query.eq("author_id", filters.authorId);
 
   const [{ data }, viewer] = await Promise.all([query, getCurrentUser()]);
 
   if (!data || data.length === 0) {
-    return topicFilter ? [] : mockTextPosts();
+    return filters?.topic || filters?.authorId ? [] : mockTextPosts();
   }
 
   const savedPostIds = new Set<string>();
@@ -153,13 +156,14 @@ export async function getFeedPosts(topicFilter?: string): Promise<FeedPost[]> {
   }
 
   return data.map((post) => {
-    const author = post.profiles as unknown as { display_name: string } | null;
+    const author = post.profiles as unknown as { display_name: string; username: string } | null;
     const company = post.companies as unknown as { name: string; industry: string } | null;
     const likes = (post.post_likes as unknown as { user_id: string }[]) ?? [];
     const comments = (post.post_comments as unknown as { id: string }[]) ?? [];
     return {
       id: post.id,
       authorId: post.author_id,
+      authorUsername: author?.username ?? "",
       author: author?.display_name ?? "Пользователь",
       role: company ? `${company.name} · ${company.industry}` : "Участник сообщества",
       topic: post.topic ?? (company ? "Кейсы" : "Инсайты"),

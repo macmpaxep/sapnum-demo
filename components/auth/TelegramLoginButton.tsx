@@ -54,7 +54,7 @@ export default function TelegramLoginButton() {
         });
         if (verifyError) throw verifyError;
 
-        router.push("/demo/feed");
+        router.push("/feed");
         router.refresh();
       } catch (err) {
         console.error("[telegram-auth]", err);

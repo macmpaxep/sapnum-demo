@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Avatar from "./Avatar";
 import type { FeedPost } from "@/lib/queries";
 
@@ -85,9 +86,21 @@ export default function PostCard({ post }: { post: FeedPost }) {
   return (
     <article className="border border-neutral-200 p-4">
       <div className="flex items-center gap-3">
-        <Avatar initials={post.author.split(" ").map((w) => w[0]).join("")} />
+        {post.authorUsername ? (
+          <Link href={`/u/${post.authorUsername}`}>
+            <Avatar initials={post.author.split(" ").map((w) => w[0]).join("")} />
+          </Link>
+        ) : (
+          <Avatar initials={post.author.split(" ").map((w) => w[0]).join("")} />
+        )}
         <div className="min-w-0 flex-1">
-          <div className="text-sm font-medium text-neutral-900">{post.author}</div>
+          {post.authorUsername ? (
+            <Link href={`/u/${post.authorUsername}`} className="text-sm font-medium text-neutral-900 hover:underline">
+              {post.author}
+            </Link>
+          ) : (
+            <div className="text-sm font-medium text-neutral-900">{post.author}</div>
+          )}
           <div className="truncate text-xs text-neutral-500">{post.role}</div>
         </div>
         <div className="shrink-0 text-right text-xs text-neutral-400">

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const tabs = [
   {
-    href: "/demo/feed",
+    href: "/feed",
     label: "Лента",
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -15,7 +15,7 @@ const tabs = [
     ),
   },
   {
-    href: "/demo/catalog",
+    href: "/catalog",
     label: "Каталог",
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -37,7 +37,7 @@ const tabs = [
     ),
   },
   {
-    href: "/demo/dashboard",
+    href: "/dashboard",
     label: "Профиль",
     icon: (active: boolean) => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none">

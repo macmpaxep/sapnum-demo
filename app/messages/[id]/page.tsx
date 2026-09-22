@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Avatar from "@/components/demo/Avatar";
 import ThreadComposer from "@/components/messages/ThreadComposer";
 import { getCurrentUser } from "@/lib/auth";
-import { getThread } from "@/lib/messages";
+import { getThread, markThreadRead } from "@/lib/messages";
 
 export default async function ThreadPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -11,6 +11,7 @@ export default async function ThreadPage({ params }: { params: Promise<{ id: str
   if (!user) redirect("/login");
 
   const { otherUser, messages } = await getThread(id);
+  await markThreadRead(id);
 
   return (
     <div className="flex h-[calc(100vh-56px)] flex-col md:h-[calc(100vh-56px-2rem)] md:my-4 md:border md:border-neutral-200">

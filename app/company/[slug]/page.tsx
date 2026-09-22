@@ -2,18 +2,21 @@ import { notFound } from "next/navigation";
 import ApplicationForm from "@/components/company/ApplicationForm";
 import ApplicationRow from "@/components/company/ApplicationRow";
 import MessageButton from "@/components/company/MessageButton";
+import CatalogManager from "@/components/company/CatalogManager";
 import { getCurrentUser } from "@/lib/auth";
 import { getCompanyBySlug, getCompanyPosts, getCompanyApplications } from "@/lib/companies";
+import { getCompanyCatalog } from "@/lib/catalog";
 
 export default async function CompanyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const company = await getCompanyBySlug(slug);
   if (!company) notFound();
 
-  const [user, posts, applications] = await Promise.all([
+  const [user, posts, applications, catalogItems] = await Promise.all([
     getCurrentUser(),
     getCompanyPosts(company.id),
     company.isOwnerOrAdmin ? getCompanyApplications(company.id) : Promise.resolve([]),
+    getCompanyCatalog(company.id),
   ]);
 
   const isOwnProfile = user?.id === company.ownerId;
@@ -59,6 +62,11 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
           </div>
         </div>
       )}
+
+      <div>
+        <h2 className="mb-2 text-sm font-medium text-neutral-900">Каталог</h2>
+        <CatalogManager companyId={company.id} items={catalogItems} canManage={company.isOwnerOrAdmin} />
+      </div>
 
       <div>
         <h2 className="mb-2 text-sm font-medium text-neutral-900">Записи компании</h2>

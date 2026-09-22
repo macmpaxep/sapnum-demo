@@ -90,22 +90,6 @@ export const feedPosts: FeedPost[] = [
   },
 ];
 
-export const products = [
-  { name: "Товар 1", note: "от 12 000 ₸" },
-  { name: "Товар 2", note: "от 8 500 ₸" },
-  { name: "Товар 3", note: "от 21 000 ₸" },
-  { name: "Товар 4", note: "от 4 200 ₸" },
-  { name: "Товар 5", note: "от 15 800 ₸" },
-];
-
-export const services = [
-  { name: "Услуга 1", note: "от 50 000 ₸" },
-  { name: "Услуга 2", note: "от 120 000 ₸" },
-  { name: "Услуга 3", note: "от 35 000 ₸" },
-  { name: "Услуга 4", note: "от 90 000 ₸" },
-  { name: "Услуга 5", note: "по запросу" },
-];
-
 export const overviewStats = [
   { label: "Продажи за месяц", value: "500 000", unit: "шт" },
   { label: "Эффективность", value: "83", unit: "%" },

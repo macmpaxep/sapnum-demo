@@ -46,7 +46,7 @@ export default function TopicsSidebar() {
         <ul className="border-t border-neutral-100 px-4 pb-3 pt-1 space-y-1">
           <li>
             <Link
-              href="/demo/feed"
+              href="/feed"
               className={`block rounded px-2 py-1.5 text-sm ${
                 !activeTopic ? "bg-neutral-100 font-medium text-neutral-900" : "text-neutral-700 hover:bg-neutral-50"
               }`}
@@ -57,7 +57,7 @@ export default function TopicsSidebar() {
           {topics.map((topic) => (
             <li key={topic}>
               <Link
-                href={`/demo/feed?topic=${encodeURIComponent(topic)}`}
+                href={`/feed?topic=${encodeURIComponent(topic)}`}
                 className={`block rounded px-2 py-1.5 text-sm ${
                   activeTopic === topic ? "bg-neutral-100 font-medium text-neutral-900" : "text-neutral-700 hover:bg-neutral-50"
                 }`}

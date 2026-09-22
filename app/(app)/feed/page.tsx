@@ -11,7 +11,7 @@ export default async function FeedPage({
   searchParams: Promise<{ topic?: string }>;
 }) {
   const { topic } = await searchParams;
-  const feedPosts = await getFeedPosts(topic);
+  const feedPosts = await getFeedPosts({ topic });
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[240px_minmax(0,1fr)_320px]">

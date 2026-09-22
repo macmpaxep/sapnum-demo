@@ -68,6 +68,38 @@ export async function getCompanySlugForUser(userId: string): Promise<string | nu
   return company?.slug ?? null;
 }
 
+export interface DirectoryCompany {
+  slug: string;
+  name: string;
+  industry: string | null;
+  description: string | null;
+  logoUrl: string | null;
+}
+
+export async function listCompanies(search?: string): Promise<DirectoryCompany[]> {
+  const supabase = await createSupabaseServerClient();
+
+  let query = supabase
+    .from("companies")
+    .select("slug, name, industry, description, logo_url")
+    .order("created_at", { ascending: false })
+    .limit(60);
+
+  if (search?.trim()) {
+    query = query.or(`name.ilike.%${search.trim()}%,industry.ilike.%${search.trim()}%`);
+  }
+
+  const { data } = await query;
+
+  return (data ?? []).map((c) => ({
+    slug: c.slug,
+    name: c.name,
+    industry: c.industry,
+    description: c.description,
+    logoUrl: c.logo_url,
+  }));
+}
+
 export interface CompanyPost {
   id: string;
   author: string;

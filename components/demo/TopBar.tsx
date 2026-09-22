@@ -5,14 +5,15 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import Avatar from "./Avatar";
 import UserMenu from "./UserMenu";
+import NotificationBell from "./NotificationBell";
 import { useUser } from "@/lib/hooks/useUser";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const tabs = [
-  { label: "Лента", href: "/demo/feed" },
-  { label: "Дашборд", href: "/demo/dashboard" },
-  { label: "Каталог", href: "/demo/catalog" },
-  { label: "Показатели", href: "/demo/metrics" },
+  { label: "Лента", href: "/feed" },
+  { label: "Дашборд", href: "/dashboard" },
+  { label: "Каталог", href: "/catalog" },
+  { label: "Показатели", href: "/metrics" },
 ];
 
 export default function TopBar() {
@@ -72,6 +73,8 @@ export default function TopBar() {
               <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.6" />
             </svg>
           </button>
+
+          {!loading && user && <NotificationBell userId={user.id} />}
 
           {!loading && !user && (
             <Link
