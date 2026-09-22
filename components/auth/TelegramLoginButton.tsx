@@ -81,7 +81,7 @@ export default function TelegramLoginButton() {
     <div className="flex flex-col items-center gap-3">
       {/* Telegram's iframe paints dark corners outside its rounded pill when
           the visitor's OS is in dark mode — clip them with our own mask. */}
-      <div ref={containerRef} className="overflow-hidden rounded-full leading-none" />
+      <div ref={containerRef} className="inline-flex overflow-hidden rounded-full leading-none [&>iframe]:block" />
       {error && <p className="text-xs text-red-600">{error}</p>}
     </div>
   );
