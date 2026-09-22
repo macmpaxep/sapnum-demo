@@ -12,31 +12,6 @@ export const topics = [
   "Инсайты",
 ];
 
-export type ProfileMenuItem = {
-  label: string;
-  href: string;
-  sub?: { label: string; href: string }[];
-};
-
-export const profileMenu: ProfileMenuItem[] = [
-  { label: "Записи", href: "/demo/feed" },
-  { label: "Компания", href: "/company/nurtech" },
-  {
-    label: "Каталог",
-    href: "/demo/catalog",
-    sub: [
-      { label: "Категории", href: "/demo/catalog" },
-      { label: "Товары", href: "/demo/catalog" },
-      { label: "Услуги", href: "/demo/catalog" },
-    ],
-  },
-  { label: "Показатели", href: "/demo/metrics" },
-  { label: "Активность", href: "/activity" },
-  { label: "Сохранённое", href: "/saved" },
-  { label: "Сообщения", href: "/messages" },
-  { label: "Реклама", href: "/demo/dashboard" },
-];
-
 export const chatContacts = [
   { initials: "АК", name: "Асхат К." },
   { initials: "МТ", name: "Мадина Т." },

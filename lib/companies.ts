@@ -49,6 +49,25 @@ export async function getCompanyBySlug(slug: string): Promise<CompanyProfile | n
   };
 }
 
+// Returns the slug of a company the given user owns or belongs to, if any —
+// used to point the "Компания" sidebar link at their real company instead of
+// a hardcoded demo one.
+export async function getCompanySlugForUser(userId: string): Promise<string | null> {
+  const supabase = await createSupabaseServerClient();
+
+  const { data: owned } = await supabase.from("companies").select("slug").eq("owner_id", userId).maybeSingle();
+  if (owned) return owned.slug;
+
+  const { data: membership } = await supabase
+    .from("company_members")
+    .select("companies(slug)")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  const company = membership?.companies as unknown as { slug: string } | null;
+  return company?.slug ?? null;
+}
+
 export interface CompanyPost {
   id: string;
   author: string;

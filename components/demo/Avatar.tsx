@@ -14,10 +14,24 @@ function colorFor(seed: string) {
 export default function Avatar({
   initials,
   size = 36,
+  imageUrl,
 }: {
   initials: string;
   size?: number;
+  imageUrl?: string;
 }) {
+  if (imageUrl) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={imageUrl}
+        alt=""
+        className="shrink-0 rounded-full object-cover"
+        style={{ width: size, height: size }}
+      />
+    );
+  }
+
   return (
     <div
       className={`flex shrink-0 items-center justify-center rounded-full text-white ${colorFor(

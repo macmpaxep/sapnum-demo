@@ -96,7 +96,16 @@ export default function PostCard({ post }: { post: FeedPost }) {
         </div>
       </div>
 
-      <p className="mt-3 text-sm leading-relaxed text-neutral-700">{post.content}</p>
+      {post.content && <p className="mt-3 text-sm leading-relaxed text-neutral-700">{post.content}</p>}
+
+      {post.mediaUrls.length > 0 && (
+        <div className="mt-3 grid grid-cols-1 gap-2">
+          {post.mediaUrls.map((url) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={url} src={url} alt="" className="max-h-96 w-full border border-neutral-100 object-cover" />
+          ))}
+        </div>
+      )}
 
       {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
 

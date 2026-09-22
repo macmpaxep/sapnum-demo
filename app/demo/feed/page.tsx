@@ -5,8 +5,13 @@ import PostComposer from "@/components/demo/PostComposer";
 import PostCard from "@/components/demo/PostCard";
 import { getFeedPosts } from "@/lib/queries";
 
-export default async function FeedPage() {
-  const feedPosts = await getFeedPosts();
+export default async function FeedPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ topic?: string }>;
+}) {
+  const { topic } = await searchParams;
+  const feedPosts = await getFeedPosts(topic);
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[240px_minmax(0,1fr)_320px]">
@@ -18,6 +23,12 @@ export default async function FeedPage() {
 
       <main className="min-w-0 space-y-4">
         <PostComposer />
+
+        {feedPosts.length === 0 && (
+          <p className="border border-dashed border-neutral-300 p-6 text-center text-sm text-neutral-400">
+            Пока нет записей по теме «{topic}»
+          </p>
+        )}
 
         {feedPosts.map((post) => (
           <PostCard key={post.id} post={post} />

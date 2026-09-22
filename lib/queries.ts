@@ -87,6 +87,7 @@ export type FeedPost = {
   topic: string;
   time: string;
   content: string;
+  mediaUrls: string[];
   likeCount: number;
   commentCount: number;
   likedByMe: boolean;
@@ -113,6 +114,7 @@ function mockTextPosts(): FeedPost[] {
       topic: p.topic,
       time: p.time,
       content: p.content,
+      mediaUrls: [],
       likeCount: 0,
       commentCount: 0,
       likedByMe: false,
@@ -120,23 +122,24 @@ function mockTextPosts(): FeedPost[] {
     }));
 }
 
-export async function getFeedPosts(): Promise<FeedPost[]> {
+export async function getFeedPosts(topicFilter?: string): Promise<FeedPost[]> {
   const supabase = getSupabaseAdmin();
   if (!supabase) return mockTextPosts();
 
-  const [{ data }, viewer] = await Promise.all([
-    supabase
-      .from("posts")
-      .select(
-        "id, author_id, body, created_at, profiles!posts_author_id_fkey(display_name), companies(name, industry), post_likes(user_id), post_comments(id)"
-      )
-      .order("created_at", { ascending: false })
-      .limit(20),
-    getCurrentUser(),
-  ]);
+  let query = supabase
+    .from("posts")
+    .select(
+      "id, author_id, body, media_urls, topic, created_at, profiles!posts_author_id_fkey(display_name), companies(name, industry), post_likes(user_id), post_comments(id)"
+    )
+    .order("created_at", { ascending: false })
+    .limit(30);
+
+  if (topicFilter) query = query.eq("topic", topicFilter);
+
+  const [{ data }, viewer] = await Promise.all([query, getCurrentUser()]);
 
   if (!data || data.length === 0) {
-    return mockTextPosts();
+    return topicFilter ? [] : mockTextPosts();
   }
 
   const savedPostIds = new Set<string>();
@@ -159,9 +162,10 @@ export async function getFeedPosts(): Promise<FeedPost[]> {
       authorId: post.author_id,
       author: author?.display_name ?? "Пользователь",
       role: company ? `${company.name} · ${company.industry}` : "Участник сообщества",
-      topic: company ? "Кейсы" : "Инсайты",
+      topic: post.topic ?? (company ? "Кейсы" : "Инсайты"),
       time: timeAgo(post.created_at),
       content: post.body,
+      mediaUrls: post.media_urls ?? [],
       likeCount: likes.length,
       commentCount: comments.length,
       likedByMe: viewer ? likes.some((l) => l.user_id === viewer.id) : false,

@@ -1,4 +1,4 @@
-import ProfileSidebar from "@/components/demo/ProfileSidebar";
+import ProfileSidebarData from "@/components/demo/ProfileSidebarData";
 import AiPanel from "@/components/demo/AiPanel";
 import Chat from "@/components/demo/Chat";
 import {
@@ -48,7 +48,7 @@ export default function MetricsPage() {
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[240px_minmax(0,1fr)_320px]">
       <div className="lg:col-start-1">
-        <ProfileSidebar />
+        <ProfileSidebarData />
       </div>
 
       <main className="min-w-0 space-y-4">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import Avatar from "./Avatar";
+import UserMenu from "./UserMenu";
 import { useUser } from "@/lib/hooks/useUser";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -26,15 +27,6 @@ export default function TopBar() {
     router.push("/login");
     router.refresh();
   }
-
-  const initials = user
-    ? user.displayName
-        .split(" ")
-        .filter(Boolean)
-        .slice(0, 2)
-        .map((w) => w[0]?.toUpperCase())
-        .join("")
-    : "ВЫ";
 
   return (
     <header className="sticky top-0 z-10 border-b border-neutral-200 bg-white">
@@ -91,9 +83,9 @@ export default function TopBar() {
           )}
 
           {!loading && user && (
-            <button onClick={handleLogout} className="hidden md:block" title={`${user.displayName} — выйти`}>
-              <Avatar initials={initials} size={30} />
-            </button>
+            <div className="hidden md:block">
+              <UserMenu user={user} />
+            </div>
           )}
 
           {loading && <Avatar initials="…" size={30} />}
@@ -138,6 +130,25 @@ export default function TopBar() {
             );
           })}
 
+          {!loading && user && (
+            <div className="mt-1 border-t border-neutral-100 pt-1">
+              <Link
+                href="/profile"
+                onClick={() => setMenuOpen(false)}
+                className="block rounded-md px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+              >
+                Анкетные данные
+              </Link>
+              <Link
+                href="/settings"
+                onClick={() => setMenuOpen(false)}
+                className="block rounded-md px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+              >
+                Настройки
+              </Link>
+            </div>
+          )}
+
           <div className="flex items-center justify-between px-3 pt-2 mt-1 border-t border-neutral-100 text-neutral-500">
             <button aria-label="Создать" className="hover:text-neutral-900">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -151,7 +162,7 @@ export default function TopBar() {
               </Link>
             )}
             {!loading && user && (
-              <button onClick={handleLogout} className="text-sm text-neutral-700">
+              <button onClick={handleLogout} className="text-sm text-red-600">
                 Выйти
               </button>
             )}

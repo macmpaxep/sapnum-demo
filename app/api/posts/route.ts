@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { moderateText, moderateImage } from "@/lib/moderation";
 
 export async function POST(req: Request) {
   const supabase = await createSupabaseServerClient();
@@ -11,7 +12,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Не авторизован" }, { status: 401 });
   }
 
-  let body: { text?: string; companyId?: string };
+  let body: { text?: string; companyId?: string; topic?: string; mediaUrls?: string[] };
   try {
     body = await req.json();
   } catch {
@@ -23,9 +24,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Введите текст записи" }, { status: 400 });
   }
 
+  const textCheck = await moderateText(text);
+  if (!textCheck.allowed) {
+    return NextResponse.json({ error: textCheck.reason ?? "Текст не прошёл модерацию" }, { status: 422 });
+  }
+
+  const mediaUrls = (body.mediaUrls ?? []).slice(0, 4);
+  for (const url of mediaUrls) {
+    const imageCheck = await moderateImage(url);
+    if (!imageCheck.allowed) {
+      return NextResponse.json({ error: imageCheck.reason ?? "Изображение не прошло модерацию" }, { status: 422 });
+    }
+  }
+
   const { data, error } = await supabase
     .from("posts")
-    .insert({ author_id: user.id, body: text, company_id: body.companyId ?? null })
+    .insert({
+      author_id: user.id,
+      body: text,
+      company_id: body.companyId ?? null,
+      topic: body.topic ?? null,
+      media_urls: mediaUrls,
+    })
     .select("id")
     .single();
 

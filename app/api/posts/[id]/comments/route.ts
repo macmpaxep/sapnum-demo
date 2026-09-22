@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { logActivity } from "@/lib/social";
+import { moderateText } from "@/lib/moderation";
 
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id: postId } = await params;
@@ -33,6 +34,11 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
 
   const text = body.text?.trim();
   if (!text) return NextResponse.json({ error: "Введите комментарий" }, { status: 400 });
+
+  const textCheck = await moderateText(text);
+  if (!textCheck.allowed) {
+    return NextResponse.json({ error: textCheck.reason ?? "Комментарий не прошёл модерацию" }, { status: 422 });
+  }
 
   const { data: post } = await supabase.from("posts").select("author_id").eq("id", postId).single();
   if (!post) return NextResponse.json({ error: "Запись не найдена" }, { status: 404 });

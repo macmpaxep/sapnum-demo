@@ -2,9 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { profileMenu } from "@/lib/demo-data";
 
-export default function ProfileSidebar() {
+export interface ProfileMenuItem {
+  label: string;
+  href: string;
+  sub?: { label: string; href: string }[];
+}
+
+export default function ProfileSidebar({ items }: { items: ProfileMenuItem[] }) {
   const pathname = usePathname();
 
   return (
@@ -13,7 +18,7 @@ export default function ProfileSidebar() {
         Мой профиль
       </h2>
       <ul className="mt-3 space-y-1">
-        {profileMenu.map((item) => {
+        {items.map((item) => {
           const active = pathname === item.href;
           return (
             <li key={item.label}>

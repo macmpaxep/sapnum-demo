@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { topics } from "@/lib/demo-data";
 
 export default function TopicsSidebar() {
   const [open, setOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const activeTopic = searchParams.get("topic");
 
   // На десктопе открыто по умолчанию, на мобильном — закрыто
   useEffect(() => {
@@ -40,11 +44,26 @@ export default function TopicsSidebar() {
 
       {open && (
         <ul className="border-t border-neutral-100 px-4 pb-3 pt-1 space-y-1">
+          <li>
+            <Link
+              href="/demo/feed"
+              className={`block rounded px-2 py-1.5 text-sm ${
+                !activeTopic ? "bg-neutral-100 font-medium text-neutral-900" : "text-neutral-700 hover:bg-neutral-50"
+              }`}
+            >
+              Все темы
+            </Link>
+          </li>
           {topics.map((topic) => (
             <li key={topic}>
-              <button className="block w-full rounded px-2 py-1.5 text-left text-sm text-neutral-700 hover:bg-neutral-50">
+              <Link
+                href={`/demo/feed?topic=${encodeURIComponent(topic)}`}
+                className={`block rounded px-2 py-1.5 text-sm ${
+                  activeTopic === topic ? "bg-neutral-100 font-medium text-neutral-900" : "text-neutral-700 hover:bg-neutral-50"
+                }`}
+              >
                 {topic}
-              </button>
+              </Link>
             </li>
           ))}
         </ul>
