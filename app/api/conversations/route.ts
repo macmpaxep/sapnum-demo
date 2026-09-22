@@ -43,24 +43,28 @@ export async function POST(req: Request) {
     }
   }
 
-  const { data: conversation, error: convError } = await supabase
-    .from("conversations")
-    .insert({ is_group: false })
-    .select("id")
-    .single();
+  // Generate the id ourselves and skip .select() on the insert: with RLS,
+  // "INSERT ... RETURNING" also has to satisfy the table's SELECT policy,
+  // and a brand-new conversation has no participants yet at that instant —
+  // "participants can read their conversations" would reject the RETURNING
+  // row even though the INSERT itself is allowed. Not chaining .select()
+  // makes postgrest use `Prefer: return=minimal`, side-stepping that.
+  const conversationId = crypto.randomUUID();
 
-  if (convError || !conversation) {
-    return NextResponse.json({ error: convError?.message ?? "Не удалось создать диалог" }, { status: 400 });
+  const { error: convError } = await supabase.from("conversations").insert({ id: conversationId, is_group: false });
+
+  if (convError) {
+    return NextResponse.json({ error: convError.message }, { status: 400 });
   }
 
   const { error: participantsError } = await supabase.from("conversation_participants").insert([
-    { conversation_id: conversation.id, user_id: user.id },
-    { conversation_id: conversation.id, user_id: otherUserId },
+    { conversation_id: conversationId, user_id: user.id },
+    { conversation_id: conversationId, user_id: otherUserId },
   ]);
 
   if (participantsError) {
     return NextResponse.json({ error: participantsError.message }, { status: 400 });
   }
 
-  return NextResponse.json({ conversationId: conversation.id });
+  return NextResponse.json({ conversationId });
 }
