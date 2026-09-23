@@ -6,6 +6,7 @@ import { useState } from "react";
 import Avatar from "./Avatar";
 import UserMenu from "./UserMenu";
 import NotificationBell from "./NotificationBell";
+import CreateMenu from "./CreateMenu";
 import { useUser } from "@/lib/hooks/useUser";
 import { useMyCompany } from "@/lib/hooks/useMyCompany";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -62,12 +63,18 @@ export default function TopBar() {
         </nav>
 
         <div className="ml-auto flex items-center gap-4 text-neutral-500">
-          <button aria-label="Создать" className="hidden md:block hover:text-neutral-900">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.6" />
-            </svg>
-          </button>
+          {!loading && user ? (
+            <div className="hidden md:block">
+              <CreateMenu companySlug={companySlug} />
+            </div>
+          ) : (
+            <Link href="/login" aria-label="Создать" className="hidden md:block hover:text-neutral-900">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+                <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.6" />
+              </svg>
+            </Link>
+          )}
 
           {!loading && user && <NotificationBell userId={user.id} />}
 
@@ -147,13 +154,26 @@ export default function TopBar() {
             </div>
           )}
 
+          {!loading && user && (
+            <div className="mt-1 border-t border-neutral-100 pt-1">
+              <Link
+                href="/feed"
+                onClick={() => setMenuOpen(false)}
+                className="block rounded-md px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+              >
+                + Новая запись
+              </Link>
+              <Link
+                href={companySlug ? `/company/${companySlug}` : "/company/new"}
+                onClick={() => setMenuOpen(false)}
+                className="block rounded-md px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+              >
+                {companySlug ? "+ Товар или услуга" : "+ Создать страницу компании"}
+              </Link>
+            </div>
+          )}
+
           <div className="flex items-center justify-between px-3 pt-2 mt-1 border-t border-neutral-100 text-neutral-500">
-            <button aria-label="Создать" className="hover:text-neutral-900">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
-                <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.6" />
-              </svg>
-            </button>
             {!loading && !user && (
               <Link href="/login" onClick={() => setMenuOpen(false)} className="text-sm text-neutral-700">
                 Войти

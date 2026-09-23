@@ -4,6 +4,8 @@ import AiPanel from "@/components/demo/AiPanel";
 import Chat from "@/components/demo/Chat";
 import SearchBox from "@/components/people/SearchBox";
 import { listCatalog } from "@/lib/catalog";
+import { getCurrentUser } from "@/lib/auth";
+import { getCompanySlugForUser } from "@/lib/companies";
 
 export default async function CatalogPage({
   searchParams,
@@ -11,7 +13,8 @@ export default async function CatalogPage({
   searchParams: Promise<{ q?: string; type?: "product" | "service" }>;
 }) {
   const { q, type } = await searchParams;
-  const items = await listCatalog({ search: q, type });
+  const [items, user] = await Promise.all([listCatalog({ search: q, type }), getCurrentUser()]);
+  const companySlug = user ? await getCompanySlugForUser(user.id) : null;
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[240px_minmax(0,1fr)_320px]">
@@ -21,7 +24,25 @@ export default async function CatalogPage({
 
       <main className="min-w-0 space-y-4">
         <h1 className="text-lg font-semibold text-neutral-900">Каталог</h1>
-        <p className="text-sm text-neutral-500">Товары и услуги от компаний, зарегистрированных на SAPNUM.</p>
+        <p className="text-sm text-neutral-500">Товары и услуги компаний сообщества SAPNUM.</p>
+
+        {companySlug ? (
+          <Link
+            href={`/company/${companySlug}`}
+            className="flex items-center justify-between border border-neutral-900 bg-neutral-900 px-4 py-3 text-sm text-white hover:bg-neutral-800"
+          >
+            <span>Разместите свои товары и услуги в каталоге</span>
+            <span>+ Добавить</span>
+          </Link>
+        ) : (
+          <Link
+            href="/company/new"
+            className="flex items-center justify-between border border-dashed border-neutral-300 px-4 py-3 text-sm text-neutral-600 hover:border-neutral-400 hover:text-neutral-900"
+          >
+            <span>Хотите разместить здесь свои товары или услуги?</span>
+            <span>Создать страницу компании →</span>
+          </Link>
+        )}
 
         <SearchBox placeholder="Поиск товаров и услуг…" />
 
