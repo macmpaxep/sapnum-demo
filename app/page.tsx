@@ -63,12 +63,20 @@ export default function Home() {
           <span className="font-display text-lg font-bold tracking-tight">
             SAPNUM
           </span>
-          <a
-            href="#waitlist"
-            className="border border-line px-4 py-2 text-sm text-paper transition-colors hover:border-gain hover:text-gain"
-          >
-            Ранний доступ
-          </a>
+          <div className="flex items-center gap-3">
+            <a
+              href="/login"
+              className="text-sm text-paper/70 transition-colors hover:text-paper"
+            >
+              Войти
+            </a>
+            <a
+              href="#waitlist"
+              className="border border-line px-4 py-2 text-sm text-paper transition-colors hover:border-gain hover:text-gain"
+            >
+              Ранний доступ
+            </a>
+          </div>
         </div>
       </header>
 

@@ -12,25 +12,6 @@ export const topics = [
   "Инсайты",
 ];
 
-export const chatContacts = [
-  { initials: "АК", name: "Асхат К." },
-  { initials: "МТ", name: "Мадина Т." },
-  { initials: "ДБ", name: "Данияр Б." },
-  { initials: "ЕС", name: "Елена С." },
-];
-
-export const conversations = [
-  {
-    initials: "АК",
-    name: "Асхат Куанышев",
-    preview: "Скинь, пожалуйста, презентацию для инвесторов",
-  },
-  {
-    initials: "МТ",
-    name: "Мадина Турсунова",
-    preview: "Смотрел ваши цифры за январь — впечатляет",
-  },
-];
 
 export type FeedPost =
   | {

@@ -9,7 +9,10 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 export async function GET(req: Request) {
   const { searchParams, origin } = new URL(req.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/feed";
+  const rawNext = searchParams.get("next");
+  // Only ever redirect to a relative in-app path — an absolute URL or
+  // "//evil.com" here would be an open-redirect vector.
+  const next = rawNext && rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/feed";
 
   if (!code) {
     return NextResponse.redirect(`${origin}/login?error=missing_code`);

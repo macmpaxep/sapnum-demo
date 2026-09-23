@@ -1,39 +1,56 @@
+import Link from "next/link";
 import Avatar from "./Avatar";
-import { getChatConversations } from "@/lib/queries";
+import { getCurrentUser } from "@/lib/auth";
+import { listConversations } from "@/lib/messages";
 
 export default async function Chat() {
-  const { contacts, conversations } = await getChatConversations();
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return (
+      <aside className="w-full min-w-0">
+        <section className="border border-neutral-200 p-4">
+          <h2 className="text-sm font-semibold text-neutral-900">Чат</h2>
+          <p className="mt-2 text-xs text-neutral-500">
+            <Link href="/login" className="underline hover:text-neutral-900">
+              Войдите
+            </Link>
+            , чтобы переписываться с другими пользователями.
+          </p>
+        </section>
+      </aside>
+    );
+  }
+
+  const conversations = await listConversations(user.id);
 
   return (
     <aside className="flex flex-col gap-6 min-w-0 w-full overflow-hidden">
       <section className="border border-neutral-200 p-4 w-full min-w-0 box-border">
-        <h2 className="text-sm font-semibold text-neutral-900">Чат</h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-semibold text-neutral-900">Чат</h2>
+          <Link href="/messages" className="text-xs text-neutral-500 hover:text-neutral-900">
+            Все →
+          </Link>
+        </div>
 
-        {/* flex-wrap не даёт аватаркам распирать ширину контейнера */}
-        <div className="mt-3 flex flex-wrap items-center gap-2 min-w-0">
-          {contacts.map((c) => (
-            <Avatar key={c.initials} initials={c.initials} size={30} />
-          ))}
-          <div className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border border-dashed border-neutral-300 text-neutral-400">
-            +
+        {conversations.length === 0 ? (
+          <p className="mt-3 text-xs text-neutral-500">
+            Пока нет диалогов. Напишите кому-нибудь со страницы профиля или компании.
+          </p>
+        ) : (
+          <div className="mt-3 space-y-3 min-w-0">
+            {conversations.slice(0, 5).map((c) => (
+              <Link key={c.id} href={`/messages/${c.id}`} className="flex items-start gap-2.5 min-w-0 w-full hover:opacity-80">
+                <Avatar initials={c.initials} size={32} />
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-sm text-neutral-900">{c.name}</div>
+                  <div className="truncate text-xs text-neutral-500">{c.preview}</div>
+                </div>
+              </Link>
+            ))}
           </div>
-        </div>
-
-        <div className="mt-4 space-y-3 min-w-0">
-          {conversations.map((c) => (
-            <div key={c.id} className="flex items-start gap-2.5 min-w-0 w-full">
-              <Avatar initials={c.initials} size={32} />
-              <div className="min-w-0 flex-1">
-                <div className="truncate text-sm text-neutral-900">
-                  {c.name}
-                </div>
-                <div className="truncate text-xs text-neutral-500">
-                  {c.preview}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        )}
       </section>
     </aside>
   );

@@ -37,7 +37,7 @@ function readTgAuthResult(): TelegramAuthResult | null {
 // on iOS Safari and on Android Chrome turns into a detached tab that can't
 // hand the result back to the site. A same-tab redirect avoids both.
 // The bot must have this site's domain set via @BotFather → /setdomain.
-export default function TelegramLoginButton({ botId }: { botId: string | null }) {
+export default function TelegramLoginButton({ botId, next = "/feed" }: { botId: string | null; next?: string }) {
   const router = useRouter();
   const [status, setStatus] = useState<"idle" | "redirecting" | "verifying">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -67,7 +67,7 @@ export default function TelegramLoginButton({ botId }: { botId: string | null })
         });
         if (verifyError) throw verifyError;
 
-        router.replace("/feed");
+        router.replace(next);
         router.refresh();
       } catch (err) {
         console.error("[telegram-auth]", err);
@@ -86,7 +86,7 @@ export default function TelegramLoginButton({ botId }: { botId: string | null })
       bot_id: botId,
       origin,
       request_access: "write",
-      return_to: `${origin}/login`,
+      return_to: `${origin}/login?next=${encodeURIComponent(next)}`,
     });
     window.location.href = `https://oauth.telegram.org/auth?${params}`;
   }

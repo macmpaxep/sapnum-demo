@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function MessageButton({ otherUserId }: { otherUserId: string }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   async function handleClick() {
     setLoading(true);
@@ -21,7 +22,7 @@ export default function MessageButton({ otherUserId }: { otherUserId: string }) 
     setLoading(false);
 
     if (res.status === 401) {
-      router.push("/login");
+      router.push(`/login?next=${encodeURIComponent(pathname)}`);
       return;
     }
 
