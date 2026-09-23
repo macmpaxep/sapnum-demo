@@ -16,6 +16,12 @@ export default function TopicsSidebar() {
     setOpen(isDesktop);
   }, []);
 
+  // На мобильном выбор темы должен сразу сворачивать гармошку — иначе
+  // список тем закрывает всю ленту и приходится сворачивать вручную.
+  function handleSelect() {
+    if (window.innerWidth < 1024) setOpen(false);
+  }
+
   return (
     <aside className="border border-neutral-200">
       <button
@@ -47,6 +53,7 @@ export default function TopicsSidebar() {
           <li>
             <Link
               href="/feed"
+              onClick={handleSelect}
               className={`block rounded px-2 py-1.5 text-sm ${
                 !activeTopic ? "bg-neutral-100 font-medium text-neutral-900" : "text-neutral-700 hover:bg-neutral-50"
               }`}
@@ -58,6 +65,7 @@ export default function TopicsSidebar() {
             <li key={topic}>
               <Link
                 href={`/feed?topic=${encodeURIComponent(topic)}`}
+                onClick={handleSelect}
                 className={`block rounded px-2 py-1.5 text-sm ${
                   activeTopic === topic ? "bg-neutral-100 font-medium text-neutral-900" : "text-neutral-700 hover:bg-neutral-50"
                 }`}
