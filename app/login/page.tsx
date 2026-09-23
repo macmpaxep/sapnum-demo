@@ -1,4 +1,5 @@
 import TelegramLoginButton from "@/components/auth/TelegramLoginButton";
+import EmailLoginForm from "@/components/auth/EmailLoginForm";
 
 export default function LoginPage() {
   // The bot ID is the numeric prefix of the bot token (it's public — the
@@ -12,11 +13,19 @@ export default function LoginPage() {
           SAPNUM
         </div>
         <p className="mt-2 text-sm text-neutral-500">
-          Войдите через Telegram, чтобы продолжить
+          Войдите, чтобы продолжить
         </p>
         <div className="mt-6 flex justify-center">
           <TelegramLoginButton botId={botId} />
         </div>
+
+        <div className="my-6 flex items-center gap-3 text-xs text-neutral-400">
+          <div className="h-px flex-1 bg-neutral-200" />
+          или по почте
+          <div className="h-px flex-1 bg-neutral-200" />
+        </div>
+
+        <EmailLoginForm />
       </div>
     </div>
   );
