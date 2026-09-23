@@ -4,7 +4,7 @@ import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Avatar from "./Avatar";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
-import { checkImageDimensions, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
+import { checkImageDimensions, checkPhotoQualitySoft, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
 import ImproveTextButton from "@/components/ai/ImproveTextButton";
 import { topics } from "@/lib/demo-data";
 
@@ -14,6 +14,7 @@ export default function PostComposer() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [qualityWarning, setQualityWarning] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -27,6 +28,7 @@ export default function PostComposer() {
       e.target.value = "";
       return;
     }
+    setQualityWarning(null);
     try {
       const { ok, width, height } = await checkImageDimensions(file);
       if (!ok) {
@@ -41,11 +43,15 @@ export default function PostComposer() {
     setError(null);
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
+    checkPhotoQualitySoft(file).then((result) => {
+      if (!result.ok) setQualityWarning(result.reason ?? "Качество фото вызывает сомнения");
+    });
   }
 
   function clearImage() {
     setImageFile(null);
     setImagePreview(null);
+    setQualityWarning(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
@@ -162,6 +168,11 @@ export default function PostComposer() {
         </select>
       </div>
 
+      {qualityWarning && (
+        <p className="mt-2 pl-0 sm:pl-[44px] text-xs text-amber-600">
+          ⚠ {qualityWarning} — можно опубликовать как есть или заменить фото.
+        </p>
+      )}
       {error && <p className="mt-2 pl-0 sm:pl-[44px] text-xs text-red-600">{error}</p>}
     </form>
   );

@@ -111,3 +111,56 @@ export async function moderateImage(imageUrl: string): Promise<ModerationResult>
     return { allowed: true };
   }
 }
+
+export interface PhotoQualityResult {
+  ok: boolean;
+  reason?: string;
+}
+
+// Soft, non-blocking check: flags only objectively-detectable technical
+// defects (severe blur, extreme darkness) so a user can choose to re-upload.
+// Deliberately does NOT judge composition/aesthetics/relevance — that's too
+// subjective and would produce false positives on legitimate simple photos.
+export async function checkPhotoQuality(base64: string, contentType: string): Promise<PhotoQualityResult> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return { ok: true };
+
+  try {
+    const anthropic = new Anthropic({ apiKey });
+    const response = await anthropic.messages.create({
+      model: "claude-haiku-4-5",
+      max_tokens: 100,
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "image",
+              source: { type: "base64", media_type: contentType as "image/jpeg", data: base64 },
+            },
+            {
+              type: "text",
+              text:
+                "Оцени ТОЛЬКО техническое качество фото: сильно ли оно размыто или слишком тёмное/пересвеченное, " +
+                "так что детали не разобрать. НЕ оценивай композицию, стиль, красоту или уместность содержимого — " +
+                "это не твоя задача, обычные простые фото товара это норма. " +
+                'Ответь строго JSON: {"ok": true} если фото технически читаемо, или {"ok": false, "reason": "краткая причина по-русски, напр. \'Фото размыто\'"}.',
+            },
+          ],
+        },
+      ],
+    });
+
+    const block = response.content.find((b) => b.type === "text");
+    if (!block || block.type !== "text") return { ok: true };
+
+    const parsed = JSON.parse(block.text.trim());
+    if (parsed.ok === false) {
+      return { ok: false, reason: parsed.reason ?? "Качество фото вызывает сомнения" };
+    }
+    return { ok: true };
+  } catch (err) {
+    console.error("[moderation] photo quality check failed, failing open", err);
+    return { ok: true };
+  }
+}

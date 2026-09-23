@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
-import { checkImageDimensions, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
+import { checkImageDimensions, checkPhotoQualitySoft, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
 import ImproveTextButton from "@/components/ai/ImproveTextButton";
 import type { CatalogItem } from "@/lib/catalog";
 
@@ -24,6 +24,7 @@ export default function CatalogManager({
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [qualityWarning, setQualityWarning] = useState<string | null>(null);
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
@@ -61,6 +62,7 @@ export default function CatalogManager({
       setPriceText("");
       setDescription("");
       setImageFile(null);
+      setQualityWarning(null);
       setOpen(false);
       router.refresh();
     } catch (err) {
@@ -76,6 +78,7 @@ export default function CatalogManager({
       setImageFile(null);
       return;
     }
+    setQualityWarning(null);
     try {
       const { ok, width, height } = await checkImageDimensions(file);
       if (!ok) {
@@ -86,6 +89,9 @@ export default function CatalogManager({
       }
       setError(null);
       setImageFile(file);
+      checkPhotoQualitySoft(file).then((result) => {
+        if (!result.ok) setQualityWarning(result.reason ?? "Качество фото вызывает сомнения");
+      });
     } catch {
       setError("Не удалось прочитать файл");
     }
@@ -163,6 +169,11 @@ export default function CatalogManager({
                 className="block w-full text-xs text-neutral-500"
               />
 
+              {qualityWarning && (
+                <p className="text-xs text-amber-600">
+                  ⚠ {qualityWarning} — можно опубликовать как есть или заменить фото.
+                </p>
+              )}
               {error && <p className="text-xs text-red-600">{error}</p>}
 
               <div className="flex gap-2">
