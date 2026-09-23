@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { topics } from "@/lib/demo-data";
 
 export default function TopicsSidebar() {
   const [open, setOpen] = useState(false);
   const searchParams = useSearchParams();
+  const router = useRouter();
   const activeTopic = searchParams.get("topic");
 
   // На десктопе открыто по умолчанию, на мобильном — закрыто
@@ -18,8 +19,14 @@ export default function TopicsSidebar() {
 
   // На мобильном выбор темы должен сразу сворачивать гармошку — иначе
   // список тем закрывает всю ленту и приходится сворачивать вручную.
+  //
+  // router.refresh() здесь обязателен: у Next.js клиентская навигация по
+  // <Link> при смене только query-параметра на той же странице иногда
+  // отдаёт закэшированный рендер (лента без фильтра), хотя URL меняется
+  // верно. Явный refresh форсирует новый запрос данных с сервера.
   function handleSelect() {
     if (window.innerWidth < 1024) setOpen(false);
+    router.refresh();
   }
 
   return (
