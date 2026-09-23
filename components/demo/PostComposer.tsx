@@ -4,6 +4,8 @@ import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Avatar from "./Avatar";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { checkImageDimensions, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
+import ImproveTextButton from "@/components/ai/ImproveTextButton";
 import { topics } from "@/lib/demo-data";
 
 export default function PostComposer() {
@@ -17,13 +19,26 @@ export default function PostComposer() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size > 8 * 1024 * 1024) {
       setError("Файл слишком большой (макс. 8 МБ)");
+      e.target.value = "";
       return;
     }
+    try {
+      const { ok, width, height } = await checkImageDimensions(file);
+      if (!ok) {
+        setError(`Фото слишком маленькое (${width}×${height}px) — минимум ${MIN_IMAGE_DIMENSION}×${MIN_IMAGE_DIMENSION}px`);
+        e.target.value = "";
+        return;
+      }
+    } catch {
+      setError("Не удалось прочитать файл");
+      return;
+    }
+    setError(null);
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
   }
@@ -102,6 +117,12 @@ export default function PostComposer() {
           {uploading ? "Загрузка…" : "Опубликовать"}
         </button>
       </div>
+
+      {text.trim() && (
+        <div className="mt-1 pl-0 sm:pl-[44px] text-right">
+          <ImproveTextButton text={text} onImproved={setText} />
+        </div>
+      )}
 
       {imagePreview && (
         <div className="mt-3 pl-[44px]">

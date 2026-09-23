@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { checkImageDimensions, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
+import ImproveTextButton from "@/components/ai/ImproveTextButton";
 import type { CatalogItem } from "@/lib/catalog";
 
 export default function CatalogManager({
@@ -68,6 +70,27 @@ export default function CatalogManager({
     }
   }
 
+  async function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) {
+      setImageFile(null);
+      return;
+    }
+    try {
+      const { ok, width, height } = await checkImageDimensions(file);
+      if (!ok) {
+        setError(`Фото слишком маленькое (${width}×${height}px) — минимум ${MIN_IMAGE_DIMENSION}×${MIN_IMAGE_DIMENSION}px`);
+        e.target.value = "";
+        setImageFile(null);
+        return;
+      }
+      setError(null);
+      setImageFile(file);
+    } catch {
+      setError("Не удалось прочитать файл");
+    }
+  }
+
   async function handleDelete(id: string) {
     await fetch(`/api/catalog/${id}`, { method: "DELETE" });
     router.refresh();
@@ -119,17 +142,24 @@ export default function CatalogManager({
                 placeholder="Цена (напр. от 12 000 ₸)"
                 className="block w-full border border-neutral-300 px-3 py-2 text-sm"
               />
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                rows={2}
-                placeholder="Описание"
-                className="block w-full border border-neutral-300 px-3 py-2 text-sm"
-              />
+              <div>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={2}
+                  placeholder="Описание"
+                  className="block w-full border border-neutral-300 px-3 py-2 text-sm"
+                />
+                {description.trim() && (
+                  <div className="mt-1 text-right">
+                    <ImproveTextButton text={description} onImproved={setDescription} />
+                  </div>
+                )}
+              </div>
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
+                onChange={handleFileSelect}
                 className="block w-full text-xs text-neutral-500"
               />
 
