@@ -7,7 +7,7 @@ export default function LoginPage() {
   const botId = process.env.TELEGRAM_BOT_TOKEN?.split(":")[0] || null;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white px-4">
+    <div className="flex min-h-screen items-center justify-center bg-white px-4 text-neutral-900">
       <div className="w-full max-w-sm border border-neutral-200 p-8 text-center">
         <div className="font-display text-lg font-bold tracking-tight text-neutral-900">
           SAPNUM

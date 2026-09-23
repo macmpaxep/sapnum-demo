@@ -44,7 +44,7 @@ export default function EmailLoginForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="you@example.com"
-        className="border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-400"
+        className="border border-neutral-300 px-3 py-2 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-400"
       />
       <button
         type="submit"
