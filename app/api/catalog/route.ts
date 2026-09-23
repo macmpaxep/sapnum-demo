@@ -47,5 +47,25 @@ export async function POST(req: Request) {
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+
+  // New catalog items surface in the main feed as a post, same as any other
+  // update — discovery should happen by scrolling, not by visiting the
+  // catalog separately. Best-effort: a failure here shouldn't fail the
+  // catalog item itself.
+  try {
+    const { data: company } = await supabase.from("companies").select("name").eq("id", companyId).single();
+    const label = type === "product" ? "Новый товар" : "Новая услуга";
+    const priceLine = body.priceText?.trim() ? `\nЦена: ${body.priceText.trim()}` : "";
+    const descLine = body.description?.trim() ? `\n${body.description.trim()}` : "";
+    await supabase.from("posts").insert({
+      author_id: user.id,
+      company_id: companyId,
+      body: `${label} от ${company?.name ?? "компании"}: ${name.trim()}${priceLine}${descLine}`,
+      media_urls: body.imageUrl ? [body.imageUrl] : [],
+    });
+  } catch (postErr) {
+    console.error("[catalog] failed to create feed post for new item", postErr);
+  }
+
   return NextResponse.json({ item: data });
 }
