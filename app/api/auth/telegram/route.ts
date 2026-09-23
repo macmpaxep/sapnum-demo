@@ -84,21 +84,12 @@ export async function POST(req: Request) {
         telegram_username: payload.username,
       },
     });
-    if (createError || !created.user) {
-      return NextResponse.json({ error: createError?.message ?? "Не удалось создать пользователя" }, { status: 500 });
+    // createUser fails if an earlier attempt created the auth user but not
+    // the profile — recover that user's id from generateLink below instead.
+    userId = created?.user?.id;
+    if (createError && !/already|registered|exists/i.test(createError.message)) {
+      return NextResponse.json({ error: createError.message }, { status: 500 });
     }
-    userId = created.user.id;
-
-    const baseUsername = payload.username ?? `user${payload.id}`;
-    await supabase.from("profiles").insert({
-      id: userId,
-      username: baseUsername,
-      display_name: [payload.first_name, payload.last_name].filter(Boolean).join(" "),
-      avatar_url: payload.photo_url,
-      telegram_id: payload.id,
-      telegram_username: payload.username,
-    });
-    await supabase.from("user_roles").insert({ user_id: userId, role: "simple" });
   }
 
   // Issue a one-time magic link and hand its token back to the client,
@@ -110,6 +101,31 @@ export async function POST(req: Request) {
 
   if (linkError || !linkData) {
     return NextResponse.json({ error: linkError?.message ?? "Не удалось создать сессию" }, { status: 500 });
+  }
+
+  if (!existingProfile) {
+    userId = userId ?? linkData.user.id;
+    const baseUsername = payload.username ?? `user${payload.id}`;
+    const { error: profileError } = await supabase.from("profiles").insert({
+      id: userId,
+      username: baseUsername,
+      display_name: [payload.first_name, payload.last_name].filter(Boolean).join(" "),
+      avatar_url: payload.photo_url,
+      telegram_id: payload.id,
+      telegram_username: payload.username,
+    });
+    if (profileError?.code === "23505") {
+      // Username taken by someone else — fall back to the always-unique id form.
+      await supabase.from("profiles").insert({
+        id: userId,
+        username: `user${payload.id}`,
+        display_name: [payload.first_name, payload.last_name].filter(Boolean).join(" "),
+        avatar_url: payload.photo_url,
+        telegram_id: payload.id,
+        telegram_username: payload.username,
+      });
+    }
+    await supabase.from("user_roles").upsert({ user_id: userId, role: "simple" }, { onConflict: "user_id,role", ignoreDuplicates: true });
   }
 
   return NextResponse.json({
