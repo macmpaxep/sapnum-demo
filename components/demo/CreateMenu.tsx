@@ -35,7 +35,7 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
           </Link>
           {companySlug ? (
             <Link
-              href={`/company/${companySlug}?add=1`}
+              href={`/co/${companySlug}?add=1`}
               onClick={() => setOpen(false)}
               className="block px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
             >

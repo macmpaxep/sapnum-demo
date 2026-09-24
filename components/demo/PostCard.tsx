@@ -181,7 +181,7 @@ export default function PostCard({ post }: { post: FeedPost }) {
           )}
           <div className="truncate text-xs text-neutral-500">
             {post.companySlug ? (
-              <Link href={`/company/${post.companySlug}`} className="hover:underline hover:text-neutral-700">
+              <Link href={`/co/${post.companySlug}`} className="hover:underline hover:text-neutral-700">
                 {post.role}
               </Link>
             ) : (

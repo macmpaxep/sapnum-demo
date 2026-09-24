@@ -28,7 +28,7 @@ export default async function CatalogPage({
 
         {companySlug ? (
           <Link
-            href={`/company/${companySlug}?add=1`}
+            href={`/co/${companySlug}?add=1`}
             className="flex items-center justify-between border border-neutral-900 bg-neutral-900 px-4 py-3 text-sm text-white hover:bg-neutral-800"
           >
             <span>Разместите свои товары и услуги в каталоге</span>
@@ -66,7 +66,7 @@ export default async function CatalogPage({
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {items.map((item) => (
-            <Link key={item.id} href={`/company/${item.companySlug}`} className="text-center">
+            <Link key={item.id} href={`/co/${item.companySlug}`} className="text-center">
               {item.imageUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={item.imageUrl} alt="" className="aspect-square w-full border border-neutral-200 object-cover" />

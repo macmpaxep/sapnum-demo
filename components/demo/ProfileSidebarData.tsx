@@ -11,7 +11,7 @@ export default async function ProfileSidebarData() {
 
   const items: ProfileMenuItem[] = [
     { label: "Записи", href: user ? `/u/${user.username}` : "/login" },
-    { label: "Компания", href: companySlug ? `/company/${companySlug}` : "/company/new" },
+    { label: "Компания", href: companySlug ? `/co/${companySlug}` : "/company/new" },
     { label: "Заявки", href: "/applications" },
     { label: "Активность", href: "/activity" },
     { label: "Сохранённое", href: "/saved" },

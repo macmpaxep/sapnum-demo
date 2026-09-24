@@ -10,7 +10,7 @@ export default async function NewCompanyPage() {
   if (!user) redirect("/login");
 
   const existingSlug = await getCompanySlugForUser(user.id);
-  if (existingSlug) redirect(`/company/${existingSlug}`);
+  if (existingSlug) redirect(`/co/${existingSlug}`);
 
   return (
     <div className="min-h-screen bg-white text-neutral-900 overflow-x-hidden">

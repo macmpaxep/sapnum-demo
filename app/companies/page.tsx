@@ -23,7 +23,7 @@ export default async function CompaniesPage({
 
       <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200">
         {companies.map((c) => (
-          <Link key={c.slug} href={`/company/${c.slug}`} className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50">
+          <Link key={c.slug} href={`/co/${c.slug}`} className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-neutral-200 bg-neutral-50 text-xs font-medium text-neutral-500">
               {c.name.slice(0, 2).toUpperCase()}
             </div>

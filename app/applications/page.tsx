@@ -40,7 +40,7 @@ export default async function ApplicationsPage() {
               <span>{TYPE_LABELS[a.type] ?? a.type}</span>
               <span>{STATUS_LABELS[a.status] ?? a.status}</span>
             </div>
-            <Link href={`/company/${a.companySlug}`} className="mt-1 block text-sm font-medium text-neutral-900 hover:underline">
+            <Link href={`/co/${a.companySlug}`} className="mt-1 block text-sm font-medium text-neutral-900 hover:underline">
               {a.companyName}
             </Link>
             {a.requestedAmount && (

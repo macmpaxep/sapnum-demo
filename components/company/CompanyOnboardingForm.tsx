@@ -28,11 +28,11 @@ export default function CompanyOnboardingForm() {
 
     if (!res.ok) {
       setError(data.error ?? "Не удалось создать компанию");
-      if (data.slug) router.push(`/company/${data.slug}`);
+      if (data.slug) router.push(`/co/${data.slug}`);
       return;
     }
 
-    router.push(`/company/${data.slug}`);
+    router.push(`/co/${data.slug}`);
     router.refresh();
   }
 
