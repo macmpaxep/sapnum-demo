@@ -3,6 +3,39 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+const INDUSTRIES = [
+  "IT и разработка ПО",
+  "SaaS и облачные сервисы",
+  "Финтех и платежи",
+  "E-commerce и маркетплейсы",
+  "Ритейл и торговля",
+  "Оптовая торговля и дистрибуция",
+  "Производство",
+  "Строительство и недвижимость",
+  "Логистика и транспорт",
+  "Сельское хозяйство и агробизнес",
+  "Энергетика и добыча",
+  "Промышленное оборудование",
+  "Маркетинг и реклама",
+  "Медиа и контент",
+  "Образование и EdTech",
+  "Здравоохранение и медицина",
+  "HR и рекрутинг",
+  "Консалтинг",
+  "Юридические услуги",
+  "Бухгалтерия и аудит",
+  "Банки и страхование",
+  "Инвестиции и венчур",
+  "HoReCa (кафе, рестораны, отели)",
+  "Туризм и путешествия",
+  "Красота и здоровье",
+  "Мода и одежда",
+  "Спорт и фитнес",
+  "Автомобильная отрасль",
+  "Телеком и связь",
+  "Другое",
+];
+
 export default function CompanyOnboardingForm() {
   const [name, setName] = useState("");
   const [industry, setIndustry] = useState("");
@@ -51,12 +84,18 @@ export default function CompanyOnboardingForm() {
 
       <div>
         <label className="text-xs text-neutral-500 dark:text-neutral-400">Отрасль</label>
-        <input
+        <select
           value={industry}
           onChange={(e) => setIndustry(e.target.value)}
-          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
-          placeholder="Логистика / SaaS"
-        />
+          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm"
+        >
+          <option value="">Выберите отрасль…</option>
+          {INDUSTRIES.map((i) => (
+            <option key={i} value={i}>
+              {i}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div>

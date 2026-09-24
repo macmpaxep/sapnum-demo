@@ -64,3 +64,29 @@ export async function getCatalogItemById(id: string): Promise<CatalogItem | null
   const { data } = await supabase.from("catalog_items").select(ITEM_SELECT).eq("id", id).maybeSingle();
   return data ? mapRow(data) : null;
 }
+
+export async function getRelatedCatalogItems(item: CatalogItem, limit = 4): Promise<CatalogItem[]> {
+  const supabase = await createSupabaseServerClient();
+
+  const { data: sameCompany } = await supabase
+    .from("catalog_items")
+    .select(ITEM_SELECT)
+    .eq("company_id", item.companyId)
+    .neq("id", item.id)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  const results = (sameCompany ?? []).map(mapRow);
+  if (results.length >= limit) return results;
+
+  const { data: sameType } = await supabase
+    .from("catalog_items")
+    .select(ITEM_SELECT)
+    .eq("type", item.type)
+    .neq("id", item.id)
+    .neq("company_id", item.companyId)
+    .order("created_at", { ascending: false })
+    .limit(limit - results.length);
+
+  return [...results, ...(sameType ?? []).map(mapRow)];
+}

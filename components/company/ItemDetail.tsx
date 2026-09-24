@@ -140,126 +140,153 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
         </div>
       )}
 
-      {photos.length > 0 ? (
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Галерея */}
         <div className="space-y-2">
-          <div className="aspect-[4/3] w-full overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={photos[Math.min(activePhoto, photos.length - 1)]} alt="" className="h-full w-full object-cover" />
-          </div>
-          {(photos.length > 1 || editing) && (
-            <div className="flex gap-2 overflow-x-auto">
-              {photos.map((url, idx) => (
-                <div key={url} className="relative shrink-0">
-                  <button
-                    onClick={() => setActivePhoto(idx)}
-                    className={`h-16 w-16 overflow-hidden border ${idx === activePhoto ? "border-neutral-900" : "border-neutral-200 dark:border-neutral-800"}`}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={url} alt="" className="h-full w-full object-cover" />
-                  </button>
+          {photos.length > 0 ? (
+            <>
+              <div className="aspect-square w-full overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={photos[Math.min(activePhoto, photos.length - 1)]}
+                  alt={item.name}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              {(photos.length > 1 || editing) && (
+                <div className="flex gap-2 overflow-x-auto">
+                  {photos.map((url, idx) => (
+                    <div key={url} className="relative shrink-0">
+                      <button
+                        onClick={() => setActivePhoto(idx)}
+                        className={`h-16 w-16 overflow-hidden border ${idx === activePhoto ? "border-neutral-900 dark:border-white" : "border-neutral-200 dark:border-neutral-800"}`}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={url} alt="" className="h-full w-full object-cover" />
+                      </button>
+                      {editing && (
+                        <button
+                          onClick={() => removePhoto(idx)}
+                          className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[10px] text-neutral-600 dark:text-neutral-400"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  ))}
                   {editing && (
                     <button
-                      onClick={() => removePhoto(idx)}
-                      className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[10px] text-neutral-600 dark:text-neutral-400"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploading}
+                      className="flex h-16 w-16 shrink-0 items-center justify-center border border-dashed border-neutral-300 dark:border-neutral-700 text-xs text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-neutral-600 disabled:opacity-40"
                     >
-                      ✕
+                      {uploading ? "…" : "+ Фото"}
                     </button>
                   )}
                 </div>
-              ))}
-              {editing && (
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={uploading}
-                  className="flex h-16 w-16 shrink-0 items-center justify-center border border-dashed border-neutral-300 dark:border-neutral-700 text-xs text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-neutral-600 disabled:opacity-40"
-                >
-                  {uploading ? "…" : "+ Фото"}
-                </button>
               )}
-            </div>
+            </>
+          ) : (
+            editing && (
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                className="flex aspect-square w-full items-center justify-center border border-dashed border-neutral-300 dark:border-neutral-700 text-sm text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-neutral-600"
+              >
+                {uploading ? "Загрузка…" : "+ Добавить фото"}
+              </button>
+            )
           )}
+          <input ref={fileInputRef} type="file" accept="image/*" onChange={handleAddPhoto} className="hidden" />
         </div>
-      ) : (
-        editing && (
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={uploading}
-            className="flex aspect-[4/3] w-full items-center justify-center border border-dashed border-neutral-300 dark:border-neutral-700 text-sm text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-neutral-600"
-          >
-            {uploading ? "Загрузка…" : "+ Добавить фото"}
-          </button>
-        )
-      )}
-      <input ref={fileInputRef} type="file" accept="image/*" onChange={handleAddPhoto} className="hidden" />
 
-      {editing ? (
-        <div className="space-y-3">
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Название"
-            className="block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-lg font-semibold"
-          />
-
-          <div className="flex items-center gap-3">
-            <label className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
-              <input type="checkbox" checked={priceOnRequest} onChange={(e) => setPriceOnRequest(e.target.checked)} />
-              Цена по запросу
-            </label>
-          </div>
-          {!priceOnRequest && (
-            <input
-              value={priceText}
-              onChange={(e) => setPriceText(e.target.value)}
-              placeholder="Цена (напр. от 12 000 ₸)"
-              className="block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
-            />
-          )}
-
+        {/* Информация */}
+        <div className="space-y-5">
           <div>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={5}
-              placeholder="Описание, характеристики"
-              className="block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
-            />
-            {description.trim() && (
-              <div className="mt-1 text-right">
-                <ImproveTextButton text={description} onImproved={setDescription} />
+            <span className="inline-block border border-neutral-200 dark:border-neutral-800 px-2 py-0.5 text-[11px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+              {item.type === "product" ? "Товар" : "Услуга"}
+            </span>
+            <Link
+              href={`/co/${item.companySlug}`}
+              className="ml-2 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:underline"
+            >
+              {item.companyName}
+            </Link>
+          </div>
+
+          {editing ? (
+            <div className="space-y-3">
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Название"
+                className="block w-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-xl font-semibold"
+              />
+
+              <label className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
+                <input type="checkbox" checked={priceOnRequest} onChange={(e) => setPriceOnRequest(e.target.checked)} />
+                Цена по запросу
+              </label>
+              {!priceOnRequest && (
+                <input
+                  value={priceText}
+                  onChange={(e) => setPriceText(e.target.value)}
+                  placeholder="Цена (напр. от 12 000 ₸)"
+                  className="block w-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm"
+                />
+              )}
+
+              <div>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={6}
+                  placeholder="Описание, характеристики, условия"
+                  className="block w-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm"
+                />
+                {description.trim() && (
+                  <div className="mt-1 text-right">
+                    <ImproveTextButton text={description} onImproved={setDescription} />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {error && <p className="text-xs text-red-600">{error}</p>}
-        </div>
-      ) : (
-        <div className="space-y-2">
-          <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">{item.name}</h1>
-          <div className="text-base text-neutral-900 dark:text-neutral-50">
-            {item.priceOnRequest ? "Цена по запросу" : item.priceText || ""}
-          </div>
-          {item.description && <p className="whitespace-pre-line text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">{item.description}</p>}
-        </div>
-      )}
+              {error && <p className="text-xs text-red-600">{error}</p>}
+            </div>
+          ) : (
+            <>
+              <div>
+                <h1 className="text-2xl font-semibold leading-tight text-neutral-900 dark:text-neutral-50">{item.name}</h1>
+                <div className="mt-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-50">
+                  {item.priceOnRequest ? (
+                    <span className="text-lg font-medium text-neutral-500 dark:text-neutral-400">Цена по запросу</span>
+                  ) : (
+                    item.priceText || ""
+                  )}
+                </div>
+              </div>
 
-      <div className="flex flex-wrap items-center gap-2 border-t border-neutral-100 dark:border-neutral-800 pt-4 text-sm">
-        <Link href={`/co/${item.companySlug}`} className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:underline">
-          {item.companyName}
-        </Link>
+              {!canManage && (
+                <div className="flex flex-wrap gap-2">
+                  <ApplicationForm
+                    companyId={item.companyId}
+                    allowInvestment={false}
+                    triggerLabel="Оставить заявку"
+                    defaultMessage={`По поводу «${item.name}»: `}
+                  />
+                  <MessageButton otherUserId={item.companyOwnerId} label="Написать о товаре" />
+                </div>
+              )}
+
+              {item.description && (
+                <p className="whitespace-pre-line text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
+                  {item.description}
+                </p>
+              )}
+            </>
+          )}
+        </div>
       </div>
-
-      {!editing && !canManage && (
-        <div className="flex flex-wrap gap-2 pt-2">
-          <MessageButton otherUserId={item.companyOwnerId} label="Написать о товаре" />
-          <ApplicationForm
-            companyId={item.companyId}
-            allowInvestment={false}
-            triggerLabel="Оставить заявку"
-            defaultMessage={`По поводу «${item.name}»: `}
-          />
-        </div>
-      )}
     </div>
   );
 }

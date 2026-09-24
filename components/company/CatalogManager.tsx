@@ -31,10 +31,24 @@ export default function CatalogManager({
   const [priceOnRequest, setPriceOnRequest] = useState(false);
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [extraFiles, setExtraFiles] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [qualityWarning, setQualityWarning] = useState<string | null>(null);
   const router = useRouter();
+
+  async function uploadOne(file: File): Promise<string> {
+    const supabase = createSupabaseBrowserClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) throw new Error("Войдите заново");
+    const ext = file.name.split(".").pop() ?? "jpg";
+    const path = `${user.id}/${crypto.randomUUID()}.${ext}`;
+    const { error: uploadError } = await supabase.storage.from("post-media").upload(path, file);
+    if (uploadError) throw uploadError;
+    return supabase.storage.from("post-media").getPublicUrl(path).data.publicUrl;
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -43,23 +57,14 @@ export default function CatalogManager({
 
     try {
       let imageUrl: string | undefined;
-      if (imageFile) {
-        const supabase = createSupabaseBrowserClient();
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (!user) throw new Error("Войдите заново");
-        const ext = imageFile.name.split(".").pop() ?? "jpg";
-        const path = `${user.id}/${crypto.randomUUID()}.${ext}`;
-        const { error: uploadError } = await supabase.storage.from("post-media").upload(path, imageFile);
-        if (uploadError) throw uploadError;
-        imageUrl = supabase.storage.from("post-media").getPublicUrl(path).data.publicUrl;
-      }
+      if (imageFile) imageUrl = await uploadOne(imageFile);
+      const extraUrls = extraFiles.length > 0 ? await Promise.all(extraFiles.map(uploadOne)) : [];
+      const images = imageUrl ? [imageUrl, ...extraUrls] : extraUrls;
 
       const res = await fetch("/api/catalog", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ companyId, type, name, priceText, priceOnRequest, description, imageUrl }),
+        body: JSON.stringify({ companyId, type, name, priceText, priceOnRequest, description, imageUrl, images }),
       });
 
       if (!res.ok) {
@@ -72,6 +77,7 @@ export default function CatalogManager({
       setPriceOnRequest(false);
       setDescription("");
       setImageFile(null);
+      setExtraFiles([]);
       setQualityWarning(null);
       setOpen(false);
       router.refresh();
@@ -105,6 +111,35 @@ export default function CatalogManager({
     } catch {
       setError("Не удалось прочитать файл");
     }
+  }
+
+  async function handleExtraFilesSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? []);
+    if (files.length === 0) return;
+    setQualityWarning(null);
+
+    const accepted: File[] = [];
+    for (const file of files) {
+      try {
+        const { ok, width, height } = await checkImageDimensions(file);
+        if (!ok) {
+          setError(`Фото слишком маленькое (${width}×${height}px) — минимум ${MIN_IMAGE_DIMENSION}×${MIN_IMAGE_DIMENSION}px, пропущено: ${file.name}`);
+          continue;
+        }
+        accepted.push(file);
+        checkPhotoQualitySoft(file).then((result) => {
+          if (!result.ok) setQualityWarning(result.reason ?? "Качество одного из фото вызывает сомнения");
+        });
+      } catch {
+        setError(`Не удалось прочитать файл: ${file.name}`);
+      }
+    }
+    setExtraFiles((prev) => [...prev, ...accepted]);
+    e.target.value = "";
+  }
+
+  function removeExtraFile(idx: number) {
+    setExtraFiles((prev) => prev.filter((_, i) => i !== idx));
   }
 
   async function handleDelete(id: string) {
@@ -178,12 +213,45 @@ export default function CatalogManager({
                   </div>
                 )}
               </div>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileSelect}
-                className="block w-full text-xs text-neutral-500 dark:text-neutral-400"
-              />
+              <div>
+                <label className="text-xs text-neutral-500 dark:text-neutral-400">
+                  Основное фото — оно будет главным на карточке товара
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  className="mt-1 block w-full text-xs text-neutral-500 dark:text-neutral-400"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs text-neutral-500 dark:text-neutral-400">Дополнительные фото (необязательно)</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleExtraFilesSelect}
+                  className="mt-1 block w-full text-xs text-neutral-500 dark:text-neutral-400"
+                />
+                {extraFiles.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {extraFiles.map((f, idx) => (
+                      <div key={`${f.name}-${idx}`} className="relative">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={URL.createObjectURL(f)} alt="" className="h-14 w-14 border border-neutral-200 dark:border-neutral-800 object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => removeExtraFile(idx)}
+                          className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[10px] text-neutral-600 dark:text-neutral-400"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               {qualityWarning && (
                 <p className="text-xs text-amber-600">

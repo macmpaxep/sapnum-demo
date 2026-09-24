@@ -165,7 +165,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
     if (!linkToPost) return;
     const target = e.target as HTMLElement;
     if (target.closest("a, button, textarea, input, form")) return;
-    router.push(`/post/${post.id}`);
+    router.push(post.catalogItemId ? `/item/${post.catalogItemId}` : `/post/${post.id}`);
   }
 
   return (

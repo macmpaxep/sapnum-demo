@@ -17,6 +17,7 @@ export async function POST(req: Request) {
     priceOnRequest?: boolean;
     description?: string;
     imageUrl?: string;
+    images?: string[];
   };
   try {
     body = await req.json();
@@ -44,7 +45,7 @@ export async function POST(req: Request) {
       price_on_request: Boolean(body.priceOnRequest),
       description: body.description?.trim() || null,
       image_url: body.imageUrl || null,
-      images: body.imageUrl ? [body.imageUrl] : [],
+      images: body.images && body.images.length > 0 ? body.images : body.imageUrl ? [body.imageUrl] : [],
     })
     .select("id")
     .single();
@@ -63,6 +64,7 @@ export async function POST(req: Request) {
     await supabase.from("posts").insert({
       author_id: user.id,
       company_id: companyId,
+      catalog_item_id: data.id,
       topic: type === "product" ? "Товары" : "Услуги",
       body: `${label} от ${company?.name ?? "компании"}: ${name.trim()}${priceLine}${descLine}`,
       media_urls: body.imageUrl ? [body.imageUrl] : [],

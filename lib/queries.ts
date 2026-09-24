@@ -10,6 +10,7 @@ export type FeedPost = {
   role: string;
   companyName: string | null;
   companySlug: string | null;
+  catalogItemId: string | null;
   topic: string;
   time: string;
   createdAt: string;
@@ -25,7 +26,7 @@ export type FeedPost = {
 };
 
 const POST_SELECT =
-  "id, author_id, body, media_urls, topic, created_at, view_count, profiles!posts_author_id_fkey(display_name, username), companies(name, industry, slug), post_likes(user_id), post_comments(id)";
+  "id, author_id, body, media_urls, topic, created_at, view_count, catalog_item_id, profiles!posts_author_id_fkey(display_name, username), companies(name, industry, slug), post_likes(user_id), post_comments(id)";
 
 function timeAgo(iso: string) {
   const diffMs = Date.now() - new Date(iso).getTime();
@@ -49,6 +50,7 @@ function mockTextPosts(): FeedPost[] {
       role: p.role,
       companyName: null,
       companySlug: null,
+      catalogItemId: null,
       topic: p.topic,
       time: p.time,
       createdAt: new Date().toISOString(),
@@ -78,6 +80,7 @@ function mapRow(post: any, viewerId: string | null, savedPostIds: Set<string>, r
     role: company ? `${company.name} · ${company.industry}` : "Участник сообщества",
     companyName: company?.name ?? null,
     companySlug: company?.slug ?? null,
+    catalogItemId: post.catalog_item_id ?? null,
     topic: post.topic ?? (company ? "Кейсы" : "Инсайты"),
     time: timeAgo(post.created_at),
     createdAt: post.created_at,
