@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notifyAdmin } from "@/lib/telegramNotify";
 
 const TRANSLIT: Record<string, string> = {
   а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "e", ж: "zh", з: "z", и: "i",
@@ -71,6 +72,7 @@ export async function POST(req: Request) {
   await supabase.from("company_members").insert({ company_id: company.id, user_id: user.id, role: "owner" });
   // Ignore conflict — the user may already have the "business" role.
   await supabase.from("user_roles").upsert({ user_id: user.id, role: "business" }, { onConflict: "user_id,role" });
+  notifyAdmin(`🏢 Новая компания: ${name} (/co/${company.slug})`);
 
   return NextResponse.json({ slug: company.slug });
 }

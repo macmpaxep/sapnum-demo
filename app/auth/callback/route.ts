@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notifyAdmin } from "@/lib/telegramNotify";
 
 // Handles the redirect from a Supabase magic-link email: exchanges the
 // one-time code for a session, then provisions a profile/role for
@@ -47,6 +48,7 @@ export async function GET(req: Request) {
     }
 
     await supabase.from("user_roles").upsert({ user_id: data.user.id, role: "simple" }, { onConflict: "user_id,role", ignoreDuplicates: true });
+    notifyAdmin(`👤 Новая регистрация (email): ${baseUsername}`);
   }
 
   return NextResponse.redirect(`${origin}${next}`);

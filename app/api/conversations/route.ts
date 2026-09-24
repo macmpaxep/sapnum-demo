@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notifyAdmin } from "@/lib/telegramNotify";
 
 // Finds an existing 1:1 conversation with the given user, or creates one.
 export async function POST(req: Request) {
@@ -65,6 +66,8 @@ export async function POST(req: Request) {
   if (participantsError) {
     return NextResponse.json({ error: participantsError.message }, { status: 400 });
   }
+
+  notifyAdmin(`💬 Начат новый диалог между пользователями`);
 
   return NextResponse.json({ conversationId });
 }

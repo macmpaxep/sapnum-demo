@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { notifyAdmin } from "@/lib/telegramNotify";
 
 const VALID_TYPES = ["partnership", "distributor", "commercial_offer", "investment"];
 
@@ -46,5 +47,6 @@ export async function POST(req: Request) {
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  notifyAdmin(`📝 Новая заявка (${type}) в компанию`);
   return NextResponse.json({ application: data });
 }

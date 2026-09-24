@@ -1,6 +1,7 @@
 import { createHash, createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
+import { notifyAdmin } from "@/lib/telegramNotify";
 
 // Verifies the payload from the Telegram Login Widget
 // (https://core.telegram.org/widgets/login#checking-authorization) and
@@ -126,6 +127,7 @@ export async function POST(req: Request) {
       });
     }
     await supabase.from("user_roles").upsert({ user_id: userId, role: "simple" }, { onConflict: "user_id,role", ignoreDuplicates: true });
+    notifyAdmin(`👤 Новая регистрация (Telegram): ${baseUsername}`);
   }
 
   return NextResponse.json({

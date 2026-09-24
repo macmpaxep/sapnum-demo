@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { moderateText } from "@/lib/moderation";
+import { notifyAdmin } from "@/lib/telegramNotify";
 
 export async function POST(req: Request) {
   const supabase = await createSupabaseServerClient();
@@ -82,6 +83,8 @@ export async function POST(req: Request) {
   } catch (postErr) {
     console.error("[catalog] failed to create feed post for new item", postErr);
   }
+
+  notifyAdmin(`📦 Новый ${type === "product" ? "товар" : "услуга"}: ${name.trim()}`);
 
   return NextResponse.json({ item: data });
 }
