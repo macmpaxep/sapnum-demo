@@ -10,7 +10,7 @@ type Comment = { id: string; body: string; created_at: string; profiles: { displ
 
 const EDIT_WINDOW_MS = 15 * 60 * 1000;
 
-export default function PostCard({ post }: { post: FeedPost }) {
+export default function PostCard({ post, linkToPost = true }: { post: FeedPost; linkToPost?: boolean }) {
   const [liked, setLiked] = useState(post.likedByMe);
   const [likeCount, setLikeCount] = useState(post.likeCount);
   const [saved, setSaved] = useState(post.savedByMe);
@@ -161,8 +161,18 @@ export default function PostCard({ post }: { post: FeedPost }) {
 
   if (deleted) return null;
 
+  function handleCardClick(e: React.MouseEvent<HTMLElement>) {
+    if (!linkToPost) return;
+    const target = e.target as HTMLElement;
+    if (target.closest("a, button, textarea, input, form")) return;
+    router.push(`/post/${post.id}`);
+  }
+
   return (
-    <article className="border border-neutral-200 p-4">
+    <article
+      onClick={handleCardClick}
+      className={`border border-neutral-200 p-4 ${linkToPost ? "cursor-pointer" : ""}`}
+    >
       <div className="flex items-center gap-3">
         {post.authorUsername ? (
           <Link href={`/u/${post.authorUsername}`}>
@@ -304,7 +314,6 @@ export default function PostCard({ post }: { post: FeedPost }) {
         </button>
       </div>
 
-      {post.viewCount > 0 && <p className="mt-1.5 text-[11px] text-neutral-400">{post.viewCount} просмотров</p>}
 
       {showComments && (
         <div className="mt-3 space-y-2 border-t border-neutral-100 pt-3">

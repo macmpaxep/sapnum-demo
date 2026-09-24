@@ -60,6 +60,7 @@ export async function POST(req: Request) {
     await supabase.from("posts").insert({
       author_id: user.id,
       company_id: companyId,
+      topic: type === "product" ? "Товары" : "Услуги",
       body: `${label} от ${company?.name ?? "компании"}: ${name.trim()}${priceLine}${descLine}`,
       media_urls: body.imageUrl ? [body.imageUrl] : [],
     });
