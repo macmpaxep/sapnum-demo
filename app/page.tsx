@@ -72,7 +72,7 @@ export default function Home() {
             </a>
             <a
               href="#waitlist"
-              className="border border-line px-4 py-2 text-sm text-paper transition-colors hover:border-gain hover:text-gain"
+              className="rounded-lg border border-line px-4 py-2 text-sm text-paper transition-colors hover:border-gain hover:text-gain"
             >
               Ранний доступ
             </a>
@@ -96,7 +96,7 @@ export default function Home() {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
                 href="#waitlist"
-                className="bg-gain px-6 py-3 text-sm font-semibold text-ink transition-opacity hover:opacity-90"
+                className="rounded-lg bg-gain px-6 py-3 text-sm font-semibold text-ink transition-opacity hover:opacity-90"
               >
                 Оставить заявку
               </a>
@@ -109,7 +109,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="border border-line bg-panel">
+          <div className="overflow-hidden rounded-lg border border-line bg-panel">
             <div className="border-b border-line px-4 py-3 text-xs text-mute">
               Показатели участников за последний квартал
             </div>
@@ -165,7 +165,7 @@ export default function Home() {
           <h2 className="font-display text-2xl font-bold md:text-3xl">
             Что внутри
           </h2>
-          <div className="mt-10 grid gap-px overflow-hidden border border-line bg-line md:grid-cols-3">
+          <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-3">
             {features.map((f) => (
               <div key={f.title} className="bg-ink p-6">
                 <h3 className="font-display text-base font-semibold">

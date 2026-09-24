@@ -43,7 +43,7 @@ export default function WaitlistForm() {
 
   if (status === "success") {
     return (
-      <div className="border border-gain px-4 py-3 text-sm text-gain">
+      <div className="rounded-lg border border-gain px-4 py-3 text-sm text-gain">
         Заявка принята. Мы свяжемся с вами по указанному email.
       </div>
     );

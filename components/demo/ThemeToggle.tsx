@@ -26,7 +26,7 @@ export default function ThemeToggle({ className = "" }: { className?: string }) 
   if (dark === null) return <div className={`h-5 w-5 ${className}`} />;
 
   return (
-    <button onClick={toggle} aria-label="Переключить тему" className={`hover:text-neutral-900 dark:hover:text-paper dark:hover:text-paper ${className}`}>
+    <button onClick={toggle} aria-label="Переключить тему" className={`hover:text-neutral-900 dark:hover:text-paper ${className}`}>
       {dark ? (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="1.6" />

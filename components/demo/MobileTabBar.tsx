@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUser } from "@/lib/hooks/useUser";
+import { useUnreadMessages } from "@/lib/hooks/useUnreadMessages";
 
 const staticTabs = [
   {
@@ -61,6 +62,7 @@ const profileIcon = (active: boolean) => (
 export default function MobileTabBar() {
   const pathname = usePathname();
   const { user } = useUser();
+  const unreadMessages = useUnreadMessages(user?.id);
   const profileHref = user ? `/u/${user.username}` : "/login";
 
   const tabs = [...staticTabs, { href: profileHref, label: "Профиль", icon: profileIcon }];
@@ -78,7 +80,12 @@ export default function MobileTabBar() {
                 active ? "text-neutral-900 dark:text-paper" : "text-neutral-400 dark:text-neutral-500"
               }`}
             >
-              {tab.icon(active)}
+              <span className="relative">
+                {tab.icon(active)}
+                {tab.href === "/messages" && unreadMessages > 0 && (
+                  <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-red-500" />
+                )}
+              </span>
               <span className="text-[10px]">{tab.label}</span>
             </Link>
           );
