@@ -21,6 +21,7 @@ export default function PostComposerModal() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
+  const [threadParts, setThreadParts] = useState<string[]>([]);
   const [topic, setTopic] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -44,6 +45,7 @@ export default function PostComposerModal() {
 
   function reset() {
     setText("");
+    setThreadParts([]);
     setTopic("");
     setImageFile(null);
     setImagePreview(null);
@@ -136,8 +138,30 @@ export default function PostComposerModal() {
       return;
     }
 
+    const { post } = await res.json();
+    const parts = threadParts.map((p) => p.trim()).filter(Boolean);
+    for (const part of parts) {
+      await fetch(`/api/posts/${post.id}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: part }),
+      });
+    }
+
     close();
     startTransition(() => router.refresh());
+  }
+
+  function addThreadPart() {
+    setThreadParts((parts) => [...parts, ""]);
+  }
+
+  function updateThreadPart(index: number, value: string) {
+    setThreadParts((parts) => parts.map((p, i) => (i === index ? value : p)));
+  }
+
+  function removeThreadPart(index: number) {
+    setThreadParts((parts) => parts.filter((_, i) => i !== index));
   }
 
   if (!user) return null;
@@ -256,6 +280,40 @@ export default function PostComposerModal() {
               {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
             </div>
           </div>
+
+          {threadParts.map((part, i) => (
+            <div key={i} className="relative flex items-start gap-3.5 pt-3">
+              <span className="absolute left-[17px] top-0 h-3 w-px bg-neutral-200 dark:bg-line" />
+              <Avatar initials={initials} imageUrl={user.avatarUrl ?? undefined} size={36} />
+              <div className="min-w-0 flex-1">
+                <textarea
+                  value={part}
+                  onChange={(e) => updateThreadPart(i, e.target.value)}
+                  placeholder="Дополните ветку"
+                  rows={2}
+                  className="block w-full resize-none rounded-lg border-0 bg-neutral-50 dark:bg-panel p-3 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={() => removeThreadPart(i)}
+                aria-label="Удалить"
+                className="mt-1 shrink-0 text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-paper"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={addThreadPart}
+            className="relative mt-3 flex items-center gap-3.5 pt-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper"
+          >
+            <span className="absolute left-[17px] top-0 h-3 w-px bg-neutral-200 dark:bg-line" />
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-dashed border-neutral-300 dark:border-line">+</span>
+            Добавить ещё одну запись в ветку
+          </button>
         </div>
 
         <div className="flex items-center justify-end gap-2 border-t border-neutral-200 dark:border-line px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-3 sm:justify-between sm:pb-3">
