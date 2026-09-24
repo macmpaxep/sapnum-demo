@@ -11,27 +11,46 @@ const TYPE_TEXT: Record<string, string> = {
 export interface ActivityItem {
   id: string;
   actorName: string;
+  actorUsername: string | null;
+  actorAvatarUrl: string | null;
   text: string;
   postId: string | null;
+  postPreview: string | null;
+  postMediaUrl: string | null;
+  catalogItemId: string | null;
   createdAt: string;
 }
+
+type PostRow = { body: string | null; media_urls: string[] | null; catalog_item_id: string | null } | null;
+type ProfileRow = { display_name: string; username: string; avatar_url: string | null } | null;
 
 export async function getMyActivity(userId: string): Promise<ActivityItem[]> {
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase
     .from("activities")
-    .select("id, type, post_id, created_at, profiles!activities_actor_id_fkey(display_name)")
+    .select(
+      "id, type, post_id, created_at, profiles!activities_actor_id_fkey(display_name, username, avatar_url), posts(body, media_urls, catalog_item_id)"
+    )
     .eq("recipient_id", userId)
     .order("created_at", { ascending: false })
     .limit(50);
 
-  return (data ?? []).map((a) => ({
-    id: a.id,
-    actorName: (a.profiles as unknown as { display_name: string } | null)?.display_name ?? "Пользователь",
-    text: TYPE_TEXT[a.type] ?? a.type,
-    postId: a.post_id,
-    createdAt: a.created_at,
-  }));
+  return (data ?? []).map((a) => {
+    const actor = a.profiles as unknown as ProfileRow;
+    const post = a.posts as unknown as PostRow;
+    return {
+      id: a.id,
+      actorName: actor?.display_name ?? "Пользователь",
+      actorUsername: actor?.username ?? null,
+      actorAvatarUrl: actor?.avatar_url ?? null,
+      text: TYPE_TEXT[a.type] ?? a.type,
+      postId: a.post_id,
+      postPreview: post?.body ?? null,
+      postMediaUrl: post?.media_urls?.[0] ?? null,
+      catalogItemId: post?.catalog_item_id ?? null,
+      createdAt: a.created_at,
+    };
+  });
 }
 
 export interface SavedPostItem {
