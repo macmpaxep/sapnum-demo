@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { openComposer } from "@/lib/composerEvents";
 
 export default function CreateMenu({
   companySlug,
@@ -42,13 +43,15 @@ export default function CreateMenu({
             direction === "up" ? "bottom-[calc(100%+8px)]" : "top-[calc(100%+8px)]"
           }`}
         >
-          <Link
-            href="/feed"
-            onClick={() => setOpen(false)}
-            className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
+          <button
+            onClick={() => {
+              setOpen(false);
+              openComposer();
+            }}
+            className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
           >
             Новая запись
-          </Link>
+          </button>
           {companySlug ? (
             <Link
               href={`/co/${companySlug}?add=1`}
