@@ -4,8 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useUser } from "@/lib/hooks/useUser";
 import { useUnreadMessages } from "@/lib/hooks/useUnreadMessages";
+import { useMyCompany } from "@/lib/hooks/useMyCompany";
+import CreateMenu from "./CreateMenu";
 
-const staticTabs = [
+const leftTabs = [
   {
     href: "/feed",
     label: "Лента",
@@ -28,18 +30,9 @@ const staticTabs = [
       </svg>
     ),
   },
-  {
-    href: "/people",
-    label: "Люди",
-    icon: (active: boolean) => (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-        <circle cx="9" cy="8" r="2.6" stroke="currentColor" strokeWidth={active ? 2 : 1.6} />
-        <path d="M4 19c.8-3 3-4.6 5-4.6s4.2 1.6 5 4.6" stroke="currentColor" strokeWidth={active ? 2 : 1.6} strokeLinecap="round" />
-        <circle cx="17" cy="9" r="2.1" stroke="currentColor" strokeWidth={active ? 2 : 1.6} />
-        <path d="M15.2 14.6c1.8.4 3.2 1.7 3.8 4" stroke="currentColor" strokeWidth={active ? 2 : 1.6} strokeLinecap="round" />
-      </svg>
-    ),
-  },
+];
+
+const rightTabs = [
   {
     href: "/messages",
     label: "Сообщения",
@@ -59,37 +52,68 @@ const profileIcon = (active: boolean) => (
   </svg>
 );
 
+const plusIcon = (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
+function TabLink({ href, label, icon, active, badge }: { href: string; label: string; icon: React.ReactNode; active: boolean; badge?: boolean }) {
+  return (
+    <Link
+      href={href}
+      className={`flex flex-col items-center gap-0.5 px-3 py-1 ${active ? "text-neutral-900 dark:text-paper" : "text-neutral-400 dark:text-neutral-500"}`}
+    >
+      <span className="relative">
+        {icon}
+        {badge && <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-red-500" />}
+      </span>
+      <span className="text-[10px]">{label}</span>
+    </Link>
+  );
+}
+
 export default function MobileTabBar() {
   const pathname = usePathname();
   const { user } = useUser();
   const unreadMessages = useUnreadMessages(user?.id);
+  const companySlug = useMyCompany(user?.id);
   const profileHref = user ? `/u/${user.username}` : "/login";
-
-  const tabs = [...staticTabs, { href: profileHref, label: "Профиль", icon: profileIcon }];
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-20 border-t border-neutral-200 bg-white pb-[env(safe-area-inset-bottom)] dark:border-line dark:bg-ink">
       <div className="flex items-center justify-around py-2">
-        {tabs.map((tab) => {
-          const active = pathname === tab.href;
-          return (
-            <Link
-              key={tab.href}
-              href={tab.href}
-              className={`flex flex-col items-center gap-0.5 px-3 py-1 ${
-                active ? "text-neutral-900 dark:text-paper" : "text-neutral-400 dark:text-neutral-500"
-              }`}
-            >
-              <span className="relative">
-                {tab.icon(active)}
-                {tab.href === "/messages" && unreadMessages > 0 && (
-                  <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-red-500" />
-                )}
-              </span>
-              <span className="text-[10px]">{tab.label}</span>
-            </Link>
-          );
-        })}
+        {leftTabs.map((tab) => (
+          <TabLink key={tab.href} href={tab.href} label={tab.label} icon={tab.icon(pathname === tab.href)} active={pathname === tab.href} />
+        ))}
+
+        {user ? (
+          <CreateMenu
+            companySlug={companySlug}
+            direction="up"
+            renderTrigger={(onClick) => (
+              <button onClick={onClick} className="flex flex-col items-center gap-0.5 px-3 py-1 text-neutral-400 dark:text-neutral-500" aria-label="Создать">
+                {plusIcon}
+                <span className="text-[10px]">Создать</span>
+              </button>
+            )}
+          />
+        ) : (
+          <TabLink href="/login" label="Создать" icon={plusIcon} active={false} />
+        )}
+
+        {rightTabs.map((tab) => (
+          <TabLink
+            key={tab.href}
+            href={tab.href}
+            label={tab.label}
+            icon={tab.icon(pathname === tab.href)}
+            active={pathname === tab.href}
+            badge={tab.href === "/messages" && unreadMessages > 0}
+          />
+        ))}
+
+        <TabLink href={profileHref} label="Профиль" icon={profileIcon(pathname === profileHref)} active={pathname === profileHref} />
       </div>
     </nav>
   );

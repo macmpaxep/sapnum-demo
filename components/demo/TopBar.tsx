@@ -149,30 +149,29 @@ export default function TopBar() {
             <ThemeToggle />
           </div>
 
-          {!loading && user && (
+          {!loading && user && companySlug && (
             <div className="mb-1 border-b border-neutral-100 dark:border-line pb-2 dark:border-line">
               <div className="px-3 pb-1 text-[11px] font-medium uppercase tracking-wide text-neutral-400 dark:text-neutral-500">Личное</div>
-              {personalTabs.map((tab) => {
-                const active = pathname === tab.href;
-                return (
-                  <Link
-                    key={tab.href}
-                    href={tab.href}
-                    onClick={() => setMenuOpen(false)}
-                    className={`block rounded-md px-3 py-2 text-sm transition-colors ${
-                      active
-                        ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper"
-                        : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
-                    }`}
-                  >
-                    {tab.label}
-                  </Link>
-                );
-              })}
+              <Link
+                href="/dashboard"
+                onClick={() => setMenuOpen(false)}
+                className={`block rounded-md px-3 py-2 text-sm transition-colors ${
+                  pathname === "/dashboard"
+                    ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper"
+                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
+                }`}
+              >
+                Дашборд
+              </Link>
             </div>
           )}
 
-          {tabs.map((tab) => {
+          {/* Лента/Каталог/Сообщения уже есть в нижней панели — здесь только то,
+              для чего там не нашлось места. */}
+          {[
+            { label: "Люди", href: "/people" },
+            { label: "Компании", href: "/companies" },
+          ].map((tab) => {
             const active = pathname === tab.href;
             return (
               <Link
@@ -205,25 +204,6 @@ export default function TopBar() {
                 className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
               >
                 Настройки
-              </Link>
-            </div>
-          )}
-
-          {!loading && user && (
-            <div className="mt-1 border-t border-neutral-100 dark:border-line pt-1">
-              <Link
-                href="/feed"
-                onClick={() => setMenuOpen(false)}
-                className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
-              >
-                + Новая запись
-              </Link>
-              <Link
-                href={companySlug ? `/co/${companySlug}?add=1` : "/co/new"}
-                onClick={() => setMenuOpen(false)}
-                className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
-              >
-                {companySlug ? "+ Товар или услуга" : "+ Создать страницу компании"}
               </Link>
             </div>
           )}

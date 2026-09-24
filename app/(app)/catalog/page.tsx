@@ -27,9 +27,6 @@ export default async function CatalogPage({
             <h1 className="text-lg font-semibold text-neutral-900 dark:text-paper">Каталог</h1>
             <p className="text-sm text-neutral-500 dark:text-neutral-400">Товары и услуги компаний сообщества SAPNUM.</p>
           </div>
-          <div className="w-full sm:w-auto sm:min-w-[280px]">
-            <SearchBox placeholder="Поиск товаров и услуг…" />
-          </div>
         </div>
 
         {companySlug ? (
@@ -49,6 +46,8 @@ export default async function CatalogPage({
             <span>Создать страницу компании →</span>
           </Link>
         )}
+
+        <SearchBox placeholder="Поиск товаров и услуг…" />
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex gap-2 text-xs">

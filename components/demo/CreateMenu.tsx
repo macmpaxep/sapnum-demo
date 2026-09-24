@@ -3,7 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
-export default function CreateMenu({ companySlug }: { companySlug: string | null }) {
+export default function CreateMenu({
+  companySlug,
+  direction = "down",
+  renderTrigger,
+}: {
+  companySlug: string | null;
+  direction?: "down" | "up";
+  renderTrigger?: (onClick: () => void) => React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -17,15 +25,23 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
 
   return (
     <div ref={ref} className="relative">
-      <button onClick={() => setOpen((v) => !v)} aria-label="Создать" className="hover:text-neutral-900 dark:hover:text-paper">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
-          <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.6" />
-        </svg>
-      </button>
+      {renderTrigger ? (
+        renderTrigger(() => setOpen((v) => !v))
+      ) : (
+        <button onClick={() => setOpen((v) => !v)} aria-label="Создать" className="hover:text-neutral-900 dark:hover:text-paper">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.6" />
+          </svg>
+        </button>
+      )}
 
       {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-56 rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 shadow-lg">
+        <div
+          className={`absolute right-0 z-20 w-56 rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 shadow-lg ${
+            direction === "up" ? "bottom-[calc(100%+8px)]" : "top-[calc(100%+8px)]"
+          }`}
+        >
           <Link
             href="/feed"
             onClick={() => setOpen(false)}
