@@ -106,14 +106,14 @@ export default function PostComposer() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border border-neutral-200 dark:border-neutral-800 p-4">
+    <form onSubmit={handleSubmit} className="border border-neutral-200 dark:border-line p-4">
       <div className="flex items-start gap-3">
         <Avatar initials="ВЫ" />
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Напишите что-нибудь…"
-          className="flex-1 border-b border-neutral-200 dark:border-neutral-800 pb-2 text-sm text-neutral-700 dark:text-neutral-300 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-neutral-400"
+          className="flex-1 border-b border-neutral-200 dark:border-line pb-2 text-sm text-neutral-700 dark:text-neutral-300 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-neutral-400"
         />
         <button
           type="submit"
@@ -134,11 +134,11 @@ export default function PostComposer() {
         <div className="mt-3 pl-[44px]">
           <div className="relative inline-block">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={imagePreview} alt="" className="max-h-40 border border-neutral-200 dark:border-neutral-800" />
+            <img src={imagePreview} alt="" className="max-h-40 border border-neutral-200 dark:border-line" />
             <button
               type="button"
               onClick={clearImage}
-              className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-xs text-neutral-600 dark:text-neutral-400"
+              className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full border border-neutral-300 dark:border-line bg-white dark:bg-panel text-xs text-neutral-600 dark:text-neutral-400"
             >
               ✕
             </button>
@@ -150,14 +150,14 @@ export default function PostComposer() {
         <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" id="post-image-input" />
         <label
           htmlFor="post-image-input"
-          className="cursor-pointer border border-neutral-200 dark:border-neutral-800 px-2 py-1 hover:border-neutral-400 dark:hover:border-neutral-600 hover:text-neutral-700 dark:hover:text-neutral-200"
+          className="cursor-pointer border border-neutral-200 dark:border-line px-2 py-1 hover:border-neutral-400 dark:hover:border-mute hover:text-neutral-700 dark:hover:text-neutral-200"
         >
           Фото
         </label>
         <select
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
-          className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-2 py-1 text-neutral-600 dark:text-neutral-400"
+          className="border border-neutral-200 dark:border-line bg-white dark:bg-panel px-2 py-1 text-neutral-600 dark:text-neutral-400"
         >
           <option value="">Без темы</option>
           {topics.map((t) => (

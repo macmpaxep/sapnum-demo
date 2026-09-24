@@ -71,20 +71,20 @@ export default function ApplicationForm({
 
   if (success) {
     return (
-      <div className="border border-neutral-200 dark:border-neutral-800 p-4 text-sm text-neutral-700 dark:text-neutral-300">
+      <div className="border border-neutral-200 dark:border-line p-4 text-sm text-neutral-700 dark:text-neutral-300">
         Заявка отправлена. Владелец компании увидит её в разделе «Заявки».
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border border-neutral-200 dark:border-neutral-800 p-4 space-y-3">
+    <form onSubmit={handleSubmit} className="border border-neutral-200 dark:border-line p-4 space-y-3">
       <div>
         <label className="text-xs text-neutral-500 dark:text-neutral-400">Тип заявки</label>
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
-          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-2 py-1.5 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-line px-2 py-1.5 text-sm"
         >
           {visibleTypes.map(([value, label]) => (
             <option key={value} value={value}>
@@ -101,7 +101,7 @@ export default function ApplicationForm({
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-2 py-1.5 text-sm"
+            className="mt-1 block w-full border border-neutral-300 dark:border-line px-2 py-1.5 text-sm"
             placeholder="150000"
           />
         </div>
@@ -116,7 +116,7 @@ export default function ApplicationForm({
           onChange={(e) => setMessage(e.target.value)}
           required
           rows={4}
-          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-2 py-1.5 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-line px-2 py-1.5 text-sm"
         />
       </div>
 

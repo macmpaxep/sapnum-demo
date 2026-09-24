@@ -12,7 +12,7 @@ export default async function PeoplePage({
 
   return (
     <div>
-      <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">Люди</h1>
+      <h1 className="text-lg font-semibold text-neutral-900 dark:text-paper">Люди</h1>
       <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Предприниматели, инвесторы и участники сообщества SAPNUM.</p>
 
       <div className="mt-4">
@@ -21,7 +21,7 @@ export default async function PeoplePage({
 
       {people.length === 0 && <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">Никого не найдено.</p>}
 
-      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200 dark:border-neutral-800">
+      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200 dark:border-line">
         {people.map((p) => (
           <PersonRow key={p.id} person={p} />
         ))}

@@ -42,9 +42,9 @@ export default function UserMenu({ user }: { user: CurrentUser }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-56 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 py-1 shadow-lg">
-          <div className="border-b border-neutral-100 dark:border-neutral-800 px-3 py-2">
-            <div className="truncate text-sm font-medium text-neutral-900 dark:text-neutral-50">{user.displayName}</div>
+        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-56 border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 shadow-lg">
+          <div className="border-b border-neutral-100 dark:border-line px-3 py-2">
+            <div className="truncate text-sm font-medium text-neutral-900 dark:text-paper">{user.displayName}</div>
             <div className="truncate text-xs text-neutral-500 dark:text-neutral-400">@{user.username}</div>
           </div>
           <Link
@@ -63,7 +63,7 @@ export default function UserMenu({ user }: { user: CurrentUser }) {
           </Link>
           <button
             onClick={handleLogout}
-            className="block w-full border-t border-neutral-100 dark:border-neutral-800 px-3 py-2 text-left text-sm text-red-600 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+            className="block w-full border-t border-neutral-100 dark:border-line px-3 py-2 text-left text-sm text-red-600 hover:bg-neutral-50 dark:hover:bg-neutral-900"
           >
             Выход
           </button>

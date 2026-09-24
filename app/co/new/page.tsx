@@ -13,10 +13,10 @@ export default async function NewCompanyPage() {
   if (existingSlug) redirect(`/co/${existingSlug}`);
 
   return (
-    <div className="min-h-screen bg-white text-neutral-900 overflow-x-hidden dark:bg-neutral-950 dark:text-neutral-100">
+    <div className="min-h-screen bg-white text-neutral-900 overflow-x-hidden dark:bg-ink dark:text-neutral-100">
       <TopBar />
       <div className="mx-auto max-w-[560px] px-4 md:px-6 py-10 pb-24 md:pb-10">
-        <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">Расскажите о своей компании</h1>
+        <h1 className="text-lg font-semibold text-neutral-900 dark:text-paper">Расскажите о своей компании</h1>
         <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
           Вы ещё не заполнили анкету компании — без неё нельзя принимать заявки, вести дашборд и публиковать записи от имени компании.
         </p>

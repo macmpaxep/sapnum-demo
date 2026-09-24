@@ -17,24 +17,24 @@ export default async function SettingsPage() {
     .single();
 
   return (
-    <div className="min-h-screen bg-white text-neutral-900 overflow-x-hidden dark:bg-neutral-950 dark:text-neutral-100">
+    <div className="min-h-screen bg-white text-neutral-900 overflow-x-hidden dark:bg-ink dark:text-neutral-100">
       <TopBar />
       <div className="mx-auto max-w-[560px] px-4 md:px-6 py-10 pb-24 md:pb-10 space-y-6">
         <div>
-          <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">Настройки</h1>
+          <h1 className="text-lg font-semibold text-neutral-900 dark:text-paper">Настройки</h1>
           <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Аккаунт и подключённые сервисы.</p>
         </div>
 
-        <div className="border border-neutral-200 dark:border-neutral-800 p-4">
+        <div className="border border-neutral-200 dark:border-line p-4">
           <div className="text-xs text-neutral-500 dark:text-neutral-400">Способ входа</div>
-          <div className="mt-1 text-sm text-neutral-900 dark:text-neutral-50">
+          <div className="mt-1 text-sm text-neutral-900 dark:text-paper">
             {profile?.telegram_username ? `Telegram @${profile.telegram_username}` : "Telegram"}
           </div>
         </div>
 
-        <div className="border border-neutral-200 dark:border-neutral-800 p-4">
+        <div className="border border-neutral-200 dark:border-line p-4">
           <div className="text-xs text-neutral-500 dark:text-neutral-400">Дата регистрации</div>
-          <div className="mt-1 text-sm text-neutral-900 dark:text-neutral-50">
+          <div className="mt-1 text-sm text-neutral-900 dark:text-paper">
             {profile?.created_at ? new Date(profile.created_at).toLocaleDateString("ru-RU") : "—"}
           </div>
         </div>

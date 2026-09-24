@@ -36,7 +36,7 @@ export default function ApplicationRow({ application }: { application: CompanyAp
   }
 
   return (
-    <div className="border border-neutral-200 dark:border-neutral-800 p-3">
+    <div className="border border-neutral-200 dark:border-line p-3">
       <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
         <span>{TYPE_LABELS[application.type] ?? application.type}</span>
         <span>{STATUS_LABELS[status] ?? status}</span>
@@ -45,12 +45,12 @@ export default function ApplicationRow({ application }: { application: CompanyAp
         {application.applicantUsername ? (
           <Link
             href={`/u/${application.applicantUsername}`}
-            className="text-sm font-medium text-neutral-900 dark:text-neutral-50 hover:underline"
+            className="text-sm font-medium text-neutral-900 dark:text-paper hover:underline"
           >
             {application.applicantName}
           </Link>
         ) : (
-          <span className="text-sm font-medium text-neutral-900 dark:text-neutral-50">{application.applicantName}</span>
+          <span className="text-sm font-medium text-neutral-900 dark:text-paper">{application.applicantName}</span>
         )}
       </div>
       {application.requestedAmount && (
@@ -67,7 +67,7 @@ export default function ApplicationRow({ application }: { application: CompanyAp
           <button
             disabled={isPending}
             onClick={() => updateStatus("reviewing")}
-            className="border border-neutral-300 dark:border-neutral-700 px-2.5 py-1 text-xs hover:border-neutral-400 dark:hover:border-neutral-600"
+            className="border border-neutral-300 dark:border-line px-2.5 py-1 text-xs hover:border-neutral-400 dark:hover:border-mute"
           >
             В работу
           </button>
@@ -81,7 +81,7 @@ export default function ApplicationRow({ application }: { application: CompanyAp
           <button
             disabled={isPending}
             onClick={() => updateStatus("rejected")}
-            className="border border-neutral-300 dark:border-neutral-700 px-2.5 py-1 text-xs text-neutral-500 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-neutral-600"
+            className="border border-neutral-300 dark:border-line px-2.5 py-1 text-xs text-neutral-500 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-mute"
           >
             Отклонить
           </button>

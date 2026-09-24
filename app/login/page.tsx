@@ -16,9 +16,9 @@ export default async function LoginPage({
   const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : "/feed";
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white dark:bg-neutral-900 px-4 text-neutral-900 dark:text-neutral-50">
-      <div className="w-full max-w-sm border border-neutral-200 dark:border-neutral-800 p-8 text-center">
-        <div className="font-display text-lg font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+    <div className="flex min-h-screen items-center justify-center bg-white dark:bg-panel px-4 text-neutral-900 dark:text-paper">
+      <div className="w-full max-w-sm border border-neutral-200 dark:border-line p-8 text-center">
+        <div className="font-display text-lg font-bold tracking-tight text-neutral-900 dark:text-paper">
           SAPNUM
         </div>
         <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">

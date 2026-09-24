@@ -66,7 +66,7 @@ export default function MobileTabBar() {
   const tabs = [...staticTabs, { href: profileHref, label: "Профиль", icon: profileIcon }];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-20 border-t border-neutral-200 bg-white pb-[env(safe-area-inset-bottom)] dark:border-neutral-800 dark:bg-neutral-950">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-20 border-t border-neutral-200 bg-white pb-[env(safe-area-inset-bottom)] dark:border-line dark:bg-ink">
       <div className="flex items-center justify-around py-2">
         {tabs.map((tab) => {
           const active = pathname === tab.href;
@@ -75,7 +75,7 @@ export default function MobileTabBar() {
               key={tab.href}
               href={tab.href}
               className={`flex flex-col items-center gap-0.5 px-3 py-1 ${
-                active ? "text-neutral-900 dark:text-white" : "text-neutral-400 dark:text-neutral-500"
+                active ? "text-neutral-900 dark:text-paper" : "text-neutral-400 dark:text-neutral-500"
               }`}
             >
               {tab.icon(active)}

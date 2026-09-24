@@ -50,7 +50,7 @@ export default function MessageButton({
       <button
         onClick={handleClick}
         disabled={loading}
-        className="border border-neutral-300 dark:border-neutral-700 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600 disabled:opacity-40"
+        className="border border-neutral-300 dark:border-line px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute disabled:opacity-40"
       >
         {label}
       </button>

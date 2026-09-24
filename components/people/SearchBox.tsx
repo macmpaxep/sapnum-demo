@@ -22,7 +22,7 @@ export default function SearchBox({ placeholder }: { placeholder: string }) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
-        className="w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm outline-none focus:border-neutral-400"
+        className="w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm outline-none focus:border-neutral-400"
       />
     </form>
   );

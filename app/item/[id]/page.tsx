@@ -23,11 +23,11 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
   return (
     <div className="space-y-8">
       <nav className="flex items-center gap-1.5 text-xs text-neutral-400 dark:text-neutral-500">
-        <Link href="/catalog" className="hover:text-neutral-900 dark:hover:text-white hover:underline">
+        <Link href="/catalog" className="hover:text-neutral-900 dark:hover:text-paper hover:underline">
           Каталог
         </Link>
         <span>/</span>
-        <Link href={`/co/${item.companySlug}`} className="hover:text-neutral-900 dark:hover:text-white hover:underline">
+        <Link href={`/co/${item.companySlug}`} className="hover:text-neutral-900 dark:hover:text-paper hover:underline">
           {item.companyName}
         </Link>
         <span>/</span>
@@ -38,15 +38,15 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
 
       {related.length > 0 && (
         <div>
-          <h2 className="mb-3 text-sm font-medium text-neutral-900 dark:text-neutral-50">Похожие товары и услуги</h2>
+          <h2 className="mb-3 text-sm font-medium text-neutral-900 dark:text-paper">Похожие товары и услуги</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {related.map((r) => (
               <Link
                 key={r.id}
                 href={`/item/${r.id}`}
-                className="group border border-neutral-200 dark:border-neutral-800 transition-shadow hover:shadow-md"
+                className="group border border-neutral-200 dark:border-line transition-shadow hover:shadow-md"
               >
-                <div className="aspect-square w-full overflow-hidden bg-neutral-50 dark:bg-neutral-900">
+                <div className="aspect-square w-full overflow-hidden bg-neutral-50 dark:bg-panel">
                   {r.imageUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -59,8 +59,8 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
                   )}
                 </div>
                 <div className="space-y-0.5 p-2.5">
-                  <div className="truncate text-sm font-medium text-neutral-900 dark:text-neutral-50">{r.name}</div>
-                  <div className="text-sm text-neutral-900 dark:text-neutral-50">
+                  <div className="truncate text-sm font-medium text-neutral-900 dark:text-paper">{r.name}</div>
+                  <div className="text-sm text-neutral-900 dark:text-paper">
                     {r.priceOnRequest ? (
                       <span className="text-neutral-500 dark:text-neutral-400">Цена по запросу</span>
                     ) : (

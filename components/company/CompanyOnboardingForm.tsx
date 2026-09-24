@@ -77,7 +77,7 @@ export default function CompanyOnboardingForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
           placeholder="NurTech"
         />
       </div>
@@ -87,7 +87,7 @@ export default function CompanyOnboardingForm() {
         <select
           value={industry}
           onChange={(e) => setIndustry(e.target.value)}
-          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-3 py-2 text-sm"
         >
           <option value="">Выберите отрасль…</option>
           {INDUSTRIES.map((i) => (
@@ -103,7 +103,7 @@ export default function CompanyOnboardingForm() {
         <input
           value={website}
           onChange={(e) => setWebsite(e.target.value)}
-          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
           placeholder="https://example.com"
         />
       </div>
@@ -114,7 +114,7 @@ export default function CompanyOnboardingForm() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={4}
-          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
           placeholder="Чем занимается компания, какие продукты или услуги предлагает…"
         />
       </div>

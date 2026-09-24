@@ -42,7 +42,7 @@ export default function ImproveTextButton({
         type="button"
         onClick={handleClick}
         disabled={loading || !text.trim()}
-        className="text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-white disabled:opacity-40 disabled:no-underline"
+        className="text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-paper disabled:opacity-40 disabled:no-underline"
       >
         {loading ? "Улучшаем…" : "✨ Улучшить с ИИ"}
       </button>

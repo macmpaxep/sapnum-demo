@@ -40,9 +40,9 @@ export default function TopBar() {
   }
 
   return (
-    <header className="sticky top-0 z-10 border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
+    <header className="sticky top-0 z-10 border-b border-neutral-200 bg-white dark:border-line dark:bg-ink">
       <div className="mx-auto flex max-w-[1400px] items-center gap-8 px-6 py-3">
-        <Link href="/feed" className="font-display text-base font-bold tracking-tight text-neutral-900 dark:text-neutral-50 dark:text-white">
+        <Link href="/feed" className="font-display text-base font-bold tracking-tight text-neutral-900 dark:text-paper dark:text-paper">
           SAPNUM
         </Link>
 
@@ -56,8 +56,8 @@ export default function TopBar() {
                 href={tab.href}
                 className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
                   active
-                    ? "bg-neutral-100 font-medium text-neutral-900 dark:bg-neutral-800 dark:text-white"
-                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white dark:text-neutral-400 dark:hover:text-white"
+                    ? "bg-neutral-100 font-medium text-neutral-900 dark:bg-line dark:text-paper"
+                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper dark:text-neutral-400 dark:hover:text-paper"
                 }`}
               >
                 {tab.label}
@@ -70,7 +70,7 @@ export default function TopBar() {
           <ThemeToggle className="hidden md:block" />
 
           {!loading && user && (
-            <nav className="hidden md:flex items-center gap-1 border-r border-neutral-200 dark:border-neutral-800 pr-4 mr-1 dark:border-neutral-800">
+            <nav className="hidden md:flex items-center gap-1 border-r border-neutral-200 dark:border-line pr-4 mr-1 dark:border-line">
               {personalTabs.map((tab) => {
                 const active = pathname === tab.href;
                 return (
@@ -79,8 +79,8 @@ export default function TopBar() {
                     href={tab.href}
                     className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
                       active
-                        ? "bg-neutral-100 dark:bg-neutral-800 font-medium text-neutral-900 dark:text-neutral-50"
-                        : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+                        ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper"
+                        : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper"
                     }`}
                   >
                     {tab.label}
@@ -95,7 +95,7 @@ export default function TopBar() {
               <CreateMenu companySlug={companySlug} />
             </div>
           ) : (
-            <Link href="/login" aria-label="Создать" className="hidden md:block hover:text-neutral-900 dark:hover:text-white">
+            <Link href="/login" aria-label="Создать" className="hidden md:block hover:text-neutral-900 dark:hover:text-paper">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
                 <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.6" />
@@ -108,7 +108,7 @@ export default function TopBar() {
           {!loading && !user && (
             <Link
               href="/login"
-              className="hidden md:block rounded-md border border-neutral-300 dark:border-neutral-700 px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600"
+              className="hidden md:block rounded-md border border-neutral-300 dark:border-line px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute"
             >
               Войти
             </Link>
@@ -143,14 +143,14 @@ export default function TopBar() {
 
       {/* Мобильное меню */}
       {menuOpen && (
-        <div className="md:hidden border-t border-neutral-100 bg-white px-4 py-3 flex flex-col gap-1 dark:border-neutral-800 dark:bg-neutral-950">
-          <div className="flex items-center justify-between px-3 pb-2 mb-1 border-b border-neutral-100 dark:border-neutral-800 dark:border-neutral-800">
+        <div className="md:hidden border-t border-neutral-100 bg-white px-4 py-3 flex flex-col gap-1 dark:border-line dark:bg-ink">
+          <div className="flex items-center justify-between px-3 pb-2 mb-1 border-b border-neutral-100 dark:border-line dark:border-line">
             <span className="text-[11px] font-medium uppercase tracking-wide text-neutral-400 dark:text-neutral-500">Тема</span>
             <ThemeToggle />
           </div>
 
           {!loading && user && (
-            <div className="mb-1 border-b border-neutral-100 dark:border-neutral-800 pb-2 dark:border-neutral-800">
+            <div className="mb-1 border-b border-neutral-100 dark:border-line pb-2 dark:border-line">
               <div className="px-3 pb-1 text-[11px] font-medium uppercase tracking-wide text-neutral-400 dark:text-neutral-500">Личное</div>
               {personalTabs.map((tab) => {
                 const active = pathname === tab.href;
@@ -161,7 +161,7 @@ export default function TopBar() {
                     onClick={() => setMenuOpen(false)}
                     className={`block rounded-md px-3 py-2 text-sm transition-colors ${
                       active
-                        ? "bg-neutral-100 dark:bg-neutral-800 font-medium text-neutral-900 dark:text-neutral-50"
+                        ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper"
                         : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
                     }`}
                   >
@@ -181,8 +181,8 @@ export default function TopBar() {
                 onClick={() => setMenuOpen(false)}
                 className={`rounded-md px-3 py-2 text-sm transition-colors ${
                   active
-                    ? "bg-neutral-100 dark:bg-neutral-800 font-medium text-neutral-900 dark:text-neutral-50"
-                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+                    ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper"
+                    : "text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper"
                 }`}
               >
                 {tab.label}
@@ -191,7 +191,7 @@ export default function TopBar() {
           })}
 
           {!loading && user && (
-            <div className="mt-1 border-t border-neutral-100 dark:border-neutral-800 pt-1">
+            <div className="mt-1 border-t border-neutral-100 dark:border-line pt-1">
               <Link
                 href="/profile"
                 onClick={() => setMenuOpen(false)}
@@ -210,7 +210,7 @@ export default function TopBar() {
           )}
 
           {!loading && user && (
-            <div className="mt-1 border-t border-neutral-100 dark:border-neutral-800 pt-1">
+            <div className="mt-1 border-t border-neutral-100 dark:border-line pt-1">
               <Link
                 href="/feed"
                 onClick={() => setMenuOpen(false)}
@@ -228,7 +228,7 @@ export default function TopBar() {
             </div>
           )}
 
-          <div className="flex items-center justify-between px-3 pt-2 mt-1 border-t border-neutral-100 dark:border-neutral-800 text-neutral-500 dark:text-neutral-400">
+          <div className="flex items-center justify-between px-3 pt-2 mt-1 border-t border-neutral-100 dark:border-line text-neutral-500 dark:text-neutral-400">
             {!loading && !user && (
               <Link href="/login" onClick={() => setMenuOpen(false)} className="text-sm text-neutral-700 dark:text-neutral-300">
                 Войти

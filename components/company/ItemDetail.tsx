@@ -152,7 +152,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
           ) : (
             <button
               onClick={() => setEditing(true)}
-              className="border border-neutral-300 dark:border-neutral-700 px-4 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600"
+              className="border border-neutral-300 dark:border-line px-4 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute"
             >
               ✎ Редактировать
             </button>
@@ -165,21 +165,21 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
         <div className="space-y-2">
           {photos.length > 0 ? (
             <>
-              <div className="aspect-square w-full overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900">
+              <div className="mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-lg bg-neutral-50 dark:bg-panel">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={photos[Math.min(activePhoto, photos.length - 1)]}
                   alt={item.name}
-                  className="h-full w-full object-contain p-4"
+                  className="h-full w-full object-contain p-6"
                 />
               </div>
               {(photos.length > 1 || editing) && (
-                <div className="flex gap-2 overflow-x-auto">
+                <div className="mx-auto flex max-w-[420px] gap-2 overflow-x-auto">
                   {photos.map((url, idx) => (
                     <div key={url} className="relative shrink-0">
                       <button
                         onClick={() => setActivePhoto(idx)}
-                        className={`h-16 w-16 overflow-hidden border ${idx === activePhoto ? "border-neutral-900 dark:border-white" : "border-neutral-200 dark:border-neutral-800"}`}
+                        className={`h-16 w-16 overflow-hidden border ${idx === activePhoto ? "border-neutral-900 dark:border-white" : "border-neutral-200 dark:border-line"}`}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={url} alt="" className="h-full w-full object-cover" />
@@ -187,7 +187,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                       {editing && (
                         <button
                           onClick={() => removePhoto(idx)}
-                          className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[10px] text-neutral-600 dark:text-neutral-400"
+                          className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border border-neutral-300 dark:border-line bg-white dark:bg-panel text-[10px] text-neutral-600 dark:text-neutral-400"
                         >
                           ✕
                         </button>
@@ -198,7 +198,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                     <button
                       onClick={() => fileInputRef.current?.click()}
                       disabled={uploading}
-                      className="flex h-16 w-16 shrink-0 items-center justify-center border border-dashed border-neutral-300 dark:border-neutral-700 text-xs text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-neutral-600 disabled:opacity-40"
+                      className="flex h-16 w-16 shrink-0 items-center justify-center border border-dashed border-neutral-300 dark:border-line text-xs text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-mute disabled:opacity-40"
                     >
                       {uploading ? "…" : "+ Фото"}
                     </button>
@@ -211,7 +211,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploading}
-                className="flex aspect-square w-full items-center justify-center border border-dashed border-neutral-300 dark:border-neutral-700 text-sm text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-neutral-600"
+                className="mx-auto flex aspect-square w-full max-w-[420px] items-center justify-center border border-dashed border-neutral-300 dark:border-line text-sm text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-mute"
               >
                 {uploading ? "Загрузка…" : "+ Добавить фото"}
               </button>
@@ -223,12 +223,12 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
         {/* Информация */}
         <div className="space-y-5">
           <div>
-            <span className="inline-block border border-neutral-200 dark:border-neutral-800 px-2 py-0.5 text-[11px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+            <span className="inline-block border border-neutral-200 dark:border-line px-2 py-0.5 text-[11px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
               {item.type === "product" ? "Товар" : "Услуга"}
             </span>
             <Link
               href={`/co/${item.companySlug}`}
-              className="ml-2 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:underline"
+              className="ml-2 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper hover:underline"
             >
               {item.companyName}
             </Link>
@@ -240,7 +240,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Название"
-                className="block w-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-xl font-semibold"
+                className="block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-3 py-2 text-xl font-semibold"
               />
 
               <label className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
@@ -252,7 +252,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                   value={priceText}
                   onChange={(e) => setPriceText(e.target.value)}
                   placeholder="Цена (напр. от 12 000 ₸)"
-                  className="block w-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm"
+                  className="block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-3 py-2 text-sm"
                 />
               )}
 
@@ -262,7 +262,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                   onChange={(e) => setDescription(e.target.value)}
                   rows={6}
                   placeholder="Описание, характеристики, условия"
-                  className="block w-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm"
+                  className="block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-3 py-2 text-sm"
                 />
                 {description.trim() && (
                   <div className="mt-1 text-right">
@@ -280,13 +280,13 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                         value={spec.label}
                         onChange={(e) => updateSpec(idx, "label", e.target.value)}
                         placeholder="Параметр"
-                        className="w-1/2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-2 py-1.5 text-xs"
+                        className="w-1/2 border border-neutral-300 dark:border-line bg-white dark:bg-panel px-2 py-1.5 text-xs"
                       />
                       <input
                         value={spec.value}
                         onChange={(e) => updateSpec(idx, "value", e.target.value)}
                         placeholder="Значение"
-                        className="w-1/2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-2 py-1.5 text-xs"
+                        className="w-1/2 border border-neutral-300 dark:border-line bg-white dark:bg-panel px-2 py-1.5 text-xs"
                       />
                       {specs.length > 2 && (
                         <button
@@ -301,7 +301,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                 </div>
                 <button
                   onClick={addSpecRow}
-                  className="mt-1.5 text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-white"
+                  className="mt-1.5 text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-paper"
                 >
                   + Добавить характеристику
                 </button>
@@ -312,8 +312,8 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
           ) : (
             <>
               <div>
-                <h1 className="text-2xl font-semibold leading-tight text-neutral-900 dark:text-neutral-50">{item.name}</h1>
-                <div className="mt-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-50">
+                <h1 className="text-2xl font-semibold leading-tight text-neutral-900 dark:text-paper">{item.name}</h1>
+                <div className="mt-2 text-2xl font-semibold text-neutral-900 dark:text-paper">
                   {item.priceOnRequest ? (
                     <span className="text-lg font-medium text-neutral-500 dark:text-neutral-400">Цена по запросу</span>
                   ) : (
@@ -339,11 +339,11 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               )}
 
               {item.specs.length > 0 && (
-                <div className="grid grid-cols-2 gap-px overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800">
+                <div className="grid grid-cols-2 gap-px overflow-hidden border border-neutral-200 dark:border-line bg-neutral-200 dark:bg-line">
                   {item.specs.map((s, idx) => (
-                    <div key={idx} className="bg-white dark:bg-neutral-900 p-3">
+                    <div key={idx} className="bg-white dark:bg-panel p-3">
                       <div className="text-[11px] uppercase tracking-wide text-neutral-400 dark:text-neutral-500">{s.label}</div>
-                      <div className="mt-0.5 text-sm font-medium text-neutral-900 dark:text-neutral-50">{s.value}</div>
+                      <div className="mt-0.5 text-sm font-medium text-neutral-900 dark:text-paper">{s.value}</div>
                     </div>
                   ))}
                 </div>

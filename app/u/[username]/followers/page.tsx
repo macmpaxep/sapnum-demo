@@ -12,14 +12,14 @@ export default async function FollowersPage({ params }: { params: Promise<{ user
 
   return (
     <div>
-      <Link href={`/u/${username}`} className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">
+      <Link href={`/u/${username}`} className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper">
         ← {profile.displayName}
       </Link>
-      <h1 className="mt-2 text-lg font-semibold text-neutral-900 dark:text-neutral-50">Подписчики</h1>
+      <h1 className="mt-2 text-lg font-semibold text-neutral-900 dark:text-paper">Подписчики</h1>
 
       {followers.length === 0 && <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">Пока никто не подписан.</p>}
 
-      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200 dark:border-neutral-800">
+      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200 dark:border-line">
         {followers.map((p) => (
           <PersonRow key={p.id} person={p} />
         ))}

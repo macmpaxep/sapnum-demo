@@ -30,7 +30,7 @@ export default function TopicsSidebar() {
   }
 
   return (
-    <aside className="border border-neutral-200 dark:border-neutral-800">
+    <aside className="border border-neutral-200 dark:border-line">
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between px-4 py-3 text-left"
@@ -56,13 +56,13 @@ export default function TopicsSidebar() {
       </button>
 
       {open && (
-        <ul className="border-t border-neutral-100 dark:border-neutral-800 px-4 pb-3 pt-1 space-y-1">
+        <ul className="border-t border-neutral-100 dark:border-line px-4 pb-3 pt-1 space-y-1">
           <li>
             <Link
               href="/feed"
               onClick={handleSelect}
               className={`block rounded px-2 py-1.5 text-sm ${
-                !activeTopic ? "bg-neutral-100 dark:bg-neutral-800 font-medium text-neutral-900 dark:text-neutral-50" : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                !activeTopic ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper" : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
               }`}
             >
               Все темы
@@ -74,7 +74,7 @@ export default function TopicsSidebar() {
                 href={`/feed?topic=${encodeURIComponent(topic)}`}
                 onClick={handleSelect}
                 className={`block rounded px-2 py-1.5 text-sm ${
-                  activeTopic === topic ? "bg-neutral-100 dark:bg-neutral-800 font-medium text-neutral-900 dark:text-neutral-50" : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                  activeTopic === topic ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper" : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
                 }`}
               >
                 {topic}

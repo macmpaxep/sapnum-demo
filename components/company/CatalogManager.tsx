@@ -193,24 +193,24 @@ export default function CatalogManager({
           {!open ? (
             <button
               onClick={() => setOpen(true)}
-              className="border border-neutral-300 dark:border-neutral-700 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600"
+              className="border border-neutral-300 dark:border-line px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute"
             >
               + Добавить товар / услугу
             </button>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-3 border border-neutral-200 dark:border-neutral-800 p-4">
+            <form onSubmit={handleSubmit} className="space-y-3 border border-neutral-200 dark:border-line p-4">
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={() => setType("product")}
-                  className={`border px-3 py-1.5 text-xs ${type === "product" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400"}`}
+                  className={`border px-3 py-1.5 text-xs ${type === "product" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}
                 >
                   Товар
                 </button>
                 <button
                   type="button"
                   onClick={() => setType("service")}
-                  className={`border px-3 py-1.5 text-xs ${type === "service" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400"}`}
+                  className={`border px-3 py-1.5 text-xs ${type === "service" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}
                 >
                   Услуга
                 </button>
@@ -221,7 +221,7 @@ export default function CatalogManager({
                 onChange={(e) => setName(e.target.value)}
                 required
                 placeholder="Название"
-                className="block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
+                className="block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
               />
               <label className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
                 <input type="checkbox" checked={priceOnRequest} onChange={(e) => setPriceOnRequest(e.target.checked)} />
@@ -232,7 +232,7 @@ export default function CatalogManager({
                   value={priceText}
                   onChange={(e) => setPriceText(e.target.value)}
                   placeholder="Цена (напр. от 12 000 ₸)"
-                  className="block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
+                  className="block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
                 />
               )}
               <div>
@@ -241,7 +241,7 @@ export default function CatalogManager({
                   onChange={(e) => setDescription(e.target.value)}
                   rows={2}
                   placeholder="Описание"
-                  className="block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
+                  className="block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
                 />
                 {description.trim() && (
                   <div className="mt-1 text-right">
@@ -260,13 +260,13 @@ export default function CatalogManager({
                         value={spec.label}
                         onChange={(e) => updateSpec(idx, "label", e.target.value)}
                         placeholder="Параметр (напр. Материал)"
-                        className="w-1/2 border border-neutral-300 dark:border-neutral-700 px-2 py-1.5 text-xs"
+                        className="w-1/2 border border-neutral-300 dark:border-line px-2 py-1.5 text-xs"
                       />
                       <input
                         value={spec.value}
                         onChange={(e) => updateSpec(idx, "value", e.target.value)}
                         placeholder="Значение (напр. Нержавеющая сталь)"
-                        className="w-1/2 border border-neutral-300 dark:border-neutral-700 px-2 py-1.5 text-xs"
+                        className="w-1/2 border border-neutral-300 dark:border-line px-2 py-1.5 text-xs"
                       />
                       {specs.length > 2 && (
                         <button
@@ -283,7 +283,7 @@ export default function CatalogManager({
                 <button
                   type="button"
                   onClick={addSpecRow}
-                  className="mt-1.5 text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-white"
+                  className="mt-1.5 text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-paper"
                 >
                   + Добавить характеристику
                 </button>
@@ -315,11 +315,11 @@ export default function CatalogManager({
                     {extraFiles.map((f, idx) => (
                       <div key={`${f.name}-${idx}`} className="relative">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={URL.createObjectURL(f)} alt="" className="h-14 w-14 border border-neutral-200 dark:border-neutral-800 object-cover" />
+                        <img src={URL.createObjectURL(f)} alt="" className="h-14 w-14 border border-neutral-200 dark:border-line object-cover" />
                         <button
                           type="button"
                           onClick={() => removeExtraFile(idx)}
-                          className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-[10px] text-neutral-600 dark:text-neutral-400"
+                          className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-neutral-300 dark:border-line bg-white dark:bg-panel text-[10px] text-neutral-600 dark:text-neutral-400"
                         >
                           ✕
                         </button>
@@ -358,18 +358,18 @@ export default function CatalogManager({
         if (list.length === 0) return null;
         return (
           <div key={label}>
-            <h3 className="mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-50">{label}</h3>
+            <h3 className="mb-2 text-sm font-medium text-neutral-900 dark:text-paper">{label}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {list.map((item) => (
                 <div key={item.id} className="group relative text-center">
                   <Link href={`/item/${item.id}`}>
                     {item.imageUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={item.imageUrl} alt="" className="aspect-square w-full border border-neutral-200 dark:border-neutral-800 object-cover" />
+                      <img src={item.imageUrl} alt="" className="aspect-square w-full border border-neutral-200 dark:border-line object-cover" />
                     ) : (
-                      <div className="aspect-square border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900" />
+                      <div className="aspect-square border border-neutral-200 dark:border-line bg-neutral-50 dark:bg-panel" />
                     )}
-                    <div className="mt-2 text-xs font-medium text-neutral-900 dark:text-neutral-50">{item.name}</div>
+                    <div className="mt-2 text-xs font-medium text-neutral-900 dark:text-paper">{item.name}</div>
                     <div className="text-xs text-neutral-500 dark:text-neutral-400">
                       {item.priceOnRequest ? "Цена по запросу" : item.priceText}
                     </div>
@@ -377,7 +377,7 @@ export default function CatalogManager({
                   {canManage && (
                     <button
                       onClick={() => handleDelete(item.id)}
-                      className="absolute right-1 top-1 hidden h-6 w-6 items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-xs text-neutral-600 dark:text-neutral-400 group-hover:flex"
+                      className="absolute right-1 top-1 hidden h-6 w-6 items-center justify-center rounded-full border border-neutral-300 dark:border-line bg-white dark:bg-panel text-xs text-neutral-600 dark:text-neutral-400 group-hover:flex"
                       aria-label="Удалить"
                     >
                       ✕

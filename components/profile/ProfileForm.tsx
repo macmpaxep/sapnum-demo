@@ -95,7 +95,7 @@ export default function ProfileForm({ user, bio: initialBio }: { user: CurrentUs
     <div className="space-y-6">
       <div className="flex items-center gap-4">
         <Avatar initials={initials} size={64} imageUrl={avatarUrl ?? undefined} />
-        <label className="cursor-pointer border border-neutral-300 dark:border-neutral-700 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600">
+        <label className="cursor-pointer border border-neutral-300 dark:border-line px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute">
           {uploading ? "Загрузка…" : "Изменить фото"}
           <input type="file" accept="image/*" onChange={handleAvatarChange} className="hidden" />
         </label>
@@ -106,7 +106,7 @@ export default function ProfileForm({ user, bio: initialBio }: { user: CurrentUs
         <div className="mt-1 flex flex-wrap gap-1.5">
           {user.roles.length === 0 && <span className="text-sm text-neutral-400 dark:text-neutral-500">—</span>}
           {user.roles.map((r) => (
-            <span key={r} className="border border-neutral-200 dark:border-neutral-800 px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+            <span key={r} className="border border-neutral-200 dark:border-line px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-400">
               {ROLE_LABELS[r]}
             </span>
           ))}
@@ -123,7 +123,7 @@ export default function ProfileForm({ user, bio: initialBio }: { user: CurrentUs
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
             required
-            className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
+            className="mt-1 block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
           />
         </div>
 
@@ -133,7 +133,7 @@ export default function ProfileForm({ user, bio: initialBio }: { user: CurrentUs
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
+            className="mt-1 block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
           />
         </div>
 
@@ -143,7 +143,7 @@ export default function ProfileForm({ user, bio: initialBio }: { user: CurrentUs
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             rows={3}
-            className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
+            className="mt-1 block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
             placeholder="Пара слов о том, чем вы занимаетесь"
           />
         </div>

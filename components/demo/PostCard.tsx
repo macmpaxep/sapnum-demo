@@ -171,7 +171,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
   return (
     <article
       onClick={handleCardClick}
-      className={`border border-neutral-200 dark:border-neutral-800 p-4 ${linkToPost ? "cursor-pointer" : ""}`}
+      className={`border border-neutral-200 dark:border-line p-4 ${linkToPost ? "cursor-pointer" : ""}`}
     >
       <div className="flex items-center gap-3">
         {post.authorUsername ? (
@@ -183,11 +183,11 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
         )}
         <div className="min-w-0 flex-1">
           {post.authorUsername ? (
-            <Link href={`/u/${post.authorUsername}`} className="text-sm font-medium text-neutral-900 dark:text-neutral-50 hover:underline">
+            <Link href={`/u/${post.authorUsername}`} className="text-sm font-medium text-neutral-900 dark:text-paper hover:underline">
               {post.author}
             </Link>
           ) : (
-            <div className="text-sm font-medium text-neutral-900 dark:text-neutral-50">{post.author}</div>
+            <div className="text-sm font-medium text-neutral-900 dark:text-paper">{post.author}</div>
           )}
           <div className="truncate text-xs text-neutral-500 dark:text-neutral-400">
             {post.companySlug ? (
@@ -213,7 +213,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
               •••
             </button>
             {menuOpen && (
-              <div className="absolute right-0 top-[calc(100%+4px)] z-20 w-48 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 py-1 text-left shadow-lg">
+              <div className="absolute right-0 top-[calc(100%+4px)] z-20 w-48 border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 text-left shadow-lg">
                 <button
                   onClick={() => {
                     toggleSave();
@@ -257,7 +257,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
             rows={3}
-            className="block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
+            className="block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
           />
           <div className="flex gap-2">
             <button onClick={submitEdit} className="border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-xs text-white">
@@ -282,33 +282,33 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
         <div className="mt-3 grid grid-cols-1 gap-2">
           {post.mediaUrls.map((url) => (
             // eslint-disable-next-line @next/next/no-img-element
-            <img key={url} src={url} alt="" className="max-h-96 w-full border border-neutral-100 dark:border-neutral-800 object-cover" />
+            <img key={url} src={url} alt="" className="max-h-96 w-full border border-neutral-100 dark:border-line object-cover" />
           ))}
         </div>
       )}
 
       {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
 
-      <div className="mt-3 flex items-center gap-5 border-t border-neutral-100 dark:border-neutral-800 pt-3 text-xs text-neutral-500 dark:text-neutral-400">
+      <div className="mt-3 flex items-center gap-5 border-t border-neutral-100 dark:border-line pt-3 text-xs text-neutral-500 dark:text-neutral-400">
         <button
           onClick={toggleLike}
-          className={`flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white ${liked ? "text-neutral-900 dark:text-neutral-50 font-medium" : ""}`}
+          className={`flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-paper ${liked ? "text-neutral-900 dark:text-paper font-medium" : ""}`}
         >
           ♥ {likeCount > 0 ? likeCount : ""} Нравится
         </button>
-        <button onClick={loadComments} className="flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white">
+        <button onClick={loadComments} className="flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-paper">
           💬 {commentCount > 0 ? commentCount : ""} Комментировать
         </button>
         <button
           onClick={handleRepost}
           disabled={reposted}
-          className={`flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white ${reposted ? "text-neutral-900 dark:text-neutral-50 font-medium" : ""}`}
+          className={`flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-paper ${reposted ? "text-neutral-900 dark:text-paper font-medium" : ""}`}
         >
           ⟲ {repostCount > 0 ? repostCount : ""} {reposted ? "Репостнуто" : "Репост"}
         </button>
         <button
           onClick={toggleSave}
-          className={`ml-auto flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white ${saved ? "text-neutral-900 dark:text-neutral-50 font-medium" : ""}`}
+          className={`ml-auto flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-paper ${saved ? "text-neutral-900 dark:text-paper font-medium" : ""}`}
         >
           {saved ? "Сохранено" : "Сохранить"}
         </button>
@@ -316,10 +316,10 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
 
 
       {showComments && (
-        <div className="mt-3 space-y-2 border-t border-neutral-100 dark:border-neutral-800 pt-3">
+        <div className="mt-3 space-y-2 border-t border-neutral-100 dark:border-line pt-3">
           {comments?.map((c) => (
             <div key={c.id} className="text-xs">
-              <span className="font-medium text-neutral-900 dark:text-neutral-50">{c.profiles?.display_name ?? "Пользователь"}</span>{" "}
+              <span className="font-medium text-neutral-900 dark:text-paper">{c.profiles?.display_name ?? "Пользователь"}</span>{" "}
               <span className="text-neutral-600 dark:text-neutral-400">{c.body}</span>
             </div>
           ))}
@@ -328,7 +328,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Написать комментарий…"
-              className="flex-1 border border-neutral-200 dark:border-neutral-800 px-2 py-1.5 text-xs outline-none focus:border-neutral-400"
+              className="flex-1 border border-neutral-200 dark:border-line px-2 py-1.5 text-xs outline-none focus:border-neutral-400"
             />
             <button type="submit" className="border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-xs text-white">
               Отправить
