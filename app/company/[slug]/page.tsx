@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import ApplicationForm from "@/components/company/ApplicationForm";
 import ApplicationRow from "@/components/company/ApplicationRow";
 import MessageButton from "@/components/company/MessageButton";
+import CopyCompanyLink from "@/components/company/CopyCompanyLink";
 import CatalogManager from "@/components/company/CatalogManager";
 import { getCurrentUser } from "@/lib/auth";
 import { getCompanyBySlug, getCompanyPosts, getCompanyApplications } from "@/lib/companies";
@@ -42,11 +43,10 @@ export default async function CompanyPage({
             )}
           </div>
 
-          {!isOwnProfile && (
-            <div className="flex gap-2">
-              <MessageButton otherUserId={company.ownerId} />
-            </div>
-          )}
+          <div className="flex gap-2">
+            {!isOwnProfile && <MessageButton otherUserId={company.ownerId} />}
+            <CopyCompanyLink slug={slug} />
+          </div>
         </div>
 
         {company.description && <p className="mt-4 text-sm leading-relaxed text-neutral-700">{company.description}</p>}
