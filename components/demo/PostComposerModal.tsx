@@ -31,8 +31,28 @@ export default function PostComposerModal() {
   const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [viewportHeight, setViewportHeight] = useState<number | null>(null);
 
   useEffect(() => listenForComposerOpen(() => setOpen(true)), []);
+
+  // iOS/Android don't shrink the layout viewport when the keyboard opens —
+  // only the visual viewport shrinks — so a plain 100dvh modal ends up with
+  // its footer hidden behind the keyboard. Tracking visualViewport.height
+  // and sizing the modal to it keeps the "Опубликовать" button pinned just
+  // above the keyboard, like Threads' own compose sheet.
+  useEffect(() => {
+    if (!open || typeof window === "undefined" || !window.visualViewport || window.innerWidth >= 640) return;
+    const vv = window.visualViewport;
+    function update() {
+      setViewportHeight(vv!.height);
+    }
+    update();
+    vv.addEventListener("resize", update);
+    return () => {
+      vv.removeEventListener("resize", update);
+      setViewportHeight(null);
+    };
+  }, [open]);
 
   // Registering the textarea lets openComposer() call .focus() synchronously
   // inside the triggering click, which is what actually raises the iOS
@@ -181,6 +201,7 @@ export default function PostComposerModal() {
       className={`fixed inset-0 z-[60] flex items-end justify-center bg-black/50 transition-opacity duration-200 sm:items-center ${
         open ? "opacity-100" : "pointer-events-none opacity-0"
       }`}
+      style={viewportHeight ? { height: viewportHeight } : undefined}
       onClick={close}
       aria-hidden={!open}
     >
@@ -190,6 +211,7 @@ export default function PostComposerModal() {
         className={`flex h-[92vh] w-full flex-col rounded-t-xl bg-white dark:bg-ink transition-transform duration-200 sm:h-auto sm:max-h-[85vh] sm:w-full sm:max-w-2xl sm:translate-y-0 sm:rounded-xl sm:border sm:border-neutral-200 sm:dark:border-line ${
           open ? "translate-y-0" : "translate-y-full"
         }`}
+        style={viewportHeight ? { height: viewportHeight * 0.94 } : undefined}
       >
         <div className="flex items-center justify-between border-b border-neutral-200 dark:border-line px-4 py-3">
           <button type="button" onClick={close} className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -210,7 +232,7 @@ export default function PostComposerModal() {
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Что нового?"
                 rows={4}
-                className="mt-2 block w-full resize-none rounded-lg border-0 bg-neutral-50 dark:bg-panel p-3 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
               />
 
               {imagePreview && (
@@ -291,7 +313,7 @@ export default function PostComposerModal() {
                   onChange={(e) => updateThreadPart(i, e.target.value)}
                   placeholder="Дополните ветку"
                   rows={2}
-                  className="block w-full resize-none rounded-lg border-0 bg-neutral-50 dark:bg-panel p-3 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                  className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                 />
               </div>
               <button
@@ -308,7 +330,8 @@ export default function PostComposerModal() {
           <button
             type="button"
             onClick={addThreadPart}
-            className="relative mt-3 flex items-center gap-3.5 pt-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper"
+            disabled={!text.trim()}
+            className="relative mt-3 flex items-center gap-3.5 pt-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:text-neutral-500 dark:disabled:hover:text-neutral-400"
           >
             <span className="absolute left-[17px] top-0 h-3 w-px bg-neutral-200 dark:bg-line" />
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-dashed border-neutral-300 dark:border-line">+</span>
