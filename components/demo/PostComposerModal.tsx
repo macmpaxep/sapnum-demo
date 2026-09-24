@@ -163,10 +163,10 @@ export default function PostComposerModal() {
           <span className="w-12" />
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-3">
-          <div className="flex items-start gap-3">
+        <div className="flex-1 overflow-y-auto px-5 py-4">
+          <div className="flex items-start gap-3.5">
             <Avatar initials={initials} imageUrl={user.avatarUrl ?? undefined} />
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0 flex-1 pt-0.5">
               <div className="text-sm font-medium text-neutral-900 dark:text-paper">{user.username}</div>
               <textarea
                 ref={textareaRef}
@@ -174,7 +174,7 @@ export default function PostComposerModal() {
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Что нового?"
                 rows={4}
-                className="mt-1 block w-full resize-none border-0 bg-transparent p-0 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
               />
 
               {imagePreview && (
@@ -202,22 +202,40 @@ export default function PostComposerModal() {
                 <label
                   htmlFor="modal-post-image-input"
                   aria-label="Фото"
-                  className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-neutral-200 dark:border-line hover:border-neutral-400 dark:hover:border-mute"
+                  className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-neutral-200 dark:border-line text-neutral-500 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-mute hover:text-neutral-900 dark:hover:text-paper"
                 >
-                  🖼
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="4" width="18" height="16" rx="2.5" stroke="currentColor" strokeWidth="1.6" />
+                    <circle cx="8.5" cy="9.5" r="1.5" stroke="currentColor" strokeWidth="1.6" />
+                    <path d="M21 15.5l-5.5-5-9 8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </label>
-                <select
-                  value={topic}
-                  onChange={(e) => setTopic(e.target.value)}
-                  className="rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel px-2 py-1.5 text-xs text-neutral-600 dark:text-neutral-400"
-                >
-                  <option value="">Без темы</option>
-                  {topics.map((t) => (
-                    <option key={t} value={t}>
-                      {t}
-                    </option>
-                  ))}
-                </select>
+                <div className="relative flex h-9 items-center rounded-full border border-neutral-200 dark:border-line pl-2.5 pr-6 hover:border-neutral-400 dark:hover:border-mute">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="shrink-0">
+                    <path
+                      d="M4 4h7l9 9-7 7-9-9V4z"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinejoin="round"
+                    />
+                    <circle cx="8" cy="8" r="1.3" fill="currentColor" />
+                  </svg>
+                  <select
+                    value={topic}
+                    onChange={(e) => setTopic(e.target.value)}
+                    className="ml-1.5 appearance-none border-0 bg-transparent pr-2 text-xs text-neutral-600 dark:text-neutral-400 outline-none"
+                  >
+                    <option value="">Выберите тему</option>
+                    {topics.map((t) => (
+                      <option key={t} value={t}>
+                        {t}
+                      </option>
+                    ))}
+                  </select>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="pointer-events-none absolute right-2">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
               </div>
 
               {qualityWarning && (
@@ -228,11 +246,11 @@ export default function PostComposerModal() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between border-t border-neutral-200 dark:border-line px-4 py-3">
+        <div className="flex items-center justify-end gap-2 border-t border-neutral-200 dark:border-line px-4 py-3 sm:justify-between">
           <Link
             href={companySlug ? `/co/${companySlug}?add=1` : "/co/new"}
             onClick={close}
-            className="text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-paper"
+            className="hidden shrink-0 rounded-lg bg-neutral-100 dark:bg-line px-3 py-2 text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-mute/30 sm:inline-block"
           >
             Опубликовать товар/услугу →
           </Link>
