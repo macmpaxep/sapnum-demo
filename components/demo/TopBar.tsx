@@ -40,7 +40,7 @@ export default function TopBar() {
   }
 
   return (
-    <header className="sticky top-0 z-10 border-b border-neutral-200 bg-white dark:border-line dark:bg-ink">
+    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white dark:border-line dark:bg-ink">
       <div className="mx-auto flex max-w-[1400px] items-center gap-8 px-6 py-3">
         <Link href="/feed" className="font-display text-base font-bold tracking-tight text-neutral-900 dark:text-paper dark:text-paper">
           SAPNUM
