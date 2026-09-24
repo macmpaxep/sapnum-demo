@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Avatar from "./Avatar";
 import type { FeedPost } from "@/lib/queries";
 
 type Comment = { id: string; body: string; created_at: string; profiles: { display_name: string } | null };
+
+const EDIT_WINDOW_MS = 15 * 60 * 1000;
 
 export default function PostCard({ post }: { post: FeedPost }) {
   const [liked, setLiked] = useState(post.likedByMe);
@@ -17,6 +20,24 @@ export default function PostCard({ post }: { post: FeedPost }) {
   const [commentCount, setCommentCount] = useState(post.commentCount);
   const [reposted, setReposted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editText, setEditText] = useState(post.content);
+  const [content, setContent] = useState(post.content);
+  const [deleted, setDeleted] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  const canEdit = post.isMine && Date.now() - new Date(post.createdAt).getTime() < EDIT_WINDOW_MS;
+
+  useEffect(() => {
+    function onClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenuOpen(false);
+    }
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
 
   async function toggleLike() {
     const next = !liked;
@@ -83,6 +104,61 @@ export default function PostCard({ post }: { post: FeedPost }) {
     }
   }
 
+  function copyLink() {
+    const url = `${window.location.origin}/feed?post=${post.id}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    });
+    setMenuOpen(false);
+  }
+
+  async function handleShare() {
+    const url = `${window.location.origin}/feed?post=${post.id}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ url, text: content.slice(0, 100) });
+      } catch {
+        // user cancelled share sheet — no-op
+      }
+    } else {
+      copyLink();
+    }
+    setMenuOpen(false);
+  }
+
+  async function submitEdit() {
+    const text = editText.trim();
+    if (!text) return;
+    const res = await fetch(`/api/posts/${post.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok) {
+      setContent(text);
+      setEditing(false);
+    } else {
+      setError(data.error ?? "Не удалось сохранить изменения");
+    }
+  }
+
+  async function handleDelete() {
+    if (!confirm("Удалить запись?")) return;
+    const res = await fetch(`/api/posts/${post.id}`, { method: "DELETE" });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok) {
+      setDeleted(true);
+      router.refresh();
+    } else {
+      setError(data.error ?? "Не удалось удалить запись");
+    }
+    setMenuOpen(false);
+  }
+
+  if (deleted) return null;
+
   return (
     <article className="border border-neutral-200 p-4">
       <div className="flex items-center gap-3">
@@ -101,15 +177,94 @@ export default function PostCard({ post }: { post: FeedPost }) {
           ) : (
             <div className="text-sm font-medium text-neutral-900">{post.author}</div>
           )}
-          <div className="truncate text-xs text-neutral-500">{post.role}</div>
+          <div className="truncate text-xs text-neutral-500">
+            {post.companySlug ? (
+              <Link href={`/company/${post.companySlug}`} className="hover:underline hover:text-neutral-700">
+                {post.role}
+              </Link>
+            ) : (
+              post.role
+            )}
+          </div>
         </div>
-        <div className="shrink-0 text-right text-xs text-neutral-400">
-          <div>{post.topic}</div>
-          <div>{post.time}</div>
+        <div className="shrink-0 flex items-start gap-2 text-right text-xs text-neutral-400">
+          <div>
+            <div>{post.topic}</div>
+            <div>{post.time}</div>
+          </div>
+          <div className="relative" ref={menuRef}>
+            <button
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Ещё"
+              className="rounded-md px-1.5 py-1 text-neutral-400 hover:bg-neutral-50 hover:text-neutral-700"
+            >
+              •••
+            </button>
+            {menuOpen && (
+              <div className="absolute right-0 top-[calc(100%+4px)] z-20 w-48 border border-neutral-200 bg-white py-1 text-left shadow-lg">
+                <button
+                  onClick={() => {
+                    toggleSave();
+                    setMenuOpen(false);
+                  }}
+                  className="block w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50"
+                >
+                  {saved ? "Убрать из сохранённого" : "Сохранить"}
+                </button>
+                <button onClick={copyLink} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50">
+                  {copied ? "Ссылка скопирована" : "Скопировать ссылку"}
+                </button>
+                <button onClick={handleShare} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50">
+                  Поделиться
+                </button>
+                {canEdit && (
+                  <>
+                    <button
+                      onClick={() => {
+                        setEditing(true);
+                        setMenuOpen(false);
+                      }}
+                      className="block w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50"
+                    >
+                      Редактировать
+                    </button>
+                    <button onClick={handleDelete} className="block w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-neutral-50">
+                      Удалить
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      {post.content && <p className="mt-3 text-sm leading-relaxed text-neutral-700">{post.content}</p>}
+      {editing ? (
+        <div className="mt-3 space-y-2">
+          <textarea
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            rows={3}
+            className="block w-full border border-neutral-300 px-3 py-2 text-sm"
+          />
+          <div className="flex gap-2">
+            <button onClick={submitEdit} className="border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-xs text-white">
+              Сохранить
+            </button>
+            <button
+              onClick={() => {
+                setEditing(false);
+                setEditText(content);
+              }}
+              className="px-3 py-1.5 text-xs text-neutral-500"
+            >
+              Отмена
+            </button>
+          </div>
+        </div>
+      ) : (
+        content && <p className="mt-3 text-sm leading-relaxed text-neutral-700">{content}</p>
+      )}
 
       {post.mediaUrls.length > 0 && (
         <div className="mt-3 grid grid-cols-1 gap-2">

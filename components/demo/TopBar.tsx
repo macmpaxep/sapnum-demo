@@ -16,7 +16,6 @@ const baseTabs = [
   { label: "Каталог", href: "/catalog" },
   { label: "Люди", href: "/people" },
   { label: "Компании", href: "/companies" },
-  { label: "Сообщения", href: "/messages" },
 ];
 
 export default function TopBar() {
@@ -26,7 +25,11 @@ export default function TopBar() {
   const { user, loading } = useUser();
   const companySlug = useMyCompany(user?.id);
 
-  const tabs = companySlug ? [...baseTabs.slice(0, 1), { label: "Дашборд", href: "/dashboard" }, ...baseTabs.slice(1)] : baseTabs;
+  const tabs = baseTabs;
+  const personalTabs = [
+    ...(companySlug ? [{ label: "Дашборд", href: "/dashboard" }] : []),
+    { label: "Сообщения", href: "/messages" },
+  ];
 
   async function handleLogout() {
     const supabase = createSupabaseBrowserClient();
@@ -63,6 +66,27 @@ export default function TopBar() {
         </nav>
 
         <div className="ml-auto flex items-center gap-4 text-neutral-500">
+          {!loading && user && (
+            <nav className="hidden md:flex items-center gap-1 border-r border-neutral-200 pr-4 mr-1">
+              {personalTabs.map((tab) => {
+                const active = pathname === tab.href;
+                return (
+                  <Link
+                    key={tab.href}
+                    href={tab.href}
+                    className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
+                      active
+                        ? "bg-neutral-100 font-medium text-neutral-900"
+                        : "text-neutral-500 hover:text-neutral-900"
+                    }`}
+                  >
+                    {tab.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          )}
+
           {!loading && user ? (
             <div className="hidden md:block">
               <CreateMenu companySlug={companySlug} />
@@ -117,6 +141,29 @@ export default function TopBar() {
       {/* Мобильное меню */}
       {menuOpen && (
         <div className="md:hidden border-t border-neutral-100 bg-white px-4 py-3 flex flex-col gap-1">
+          {!loading && user && (
+            <div className="mb-1 border-b border-neutral-100 pb-2">
+              <div className="px-3 pb-1 text-[11px] font-medium uppercase tracking-wide text-neutral-400">Личное</div>
+              {personalTabs.map((tab) => {
+                const active = pathname === tab.href;
+                return (
+                  <Link
+                    key={tab.href}
+                    href={tab.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`block rounded-md px-3 py-2 text-sm transition-colors ${
+                      active
+                        ? "bg-neutral-100 font-medium text-neutral-900"
+                        : "text-neutral-700 hover:bg-neutral-50"
+                    }`}
+                  >
+                    {tab.label}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
           {tabs.map((tab) => {
             const active = pathname === tab.href;
             return (

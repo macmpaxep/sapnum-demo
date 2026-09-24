@@ -32,7 +32,37 @@ export default function CatalogManager({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [qualityWarning, setQualityWarning] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editPrice, setEditPrice] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [editError, setEditError] = useState<string | null>(null);
   const router = useRouter();
+
+  function startEdit(item: CatalogItem) {
+    setEditingId(item.id);
+    setEditName(item.name);
+    setEditPrice(item.priceText ?? "");
+    setEditDescription(item.description ?? "");
+    setEditError(null);
+  }
+
+  async function submitEdit(id: string) {
+    const name = editName.trim();
+    if (!name) return;
+    const res = await fetch(`/api/catalog/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, priceText: editPrice, description: editDescription }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok) {
+      setEditingId(null);
+      router.refresh();
+    } else {
+      setEditError(data.error ?? "Не удалось сохранить");
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -207,26 +237,72 @@ export default function CatalogManager({
           <div key={label}>
             <h3 className="mb-2 text-sm font-medium text-neutral-900">{label}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {list.map((item) => (
-                <div key={item.id} className="group relative text-center">
-                  {item.imageUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={item.imageUrl} alt="" className="aspect-square w-full border border-neutral-200 object-cover" />
-                  ) : (
-                    <div className="aspect-square border border-neutral-200 bg-neutral-50" />
-                  )}
-                  <div className="mt-2 text-xs font-medium text-neutral-900">{item.name}</div>
-                  {item.priceText && <div className="text-xs text-neutral-500">{item.priceText}</div>}
-                  {canManage && (
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      className="absolute right-1 top-1 hidden h-6 w-6 items-center justify-center rounded-full border border-neutral-300 bg-white text-xs text-neutral-600 group-hover:flex"
-                    >
-                      ✕
-                    </button>
-                  )}
-                </div>
-              ))}
+              {list.map((item) =>
+                editingId === item.id ? (
+                  <div key={item.id} className="col-span-2 sm:col-span-4 space-y-2 border border-neutral-300 p-3 text-left">
+                    <input
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                      placeholder="Название"
+                      className="block w-full border border-neutral-300 px-3 py-2 text-sm"
+                    />
+                    <input
+                      value={editPrice}
+                      onChange={(e) => setEditPrice(e.target.value)}
+                      placeholder="Цена"
+                      className="block w-full border border-neutral-300 px-3 py-2 text-sm"
+                    />
+                    <textarea
+                      value={editDescription}
+                      onChange={(e) => setEditDescription(e.target.value)}
+                      rows={2}
+                      placeholder="Описание"
+                      className="block w-full border border-neutral-300 px-3 py-2 text-sm"
+                    />
+                    {editError && <p className="text-xs text-red-600">{editError}</p>}
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => submitEdit(item.id)}
+                        className="border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-xs text-white"
+                      >
+                        Сохранить
+                      </button>
+                      <button onClick={() => setEditingId(null)} className="px-3 py-1.5 text-xs text-neutral-500">
+                        Отмена
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div key={item.id} className="group relative text-center">
+                    {item.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={item.imageUrl} alt="" className="aspect-square w-full border border-neutral-200 object-cover" />
+                    ) : (
+                      <div className="aspect-square border border-neutral-200 bg-neutral-50" />
+                    )}
+                    <div className="mt-2 text-xs font-medium text-neutral-900">{item.name}</div>
+                    {item.priceText && <div className="text-xs text-neutral-500">{item.priceText}</div>}
+                    {canManage && (
+                      <div className="absolute right-1 top-1 hidden gap-1 group-hover:flex">
+                        <button
+                          onClick={() => startEdit(item)}
+                          className="flex h-6 w-6 items-center justify-center rounded-full border border-neutral-300 bg-white text-xs text-neutral-600"
+                          aria-label="Редактировать"
+                        >
+                          ✎
+                        </button>
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          className="flex h-6 w-6 items-center justify-center rounded-full border border-neutral-300 bg-white text-xs text-neutral-600"
+                          aria-label="Удалить"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )
+              )}
             </div>
           </div>
         );

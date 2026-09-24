@@ -8,14 +8,18 @@ export type FeedPost = {
   authorUsername: string;
   author: string;
   role: string;
+  companyName: string | null;
+  companySlug: string | null;
   topic: string;
   time: string;
+  createdAt: string;
   content: string;
   mediaUrls: string[];
   likeCount: number;
   commentCount: number;
   likedByMe: boolean;
   savedByMe: boolean;
+  isMine: boolean;
 };
 
 function timeAgo(iso: string) {
@@ -36,14 +40,18 @@ function mockTextPosts(): FeedPost[] {
       authorUsername: "",
       author: p.author,
       role: p.role,
+      companyName: null,
+      companySlug: null,
       topic: p.topic,
       time: p.time,
+      createdAt: new Date().toISOString(),
       content: p.content,
       mediaUrls: [],
       likeCount: 0,
       commentCount: 0,
       likedByMe: false,
       savedByMe: false,
+      isMine: false,
     }));
 }
 
@@ -54,7 +62,7 @@ export async function getFeedPosts(filters?: { topic?: string; authorId?: string
   let query = supabase
     .from("posts")
     .select(
-      "id, author_id, body, media_urls, topic, created_at, profiles!posts_author_id_fkey(display_name, username), companies(name, industry), post_likes(user_id), post_comments(id)"
+      "id, author_id, body, media_urls, topic, created_at, profiles!posts_author_id_fkey(display_name, username), companies(name, industry, slug), post_likes(user_id), post_comments(id)"
     )
     .order("created_at", { ascending: false })
     .limit(50);
@@ -80,7 +88,7 @@ export async function getFeedPosts(filters?: { topic?: string; authorId?: string
 
   return data.map((post) => {
     const author = post.profiles as unknown as { display_name: string; username: string } | null;
-    const company = post.companies as unknown as { name: string; industry: string } | null;
+    const company = post.companies as unknown as { name: string; industry: string; slug: string } | null;
     const likes = (post.post_likes as unknown as { user_id: string }[]) ?? [];
     const comments = (post.post_comments as unknown as { id: string }[]) ?? [];
     return {
@@ -89,14 +97,18 @@ export async function getFeedPosts(filters?: { topic?: string; authorId?: string
       authorUsername: author?.username ?? "",
       author: author?.display_name ?? "Пользователь",
       role: company ? `${company.name} · ${company.industry}` : "Участник сообщества",
+      companyName: company?.name ?? null,
+      companySlug: company?.slug ?? null,
       topic: post.topic ?? (company ? "Кейсы" : "Инсайты"),
       time: timeAgo(post.created_at),
+      createdAt: post.created_at,
       content: post.body,
       mediaUrls: post.media_urls ?? [],
       likeCount: likes.length,
       commentCount: comments.length,
       likedByMe: viewer ? likes.some((l) => l.user_id === viewer.id) : false,
       savedByMe: savedPostIds.has(post.id),
+      isMine: viewer ? viewer.id === post.author_id : false,
     };
   });
 }

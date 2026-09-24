@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import Avatar from "@/components/demo/Avatar";
 import ThreadComposer from "@/components/messages/ThreadComposer";
+import MessageBubble from "@/components/messages/MessageBubble";
 import { getCurrentUser } from "@/lib/auth";
 import { getThread, markThreadRead } from "@/lib/messages";
 
@@ -26,22 +27,9 @@ export default async function ThreadPage({ params }: { params: Promise<{ id: str
       </div>
 
       <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
-        {messages.map((m) => {
-          const isMine = m.senderId === user.id;
-          return (
-            <div key={m.id} className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
-              <div
-                className={`max-w-[75%] px-3 py-2 text-sm ${
-                  isMine
-                    ? "bg-neutral-900 text-white"
-                    : "border border-neutral-200 text-neutral-700"
-                }`}
-              >
-                {m.body}
-              </div>
-            </div>
-          );
-        })}
+        {messages.map((m) => (
+          <MessageBubble key={m.id} id={m.id} body={m.body} isMine={m.senderId === user.id} createdAt={m.createdAt} />
+        ))}
         {messages.length === 0 && (
           <p className="text-center text-sm text-neutral-400">Сообщений пока нет</p>
         )}
