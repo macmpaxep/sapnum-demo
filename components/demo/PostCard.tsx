@@ -19,6 +19,7 @@ export default function PostCard({ post }: { post: FeedPost }) {
   const [commentText, setCommentText] = useState("");
   const [commentCount, setCommentCount] = useState(post.commentCount);
   const [reposted, setReposted] = useState(false);
+  const [repostCount, setRepostCount] = useState(post.repostCount);
   const [error, setError] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -69,6 +70,7 @@ export default function PostCard({ post }: { post: FeedPost }) {
     });
     if (res.ok) {
       setReposted(true);
+      setRepostCount((c) => c + 1);
     } else {
       setError("Войдите, чтобы репостить");
     }
@@ -105,7 +107,7 @@ export default function PostCard({ post }: { post: FeedPost }) {
   }
 
   function copyLink() {
-    const url = `${window.location.origin}/feed?post=${post.id}`;
+    const url = `${window.location.origin}/post/${post.id}`;
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
@@ -114,7 +116,7 @@ export default function PostCard({ post }: { post: FeedPost }) {
   }
 
   async function handleShare() {
-    const url = `${window.location.origin}/feed?post=${post.id}`;
+    const url = `${window.location.origin}/post/${post.id}`;
     if (navigator.share) {
       try {
         await navigator.share({ url, text: content.slice(0, 100) });
@@ -292,7 +294,7 @@ export default function PostCard({ post }: { post: FeedPost }) {
           disabled={reposted}
           className={`flex items-center gap-1.5 hover:text-neutral-900 ${reposted ? "text-neutral-900 font-medium" : ""}`}
         >
-          ⟲ {reposted ? "Репостнуто" : "Репост"}
+          ⟲ {repostCount > 0 ? repostCount : ""} {reposted ? "Репостнуто" : "Репост"}
         </button>
         <button
           onClick={toggleSave}
@@ -301,6 +303,8 @@ export default function PostCard({ post }: { post: FeedPost }) {
           {saved ? "Сохранено" : "Сохранить"}
         </button>
       </div>
+
+      {post.viewCount > 0 && <p className="mt-1.5 text-[11px] text-neutral-400">{post.viewCount} просмотров</p>}
 
       {showComments && (
         <div className="mt-3 space-y-2 border-t border-neutral-100 pt-3">
