@@ -18,11 +18,11 @@ export default function PersonRow({ person }: { person: DirectoryPerson }) {
     .join("");
 
   return (
-    <Link href={`/u/${person.username}`} className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
+    <Link href={`/u/${person.username}`} className="group flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-paper">
       <Avatar initials={initials} size={40} imageUrl={person.avatarUrl ?? undefined} />
       <div className="min-w-0 flex-1">
-        <div className="truncate text-sm font-medium text-neutral-900 dark:text-paper">{person.displayName}</div>
-        <div className="truncate text-xs text-neutral-500 dark:text-neutral-400">
+        <div className="truncate text-sm font-medium text-neutral-900 dark:text-paper dark:group-hover:text-ink">{person.displayName}</div>
+        <div className="truncate text-xs text-neutral-500 dark:text-neutral-400 dark:group-hover:text-ink">
           @{person.username}
           {person.roles.length > 0 && ` · ${person.roles.map((r) => ROLE_LABELS[r] ?? r).join(", ")}`}
         </div>

@@ -44,12 +44,12 @@ export default async function Chat() {
               <Link
                 key={c.id}
                 href={`/messages/${c.id}`}
-                className="flex items-start gap-2.5 min-w-0 w-full rounded-lg p-1.5 -m-1.5 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
+                className="group flex items-start gap-2.5 min-w-0 w-full rounded-lg p-1.5 -m-1.5 hover:bg-neutral-50 dark:hover:bg-paper"
               >
                 <Avatar initials={c.initials} size={32} />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm text-neutral-900 dark:text-paper">{c.name}</div>
-                  <div className="truncate text-xs text-neutral-500 dark:text-neutral-400">{c.preview}</div>
+                  <div className="truncate text-sm text-neutral-900 dark:text-paper dark:group-hover:text-ink">{c.name}</div>
+                  <div className="truncate text-xs text-neutral-500 dark:text-neutral-400 dark:group-hover:text-ink">{c.preview}</div>
                 </div>
               </Link>
             ))}

@@ -165,12 +165,12 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
         <div className="space-y-2">
           {photos.length > 0 ? (
             <>
-              <div className="mx-auto aspect-square w-full max-w-[420px] overflow-hidden rounded-lg bg-neutral-50 dark:bg-panel">
+              <div className="mx-auto flex max-h-[420px] max-w-[420px] items-center justify-center rounded-lg bg-neutral-50 dark:bg-panel p-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={photos[Math.min(activePhoto, photos.length - 1)]}
                   alt={item.name}
-                  className="h-full w-full object-contain p-6"
+                  className="max-h-[396px] w-auto max-w-full rounded-lg object-contain"
                 />
               </div>
               {(photos.length > 1 || editing) && (

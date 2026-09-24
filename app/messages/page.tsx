@@ -25,12 +25,12 @@ export default async function MessagesPage() {
           <Link
             key={c.id}
             href={`/messages/${c.id}`}
-            className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
+            className="group flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-paper"
           >
             <Avatar initials={c.initials} size={40} />
             <div className="min-w-0 flex-1">
-              <div className="truncate text-sm font-medium text-neutral-900 dark:text-paper">{c.name}</div>
-              <div className="truncate text-xs text-neutral-500 dark:text-neutral-400">{c.preview}</div>
+              <div className="truncate text-sm font-medium text-neutral-900 dark:text-paper dark:group-hover:text-ink">{c.name}</div>
+              <div className="truncate text-xs text-neutral-500 dark:text-neutral-400 dark:group-hover:text-ink">{c.preview}</div>
             </div>
           </Link>
         ))}

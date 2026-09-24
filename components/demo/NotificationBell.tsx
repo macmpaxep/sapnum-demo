@@ -160,10 +160,10 @@ export default function NotificationBell({ userId }: { userId: string }) {
           {items.length === 0 && <p className="px-3 py-4 text-center text-sm text-neutral-400 dark:text-neutral-500">Пока нет уведомлений</p>}
           <div className="max-h-96 overflow-y-auto">
             {items.map((a) => (
-              <div key={a.id} className="px-3 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
-                <span className="font-medium text-neutral-900 dark:text-paper">{a.actor?.display_name ?? "Пользователь"}</span>{" "}
-                <span className="text-neutral-600 dark:text-neutral-400">{TYPE_TEXT[a.type] ?? a.type}</span>
-                <div className="text-xs text-neutral-400 dark:text-neutral-500">{timeAgo(a.created_at)}</div>
+              <div key={a.id} className="group px-3 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-paper">
+                <span className="font-medium text-neutral-900 dark:text-paper dark:group-hover:text-ink">{a.actor?.display_name ?? "Пользователь"}</span>{" "}
+                <span className="text-neutral-600 dark:text-neutral-400 dark:group-hover:text-ink">{TYPE_TEXT[a.type] ?? a.type}</span>
+                <div className="text-xs text-neutral-400 dark:text-neutral-500 dark:group-hover:text-ink">{timeAgo(a.created_at)}</div>
               </div>
             ))}
           </div>
