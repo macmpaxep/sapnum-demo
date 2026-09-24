@@ -15,6 +15,7 @@ import { CURRENCY_LABELS, formatCatalogPrice } from "@/lib/catalogFormat";
 export default function ItemDetail({ item, canManage }: { item: CatalogItem; canManage: boolean }) {
   const [editing, setEditing] = useState(false);
   const [activePhoto, setActivePhoto] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const router = useRouter();
 
   const [name, setName] = useState(item.name);
@@ -170,14 +171,18 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
         <div className="space-y-2">
           {photos.length > 0 ? (
             <>
-              <div className="mx-auto flex max-h-[420px] max-w-[420px] items-center justify-center rounded-lg bg-neutral-50 dark:bg-panel p-3">
+              <button
+                type="button"
+                onClick={() => !editing && setLightboxOpen(true)}
+                className={`mx-auto flex max-h-[420px] w-full max-w-[420px] items-center justify-center rounded-lg bg-neutral-50 dark:bg-panel p-3 ${editing ? "" : "cursor-zoom-in"}`}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={photos[Math.min(activePhoto, photos.length - 1)]}
                   alt={item.name}
                   className="max-h-[396px] w-auto max-w-full rounded-lg object-contain"
                 />
-              </div>
+              </button>
               {(photos.length > 1 || editing) && (
                 <div className="mx-auto flex max-w-[420px] gap-2 overflow-x-auto">
                   {photos.map((url, idx) => (
@@ -228,7 +233,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
         {/* Информация */}
         <div className="space-y-5">
           <div>
-            <span className="inline-block border border-neutral-200 dark:border-line px-2 py-0.5 text-[11px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+            <span className="inline-block rounded-full border border-neutral-200 dark:border-line px-2 py-0.5 text-[11px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
               {item.type === "product" ? "Товар" : "Услуга"}
             </span>
             <Link
@@ -326,6 +331,19 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               </div>
 
               {error && <p className="text-xs text-red-600">{error}</p>}
+
+              <div className="flex gap-2">
+                <button
+                  onClick={handleSave}
+                  disabled={submitting || uploading}
+                  className="rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-1.5 text-sm text-white dark:text-ink disabled:opacity-40"
+                >
+                  {submitting ? "Сохраняем…" : "Сохранить"}
+                </button>
+                <button onClick={cancelEdit} className="rounded-lg px-4 py-1.5 text-sm text-neutral-500 dark:text-neutral-400">
+                  Отмена
+                </button>
+              </div>
             </div>
           ) : (
             <>
@@ -355,7 +373,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               )}
 
               {item.specs.length > 0 && (
-                <div className="grid grid-cols-2 gap-px overflow-hidden border border-neutral-200 dark:border-line bg-neutral-200 dark:bg-line">
+                <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-neutral-200 dark:border-line bg-neutral-200 dark:bg-line">
                   {item.specs.map((s, idx) => (
                     <div key={idx} className="bg-white dark:bg-panel p-3">
                       <div className="text-[11px] uppercase tracking-wide text-neutral-400 dark:text-neutral-500">{s.label}</div>
@@ -364,16 +382,38 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                   ))}
                 </div>
               )}
-
-              {item.description && (
-                <p className="whitespace-pre-line text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
-                  {item.description}
-                </p>
-              )}
             </>
           )}
         </div>
       </div>
+
+      {!editing && item.description && (
+        <p className="whitespace-pre-line rounded-lg border border-neutral-200 dark:border-line p-4 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
+          {item.description}
+        </p>
+      )}
+
+      {lightboxOpen && photos.length > 0 && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <button
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Закрыть"
+            className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+          >
+            ✕
+          </button>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={photos[Math.min(activePhoto, photos.length - 1)]}
+            alt={item.name}
+            className="max-h-[90vh] max-w-[90vw] object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 }

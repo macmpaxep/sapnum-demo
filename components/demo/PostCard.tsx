@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Avatar from "./Avatar";
 import type { FeedPost } from "@/lib/queries";
+import { haptic } from "@/lib/haptics";
 import { useUser } from "@/lib/hooks/useUser";
 
 type Comment = { id: string; body: string; created_at: string; author_id: string; profiles: { display_name: string } | null };
@@ -50,6 +51,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
 
   async function toggleLike() {
     const next = !liked;
+    if (next) haptic();
     setLiked(next);
     setLikeCount((c) => c + (next ? 1 : -1));
     const res = await fetch(`/api/posts/${post.id}/like`, { method: next ? "POST" : "DELETE" });
@@ -299,10 +301,17 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
       )}
 
       {post.mediaUrls.length > 0 && (
-        <div className="mt-3 grid grid-cols-1 gap-2">
+        <div className={`mt-3 grid gap-2 ${post.mediaUrls.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
           {post.mediaUrls.map((url) => (
             // eslint-disable-next-line @next/next/no-img-element
-            <img key={url} src={url} alt="" className="max-h-96 w-full rounded-lg border border-neutral-100 dark:border-line object-cover" />
+            <img
+              key={url}
+              src={url}
+              alt=""
+              className={`w-full rounded-lg border border-neutral-100 dark:border-line object-cover ${
+                post.mediaUrls.length > 1 ? "aspect-square" : "max-h-96"
+              }`}
+            />
           ))}
         </div>
       )}

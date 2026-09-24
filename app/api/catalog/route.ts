@@ -82,14 +82,17 @@ export async function POST(req: Request) {
       : body.priceText?.trim()
         ? `\nЦена: ${body.priceText.trim()} ${CURRENCY_SYMBOLS[currency]}`
         : "";
-    const descLine = body.description?.trim() ? `\n${body.description.trim()}` : "";
+    const trimmedDescription = body.description?.trim() ?? "";
+    const shortDescription = trimmedDescription.length > 120 ? `${trimmedDescription.slice(0, 120).trimEnd()}…` : trimmedDescription;
+    const descLine = shortDescription ? `\n${shortDescription}` : "";
+    const media = body.images && body.images.length > 0 ? body.images : body.imageUrl ? [body.imageUrl] : [];
     await supabase.from("posts").insert({
       author_id: user.id,
       company_id: companyId,
       catalog_item_id: data.id,
       topic: type === "product" ? "Товары" : "Услуги",
       body: `${label} от ${company?.name ?? "компании"}: ${name.trim()}${priceLine}${descLine}`,
-      media_urls: body.imageUrl ? [body.imageUrl] : [],
+      media_urls: media,
     });
   } catch (postErr) {
     console.error("[catalog] failed to create feed post for new item", postErr);
