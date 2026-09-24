@@ -6,7 +6,7 @@ import { getCurrentUser } from "@/lib/auth";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
-  title: "Демо приложения",
+  title: "SAPNUM | B2B | B2C Платформа для предпринимателей, компании и клиентов",
 };
 
 export default async function DemoLayout({ children }: { children: React.ReactNode }) {

@@ -2,7 +2,7 @@
   "name": "SAPNUM — соцсеть для предпринимателей",
   "short_name": "SAPNUM",
   "description": "Платформа для предпринимателей, инвесторов и бизнеса: метрики, сделки, заявки.",
-  "start_url": "/demo/feed",
+  "start_url": "/feed",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
