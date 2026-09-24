@@ -60,7 +60,7 @@ export default function CreateMenu({
               onClick={() => setOpen(false)}
               className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
             >
-              Товар или услуга
+              Добавить товар или услугу
             </Link>
           ) : (
             <Link
