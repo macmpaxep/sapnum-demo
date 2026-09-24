@@ -28,7 +28,7 @@ export default async function ActivityPage() {
         <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">Пока никакой активности нет.</p>
       )}
 
-      <div className="mt-4 divide-y divide-neutral-100 dark:divide-line overflow-hidden rounded-lg border border-neutral-200 dark:border-line">
+      <div className="mt-4 divide-y divide-neutral-100 dark:divide-line rounded-lg border border-neutral-200 dark:border-line">
         {activity.map((a) => {
           const postHref = a.postId ? (a.catalogItemId ? `/item/${a.catalogItemId}` : `/post/${a.postId}`) : null;
           const initials = a.actorName.split(" ").map((w) => w[0]).join("");
