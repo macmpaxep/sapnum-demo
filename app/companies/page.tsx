@@ -21,9 +21,9 @@ export default async function CompaniesPage({
 
       {companies.length === 0 && <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">Компаний не найдено.</p>}
 
-      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200 dark:border-line">
+      <div className="mt-4 divide-y divide-neutral-100 dark:divide-line overflow-hidden rounded-lg border border-neutral-200 dark:border-line">
         {companies.map((c) => (
-          <Link key={c.slug} href={`/co/${c.slug}`} className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-neutral-900">
+          <Link key={c.slug} href={`/co/${c.slug}`} className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-neutral-200 dark:border-line bg-neutral-50 dark:bg-panel text-xs font-medium text-neutral-500 dark:text-neutral-400">
               {c.name.slice(0, 2).toUpperCase()}
             </div>

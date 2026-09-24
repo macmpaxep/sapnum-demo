@@ -43,8 +43,10 @@ export default function MessageBubble({
         </button>
       )}
       <div
-        className={`max-w-[75%] px-3 py-2 text-sm ${
-          isMine ? "bg-neutral-900 text-white" : "rounded-lg border border-neutral-200 dark:border-line text-neutral-700 dark:text-neutral-300"
+        className={`max-w-[75%] rounded-lg px-3 py-2 text-sm ${
+          isMine
+            ? "bg-neutral-900 text-white dark:bg-paper dark:text-ink"
+            : "border border-neutral-200 dark:border-line text-neutral-700 dark:text-neutral-300"
         }`}
       >
         {body}

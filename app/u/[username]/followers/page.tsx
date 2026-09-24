@@ -19,7 +19,7 @@ export default async function FollowersPage({ params }: { params: Promise<{ user
 
       {followers.length === 0 && <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">Пока никто не подписан.</p>}
 
-      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200 dark:border-line">
+      <div className="mt-4 divide-y divide-neutral-100 dark:divide-line overflow-hidden rounded-lg border border-neutral-200 dark:border-line">
         {followers.map((p) => (
           <PersonRow key={p.id} person={p} />
         ))}

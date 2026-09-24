@@ -17,24 +17,24 @@
     background-color: #3ecf8e;
     color: #0e1320;
   }
-  /* Form fields must stay legible no matter what text color their
-     wrapping context sets — inputs inherit `color` by default, so a
-     muted-gray label wrapper was making typed text unreadable. */
-  input,
+  /* Text fields must stay legible regardless of theme or wrapping
+     context: native inputs/selects keep a browser-default light
+     background even on a dark page, so setting only the text color
+     (an earlier version of this rule) produced invisible light-on-light
+     text in dark mode. Pin both explicitly. Excludes checkbox/radio/file,
+     which shouldn't get a forced panel background. */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
   textarea,
   select {
-    @apply text-neutral-900 dark:text-neutral-100;
+    @apply rounded-lg border-neutral-300 bg-white text-neutral-900 dark:border-line dark:bg-panel dark:text-neutral-100;
   }
   input::placeholder,
   textarea::placeholder {
     @apply text-neutral-400 dark:text-neutral-500;
   }
   /* Soft rounding app-wide instead of hard square corners on every
-     input/button — cards and containers get it per-component since
-     a blanket rule there would round things that shouldn't be. */
-  input,
-  textarea,
-  select,
+     button — cards and containers get it per-component since a
+     blanket rule there would round things that shouldn't be. */
   button {
     @apply rounded-lg;
   }

@@ -152,7 +152,7 @@ export default function NotificationBell({ userId }: { userId: string }) {
             <Link
               href="/messages"
               onClick={() => setOpen(false)}
-              className="block border-b border-neutral-100 dark:border-line px-3 py-2 text-sm text-neutral-900 dark:text-paper hover:bg-neutral-50 dark:hover:bg-neutral-900"
+              className="block border-b border-neutral-100 dark:border-line px-3 py-2 text-sm text-neutral-900 dark:text-paper hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
             >
               💬 {unreadMessages} новых сообщений
             </Link>
@@ -160,7 +160,7 @@ export default function NotificationBell({ userId }: { userId: string }) {
           {items.length === 0 && <p className="px-3 py-4 text-center text-sm text-neutral-400 dark:text-neutral-500">Пока нет уведомлений</p>}
           <div className="max-h-96 overflow-y-auto">
             {items.map((a) => (
-              <div key={a.id} className="px-3 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900">
+              <div key={a.id} className="px-3 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
                 <span className="font-medium text-neutral-900 dark:text-paper">{a.actor?.display_name ?? "Пользователь"}</span>{" "}
                 <span className="text-neutral-600 dark:text-neutral-400">{TYPE_TEXT[a.type] ?? a.type}</span>
                 <div className="text-xs text-neutral-400 dark:text-neutral-500">{timeAgo(a.created_at)}</div>

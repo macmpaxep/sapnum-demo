@@ -171,7 +171,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
   return (
     <article
       onClick={handleCardClick}
-      className={`border border-neutral-200 dark:border-line p-4 ${linkToPost ? "cursor-pointer" : ""}`}
+      className={`rounded-lg border border-neutral-200 dark:border-line p-4 ${linkToPost ? "cursor-pointer" : ""}`}
     >
       <div className="flex items-center gap-3">
         {post.authorUsername ? (
@@ -208,7 +208,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
             <button
               onClick={() => setMenuOpen((v) => !v)}
               aria-label="Ещё"
-              className="rounded-md px-1.5 py-1 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-700 dark:hover:text-neutral-200"
+              className="rounded-md px-1.5 py-1 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-50 dark:hover:bg-paper hover:text-neutral-700 dark:hover:text-ink"
             >
               •••
             </button>
@@ -219,14 +219,14 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
                     toggleSave();
                     setMenuOpen(false);
                   }}
-                  className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                  className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
                 >
                   {saved ? "Убрать из сохранённого" : "Сохранить"}
                 </button>
-                <button onClick={copyLink} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900">
+                <button onClick={copyLink} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
                   {copied ? "Ссылка скопирована" : "Скопировать ссылку"}
                 </button>
-                <button onClick={handleShare} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900">
+                <button onClick={handleShare} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
                   Поделиться
                 </button>
                 {canEdit && (
@@ -236,11 +236,11 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
                         setEditing(true);
                         setMenuOpen(false);
                       }}
-                      className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                      className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
                     >
                       Редактировать
                     </button>
-                    <button onClick={handleDelete} className="block w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-neutral-50 dark:hover:bg-neutral-900">
+                    <button onClick={handleDelete} className="block w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
                       Удалить
                     </button>
                   </>
@@ -260,7 +260,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
             className="block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
           />
           <div className="flex gap-2">
-            <button onClick={submitEdit} className="border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-xs text-white">
+            <button onClick={submitEdit} className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-3 py-1.5 text-xs text-white dark:text-ink">
               Сохранить
             </button>
             <button
@@ -330,7 +330,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
               placeholder="Написать комментарий…"
               className="flex-1 border border-neutral-200 dark:border-line px-2 py-1.5 text-xs outline-none focus:border-neutral-400"
             />
-            <button type="submit" className="border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-xs text-white">
+            <button type="submit" className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-3 py-1.5 text-xs text-white dark:text-ink">
               Отправить
             </button>
           </form>

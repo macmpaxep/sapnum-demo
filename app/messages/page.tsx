@@ -20,12 +20,12 @@ export default async function MessagesPage() {
         </p>
       )}
 
-      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200 dark:border-line">
+      <div className="mt-4 divide-y divide-neutral-100 dark:divide-line overflow-hidden rounded-lg border border-neutral-200 dark:border-line">
         {conversations.map((c) => (
           <Link
             key={c.id}
             href={`/messages/${c.id}`}
-            className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+            className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
           >
             <Avatar initials={c.initials} size={40} />
             <div className="min-w-0 flex-1">

@@ -39,7 +39,7 @@ export default function FollowButton({ userId, initiallyFollowed }: { userId: st
         className={`border px-4 py-2 text-sm disabled:opacity-40 ${
           following
             ? "border-neutral-300 dark:border-line text-neutral-700 dark:text-neutral-300 hover:border-red-300 hover:text-red-600"
-            : "border-neutral-900 bg-neutral-900 text-white hover:bg-neutral-800"
+            : "border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper text-white dark:text-ink hover:bg-neutral-800 dark:hover:bg-neutral-100"
         }`}
       >
         {following ? "Отписаться" : "Подписаться"}

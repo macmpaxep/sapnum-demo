@@ -25,7 +25,7 @@ export default async function ActivityPage() {
         <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">Пока никакой активности нет.</p>
       )}
 
-      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200 dark:border-line">
+      <div className="mt-4 divide-y divide-neutral-100 dark:divide-line overflow-hidden rounded-lg border border-neutral-200 dark:border-line">
         {activity.map((a) => (
           <div key={a.id} className="px-4 py-3 text-sm">
             <span className="font-medium text-neutral-900 dark:text-paper">{a.actorName}</span>{" "}

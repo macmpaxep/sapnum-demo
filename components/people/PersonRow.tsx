@@ -18,7 +18,7 @@ export default function PersonRow({ person }: { person: DirectoryPerson }) {
     .join("");
 
   return (
-    <Link href={`/u/${person.username}`} className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-neutral-900">
+    <Link href={`/u/${person.username}`} className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
       <Avatar initials={initials} size={40} imageUrl={person.avatarUrl ?? undefined} />
       <div className="min-w-0 flex-1">
         <div className="truncate text-sm font-medium text-neutral-900 dark:text-paper">{person.displayName}</div>

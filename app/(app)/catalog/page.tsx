@@ -29,7 +29,7 @@ export default async function CatalogPage({
         {companySlug ? (
           <Link
             href={`/co/${companySlug}?add=1`}
-            className="flex items-center justify-between border border-neutral-900 bg-neutral-900 px-4 py-3 text-sm text-white hover:bg-neutral-800"
+            className="flex items-center justify-between rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-3 text-sm text-white dark:text-ink hover:bg-neutral-800 dark:hover:bg-neutral-100"
           >
             <span>Разместите свои товары и услуги в каталоге</span>
             <span>+ Добавить</span>
@@ -47,13 +47,22 @@ export default async function CatalogPage({
         <SearchBox placeholder="Поиск товаров и услуг…" />
 
         <div className="flex gap-2 text-xs">
-          <Link href="/catalog" className={`border px-2.5 py-1 ${!type ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}>
+          <Link
+            href="/catalog"
+            className={`rounded-lg border px-2.5 py-1 ${!type ? "border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper text-white dark:text-ink" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}
+          >
             Все
           </Link>
-          <Link href="/catalog?type=product" className={`border px-2.5 py-1 ${type === "product" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}>
+          <Link
+            href="/catalog?type=product"
+            className={`rounded-lg border px-2.5 py-1 ${type === "product" ? "border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper text-white dark:text-ink" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}
+          >
             Товары
           </Link>
-          <Link href="/catalog?type=service" className={`border px-2.5 py-1 ${type === "service" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}>
+          <Link
+            href="/catalog?type=service"
+            className={`rounded-lg border px-2.5 py-1 ${type === "service" ? "border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper text-white dark:text-ink" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}
+          >
             Услуги
           </Link>
         </div>

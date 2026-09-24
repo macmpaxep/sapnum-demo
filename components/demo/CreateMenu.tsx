@@ -29,7 +29,7 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
           <Link
             href="/feed"
             onClick={() => setOpen(false)}
-            className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+            className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
           >
             Новая запись
           </Link>
@@ -37,7 +37,7 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
             <Link
               href={`/co/${companySlug}?add=1`}
               onClick={() => setOpen(false)}
-              className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+              className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
             >
               Товар или услуга
             </Link>
@@ -45,7 +45,7 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
             <Link
               href="/co/new"
               onClick={() => setOpen(false)}
-              className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+              className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
             >
               Создать страницу компании
             </Link>

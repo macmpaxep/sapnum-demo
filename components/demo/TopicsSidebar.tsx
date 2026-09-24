@@ -62,7 +62,7 @@ export default function TopicsSidebar() {
               href="/feed"
               onClick={handleSelect}
               className={`block rounded px-2 py-1.5 text-sm ${
-                !activeTopic ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper" : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                !activeTopic ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper" : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
               }`}
             >
               Все темы
@@ -74,7 +74,7 @@ export default function TopicsSidebar() {
                 href={`/feed?topic=${encodeURIComponent(topic)}`}
                 onClick={handleSelect}
                 className={`block rounded px-2 py-1.5 text-sm ${
-                  activeTopic === topic ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper" : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                  activeTopic === topic ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper" : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
                 }`}
               >
                 {topic}

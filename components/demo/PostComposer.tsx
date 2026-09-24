@@ -1,14 +1,18 @@
 "use client";
 
 import { useRef, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import Avatar from "./Avatar";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { checkImageDimensions, checkPhotoQualitySoft, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
 import ImproveTextButton from "@/components/ai/ImproveTextButton";
+import { useUser } from "@/lib/hooks/useUser";
 import { topics } from "@/lib/demo-data";
 
 export default function PostComposer() {
+  const { user, loading } = useUser();
+  const pathname = usePathname();
   const [text, setText] = useState("");
   const [topic, setTopic] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -105,6 +109,26 @@ export default function PostComposer() {
     startTransition(() => router.refresh());
   }
 
+  if (loading) {
+    return <div className="h-[68px] rounded-lg border border-neutral-200 dark:border-line" />;
+  }
+
+  if (!user) {
+    return (
+      <div className="rounded-lg border border-neutral-200 dark:border-line p-4">
+        <div className="flex items-center gap-3">
+          <Avatar initials="?" />
+          <Link
+            href={`/login?next=${encodeURIComponent(pathname)}`}
+            className="flex-1 rounded-lg border border-neutral-200 dark:border-line px-3 py-2 text-sm text-neutral-400 dark:text-neutral-500 hover:border-neutral-300 dark:hover:border-mute"
+          >
+            Войдите, чтобы опубликовать запись…
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit} className="rounded-lg border border-neutral-200 dark:border-line p-4">
       <div className="flex items-start gap-3">
@@ -120,7 +144,7 @@ export default function PostComposer() {
             <button
               type="submit"
               disabled={isPending || uploading || (!text.trim() && !imageFile)}
-              className="border border-neutral-900 bg-neutral-900 px-4 py-1.5 text-xs text-white disabled:opacity-40"
+              className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-1.5 text-xs text-white dark:text-ink disabled:opacity-40"
             >
               {uploading ? "Загрузка…" : "Опубликовать"}
             </button>
@@ -154,7 +178,7 @@ export default function PostComposer() {
         <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelect} className="hidden" id="post-image-input" />
         <label
           htmlFor="post-image-input"
-          className="cursor-pointer border border-neutral-200 dark:border-line px-2 py-1 hover:border-neutral-400 dark:hover:border-mute hover:text-neutral-700 dark:hover:text-neutral-200"
+          className="cursor-pointer rounded-lg border border-neutral-200 dark:border-line px-2 py-1 hover:border-neutral-400 dark:hover:border-mute hover:text-neutral-700 dark:hover:text-neutral-200"
         >
           Фото
         </label>

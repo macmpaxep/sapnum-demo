@@ -49,7 +49,7 @@ export default function EmailLoginForm({ next = "/feed" }: { next?: string }) {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="border border-neutral-900 bg-neutral-900 px-4 py-2 text-sm text-white disabled:opacity-40"
+        className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-2 text-sm text-white dark:text-ink disabled:opacity-40"
       >
         {status === "sending" ? "Отправляем…" : "Получить ссылку на почту"}
       </button>

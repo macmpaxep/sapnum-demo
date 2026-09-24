@@ -95,7 +95,7 @@ export default function ProfileForm({ user, bio: initialBio }: { user: CurrentUs
     <div className="space-y-6">
       <div className="flex items-center gap-4">
         <Avatar initials={initials} size={64} imageUrl={avatarUrl ?? undefined} />
-        <label className="cursor-pointer border border-neutral-300 dark:border-line px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute">
+        <label className="cursor-pointer rounded-lg border border-neutral-300 dark:border-line px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute">
           {uploading ? "Загрузка…" : "Изменить фото"}
           <input type="file" accept="image/*" onChange={handleAvatarChange} className="hidden" />
         </label>
@@ -154,7 +154,7 @@ export default function ProfileForm({ user, bio: initialBio }: { user: CurrentUs
         <button
           type="submit"
           disabled={saving}
-          className="border border-neutral-900 bg-neutral-900 px-4 py-2 text-sm text-white disabled:opacity-40"
+          className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-2 text-sm text-white dark:text-ink disabled:opacity-40"
         >
           {saving ? "Сохраняем…" : "Сохранить"}
         </button>

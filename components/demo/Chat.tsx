@@ -41,7 +41,11 @@ export default async function Chat() {
         ) : (
           <div className="mt-3 space-y-3 min-w-0">
             {conversations.slice(0, 5).map((c) => (
-              <Link key={c.id} href={`/messages/${c.id}`} className="flex items-start gap-2.5 min-w-0 w-full hover:opacity-80">
+              <Link
+                key={c.id}
+                href={`/messages/${c.id}`}
+                className="flex items-start gap-2.5 min-w-0 w-full rounded-lg p-1.5 -m-1.5 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
+              >
                 <Avatar initials={c.initials} size={32} />
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-sm text-neutral-900 dark:text-paper">{c.name}</div>

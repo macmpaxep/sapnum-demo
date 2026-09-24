@@ -27,7 +27,7 @@ export default function ProfileSidebar({ items }: { items: ProfileMenuItem[] }) 
                 className={`block rounded px-2 py-1.5 text-sm ${
                   active
                     ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper"
-                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
                 }`}
               >
                 {item.label}

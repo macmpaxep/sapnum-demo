@@ -39,12 +39,12 @@ export default function ThreadComposer({ conversationId, initialText = "" }: { c
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Написать сообщение…"
-          className="flex-1 border border-neutral-300 dark:border-line px-3 py-2 text-sm outline-none focus:border-neutral-400"
+          className="flex-1 border border-neutral-300 dark:border-line bg-white dark:bg-panel px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 outline-none focus:border-neutral-400"
         />
         <button
           type="submit"
           disabled={isPending || !text.trim()}
-          className="border border-neutral-900 bg-neutral-900 px-4 py-2 text-sm text-white disabled:opacity-40"
+          className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-2 text-sm text-white dark:text-ink disabled:opacity-40"
         >
           Отправить
         </button>

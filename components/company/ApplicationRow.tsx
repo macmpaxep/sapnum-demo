@@ -74,7 +74,7 @@ export default function ApplicationRow({ application }: { application: CompanyAp
           <button
             disabled={isPending}
             onClick={() => updateStatus("accepted")}
-            className="border border-neutral-900 bg-neutral-900 px-2.5 py-1 text-xs text-white"
+            className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-2.5 py-1 text-xs text-white dark:text-ink"
           >
             Принять
           </button>

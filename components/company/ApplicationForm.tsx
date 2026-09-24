@@ -62,7 +62,7 @@ export default function ApplicationForm({
     return (
       <button
         onClick={() => setOpen(true)}
-        className="border border-neutral-900 bg-neutral-900 px-4 py-2 text-sm text-white hover:bg-neutral-800"
+        className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-2 text-sm text-white dark:text-ink hover:bg-neutral-800 dark:hover:bg-neutral-100"
       >
         {triggerLabel}
       </button>
@@ -126,7 +126,7 @@ export default function ApplicationForm({
         <button
           type="submit"
           disabled={submitting}
-          className="border border-neutral-900 bg-neutral-900 px-4 py-2 text-sm text-white disabled:opacity-40"
+          className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-2 text-sm text-white dark:text-ink disabled:opacity-40"
         >
           Отправить
         </button>

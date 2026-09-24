@@ -141,7 +141,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               <button
                 onClick={handleSave}
                 disabled={submitting || uploading}
-                className="border border-neutral-900 bg-neutral-900 px-4 py-1.5 text-sm text-white disabled:opacity-40"
+                className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-1.5 text-sm text-white dark:text-ink disabled:opacity-40"
               >
                 {submitting ? "Сохраняем…" : "Сохранить"}
               </button>

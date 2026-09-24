@@ -203,14 +203,14 @@ export default function CatalogManager({
                 <button
                   type="button"
                   onClick={() => setType("product")}
-                  className={`border px-3 py-1.5 text-xs ${type === "product" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}
+                  className={`border px-3 py-1.5 text-xs ${type === "product" ? "border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper text-white dark:text-ink" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}
                 >
                   Товар
                 </button>
                 <button
                   type="button"
                   onClick={() => setType("service")}
-                  className={`border px-3 py-1.5 text-xs ${type === "service" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}
+                  className={`border px-3 py-1.5 text-xs ${type === "service" ? "border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper text-white dark:text-ink" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}
                 >
                   Услуга
                 </button>
@@ -340,7 +340,7 @@ export default function CatalogManager({
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="border border-neutral-900 bg-neutral-900 px-4 py-2 text-sm text-white disabled:opacity-40"
+                  className="border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-2 text-sm text-white dark:text-ink disabled:opacity-40"
                 >
                   {submitting ? "Добавляем…" : "Добавить"}
                 </button>

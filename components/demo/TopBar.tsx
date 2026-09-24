@@ -162,7 +162,7 @@ export default function TopBar() {
                     className={`block rounded-md px-3 py-2 text-sm transition-colors ${
                       active
                         ? "bg-neutral-100 dark:bg-line font-medium text-neutral-900 dark:text-paper"
-                        : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                        : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
                     }`}
                   >
                     {tab.label}
@@ -195,14 +195,14 @@ export default function TopBar() {
               <Link
                 href="/profile"
                 onClick={() => setMenuOpen(false)}
-                className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
               >
                 Анкетные данные
               </Link>
               <Link
                 href="/settings"
                 onClick={() => setMenuOpen(false)}
-                className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
               >
                 Настройки
               </Link>
@@ -214,14 +214,14 @@ export default function TopBar() {
               <Link
                 href="/feed"
                 onClick={() => setMenuOpen(false)}
-                className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
               >
                 + Новая запись
               </Link>
               <Link
                 href={companySlug ? `/co/${companySlug}?add=1` : "/co/new"}
                 onClick={() => setMenuOpen(false)}
-                className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                className="block rounded-md px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
               >
                 {companySlug ? "+ Товар или услуга" : "+ Создать страницу компании"}
               </Link>
