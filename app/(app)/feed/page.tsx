@@ -25,10 +25,10 @@ export default async function FeedPage({
       <main className="min-w-0 space-y-4">
         {topic && (
           <div className="flex items-center justify-between">
-            <h1 className="text-sm font-medium text-neutral-900">
+            <h1 className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
               Тема: <span className="font-semibold">{topic}</span>
             </h1>
-            <Link href="/feed" className="text-xs text-neutral-500 hover:text-neutral-900">
+            <Link href="/feed" className="text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">
               Сбросить ×
             </Link>
           </div>
@@ -37,7 +37,7 @@ export default async function FeedPage({
         <PostComposer />
 
         {feedPosts.length === 0 && (
-          <p className="border border-dashed border-neutral-300 p-6 text-center text-sm text-neutral-400">
+          <p className="border border-dashed border-neutral-300 dark:border-neutral-700 p-6 text-center text-sm text-neutral-400 dark:text-neutral-500">
             Пока нет записей по теме «{topic}»
           </p>
         )}

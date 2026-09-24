@@ -25,28 +25,28 @@ export default async function ApplicationsPage() {
 
   return (
     <div>
-      <h1 className="text-lg font-semibold text-neutral-900">Мои заявки</h1>
+      <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">Мои заявки</h1>
 
       {applications.length === 0 && (
-        <p className="mt-6 text-sm text-neutral-500">
+        <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">
           Вы пока не подавали заявок. Найдите компанию через ленту или каталог и нажмите «Подать заявку» на её странице.
         </p>
       )}
 
       <div className="mt-4 space-y-2">
         {applications.map((a) => (
-          <div key={a.id} className="border border-neutral-200 p-3">
-            <div className="flex items-center justify-between text-xs text-neutral-500">
+          <div key={a.id} className="border border-neutral-200 dark:border-neutral-800 p-3">
+            <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
               <span>{TYPE_LABELS[a.type] ?? a.type}</span>
               <span>{STATUS_LABELS[a.status] ?? a.status}</span>
             </div>
-            <Link href={`/co/${a.companySlug}`} className="mt-1 block text-sm font-medium text-neutral-900 hover:underline">
+            <Link href={`/co/${a.companySlug}`} className="mt-1 block text-sm font-medium text-neutral-900 dark:text-neutral-50 hover:underline">
               {a.companyName}
             </Link>
             {a.requestedAmount && (
-              <div className="text-xs text-neutral-500">Сумма: ${a.requestedAmount.toLocaleString("ru-RU")}</div>
+              <div className="text-xs text-neutral-500 dark:text-neutral-400">Сумма: ${a.requestedAmount.toLocaleString("ru-RU")}</div>
             )}
-            <p className="mt-1.5 text-sm text-neutral-700">{a.message}</p>
+            <p className="mt-1.5 text-sm text-neutral-700 dark:text-neutral-300">{a.message}</p>
           </div>
         ))}
       </div>

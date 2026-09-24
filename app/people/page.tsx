@@ -12,16 +12,16 @@ export default async function PeoplePage({
 
   return (
     <div>
-      <h1 className="text-lg font-semibold text-neutral-900">Люди</h1>
-      <p className="mt-1 text-sm text-neutral-500">Предприниматели, инвесторы и участники сообщества SAPNUM.</p>
+      <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">Люди</h1>
+      <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Предприниматели, инвесторы и участники сообщества SAPNUM.</p>
 
       <div className="mt-4">
         <SearchBox placeholder="Поиск по имени или юзернейму…" />
       </div>
 
-      {people.length === 0 && <p className="mt-6 text-sm text-neutral-500">Никого не найдено.</p>}
+      {people.length === 0 && <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">Никого не найдено.</p>}
 
-      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200">
+      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200 dark:border-neutral-800">
         {people.map((p) => (
           <PersonRow key={p.id} person={p} />
         ))}

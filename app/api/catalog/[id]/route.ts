@@ -10,7 +10,14 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Не авторизован" }, { status: 401 });
 
-  let body: { name?: string; priceText?: string; description?: string; imageUrl?: string };
+  let body: {
+    name?: string;
+    priceText?: string;
+    priceOnRequest?: boolean;
+    description?: string;
+    imageUrl?: string;
+    images?: string[];
+  };
   try {
     body = await req.json();
   } catch {
@@ -29,9 +36,11 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     .from("catalog_items")
     .update({
       name,
-      price_text: body.priceText?.trim() || null,
+      price_text: body.priceOnRequest ? null : body.priceText?.trim() || null,
+      price_on_request: Boolean(body.priceOnRequest),
       description: body.description?.trim() || null,
       ...(body.imageUrl ? { image_url: body.imageUrl } : {}),
+      ...(body.images ? { images: body.images } : {}),
     })
     .eq("id", id);
 

@@ -16,7 +16,7 @@ export default function CopyCompanyLink({ slug }: { slug: string }) {
   return (
     <button
       onClick={handleCopy}
-      className="rounded-md border border-neutral-300 px-3 py-1.5 text-sm text-neutral-700 hover:border-neutral-400"
+      className="rounded-md border border-neutral-300 dark:border-neutral-700 px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600"
     >
       {copied ? "Ссылка скопирована" : `sapnum.com/co/${slug}`}
     </button>

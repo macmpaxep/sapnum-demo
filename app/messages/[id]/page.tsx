@@ -16,12 +16,12 @@ export default async function ThreadPage({ params }: { params: Promise<{ id: str
 
   return (
     <div className="flex h-[calc(100vh-56px)] flex-col md:h-[calc(100vh-56px-2rem)] md:my-4 md:border md:border-neutral-200">
-      <div className="flex items-center gap-3 border-b border-neutral-200 px-4 py-3">
-        <Link href="/messages" className="text-neutral-400 hover:text-neutral-900 md:hidden">
+      <div className="flex items-center gap-3 border-b border-neutral-200 dark:border-neutral-800 px-4 py-3">
+        <Link href="/messages" className="text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-white md:hidden">
           ←
         </Link>
         {otherUser && <Avatar initials={otherUser.initials} size={32} />}
-        <div className="text-sm font-medium text-neutral-900">
+        <div className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
           {otherUser?.name ?? "Диалог"}
         </div>
       </div>
@@ -31,7 +31,7 @@ export default async function ThreadPage({ params }: { params: Promise<{ id: str
           <MessageBubble key={m.id} id={m.id} body={m.body} isMine={m.senderId === user.id} createdAt={m.createdAt} />
         ))}
         {messages.length === 0 && (
-          <p className="text-center text-sm text-neutral-400">Сообщений пока нет</p>
+          <p className="text-center text-sm text-neutral-400 dark:text-neutral-500">Сообщений пока нет</p>
         )}
       </div>
 

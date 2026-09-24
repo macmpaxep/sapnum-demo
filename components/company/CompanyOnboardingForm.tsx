@@ -39,43 +39,43 @@ export default function CompanyOnboardingForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label className="text-xs text-neutral-500">Название компании *</label>
+        <label className="text-xs text-neutral-500 dark:text-neutral-400">Название компании *</label>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="mt-1 block w-full border border-neutral-300 px-3 py-2 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
           placeholder="NurTech"
         />
       </div>
 
       <div>
-        <label className="text-xs text-neutral-500">Отрасль</label>
+        <label className="text-xs text-neutral-500 dark:text-neutral-400">Отрасль</label>
         <input
           value={industry}
           onChange={(e) => setIndustry(e.target.value)}
-          className="mt-1 block w-full border border-neutral-300 px-3 py-2 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
           placeholder="Логистика / SaaS"
         />
       </div>
 
       <div>
-        <label className="text-xs text-neutral-500">Сайт</label>
+        <label className="text-xs text-neutral-500 dark:text-neutral-400">Сайт</label>
         <input
           value={website}
           onChange={(e) => setWebsite(e.target.value)}
-          className="mt-1 block w-full border border-neutral-300 px-3 py-2 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
           placeholder="https://example.com"
         />
       </div>
 
       <div>
-        <label className="text-xs text-neutral-500">Описание</label>
+        <label className="text-xs text-neutral-500 dark:text-neutral-400">Описание</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={4}
-          className="mt-1 block w-full border border-neutral-300 px-3 py-2 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
           placeholder="Чем занимается компания, какие продукты или услуги предлагает…"
         />
       </div>

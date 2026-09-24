@@ -129,7 +129,7 @@ export default function NotificationBell({ userId }: { userId: string }) {
 
   return (
     <div ref={ref} className="relative">
-      <button onClick={handleOpen} aria-label="Уведомления" className="relative hover:text-neutral-900">
+      <button onClick={handleOpen} aria-label="Уведомления" className="relative hover:text-neutral-900 dark:hover:text-white">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path
             d="M6 10a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 14 6 10Z"
@@ -147,23 +147,23 @@ export default function NotificationBell({ userId }: { userId: string }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-80 border border-neutral-200 bg-white py-1 shadow-lg">
+        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-80 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 py-1 shadow-lg">
           {unreadMessages > 0 && (
             <Link
               href="/messages"
               onClick={() => setOpen(false)}
-              className="block border-b border-neutral-100 px-3 py-2 text-sm text-neutral-900 hover:bg-neutral-50"
+              className="block border-b border-neutral-100 dark:border-neutral-800 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-50 hover:bg-neutral-50 dark:hover:bg-neutral-900"
             >
               💬 {unreadMessages} новых сообщений
             </Link>
           )}
-          {items.length === 0 && <p className="px-3 py-4 text-center text-sm text-neutral-400">Пока нет уведомлений</p>}
+          {items.length === 0 && <p className="px-3 py-4 text-center text-sm text-neutral-400 dark:text-neutral-500">Пока нет уведомлений</p>}
           <div className="max-h-96 overflow-y-auto">
             {items.map((a) => (
-              <div key={a.id} className="px-3 py-2 text-sm hover:bg-neutral-50">
-                <span className="font-medium text-neutral-900">{a.actor?.display_name ?? "Пользователь"}</span>{" "}
-                <span className="text-neutral-600">{TYPE_TEXT[a.type] ?? a.type}</span>
-                <div className="text-xs text-neutral-400">{timeAgo(a.created_at)}</div>
+              <div key={a.id} className="px-3 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-900">
+                <span className="font-medium text-neutral-900 dark:text-neutral-50">{a.actor?.display_name ?? "Пользователь"}</span>{" "}
+                <span className="text-neutral-600 dark:text-neutral-400">{TYPE_TEXT[a.type] ?? a.type}</span>
+                <div className="text-xs text-neutral-400 dark:text-neutral-500">{timeAgo(a.created_at)}</div>
               </div>
             ))}
           </div>

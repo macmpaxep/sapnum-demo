@@ -171,7 +171,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
   return (
     <article
       onClick={handleCardClick}
-      className={`border border-neutral-200 p-4 ${linkToPost ? "cursor-pointer" : ""}`}
+      className={`border border-neutral-200 dark:border-neutral-800 p-4 ${linkToPost ? "cursor-pointer" : ""}`}
     >
       <div className="flex items-center gap-3">
         {post.authorUsername ? (
@@ -183,15 +183,15 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
         )}
         <div className="min-w-0 flex-1">
           {post.authorUsername ? (
-            <Link href={`/u/${post.authorUsername}`} className="text-sm font-medium text-neutral-900 hover:underline">
+            <Link href={`/u/${post.authorUsername}`} className="text-sm font-medium text-neutral-900 dark:text-neutral-50 hover:underline">
               {post.author}
             </Link>
           ) : (
-            <div className="text-sm font-medium text-neutral-900">{post.author}</div>
+            <div className="text-sm font-medium text-neutral-900 dark:text-neutral-50">{post.author}</div>
           )}
-          <div className="truncate text-xs text-neutral-500">
+          <div className="truncate text-xs text-neutral-500 dark:text-neutral-400">
             {post.companySlug ? (
-              <Link href={`/co/${post.companySlug}`} className="hover:underline hover:text-neutral-700">
+              <Link href={`/co/${post.companySlug}`} className="hover:underline hover:text-neutral-700 dark:hover:text-neutral-200">
                 {post.role}
               </Link>
             ) : (
@@ -199,7 +199,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
             )}
           </div>
         </div>
-        <div className="shrink-0 flex items-start gap-2 text-right text-xs text-neutral-400">
+        <div className="shrink-0 flex items-start gap-2 text-right text-xs text-neutral-400 dark:text-neutral-500">
           <div>
             <div>{post.topic}</div>
             <div>{post.time}</div>
@@ -208,25 +208,25 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
             <button
               onClick={() => setMenuOpen((v) => !v)}
               aria-label="Ещё"
-              className="rounded-md px-1.5 py-1 text-neutral-400 hover:bg-neutral-50 hover:text-neutral-700"
+              className="rounded-md px-1.5 py-1 text-neutral-400 dark:text-neutral-500 hover:bg-neutral-50 dark:hover:bg-neutral-900 hover:text-neutral-700 dark:hover:text-neutral-200"
             >
               •••
             </button>
             {menuOpen && (
-              <div className="absolute right-0 top-[calc(100%+4px)] z-20 w-48 border border-neutral-200 bg-white py-1 text-left shadow-lg">
+              <div className="absolute right-0 top-[calc(100%+4px)] z-20 w-48 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 py-1 text-left shadow-lg">
                 <button
                   onClick={() => {
                     toggleSave();
                     setMenuOpen(false);
                   }}
-                  className="block w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50"
+                  className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
                 >
                   {saved ? "Убрать из сохранённого" : "Сохранить"}
                 </button>
-                <button onClick={copyLink} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50">
+                <button onClick={copyLink} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900">
                   {copied ? "Ссылка скопирована" : "Скопировать ссылку"}
                 </button>
-                <button onClick={handleShare} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50">
+                <button onClick={handleShare} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900">
                   Поделиться
                 </button>
                 {canEdit && (
@@ -236,11 +236,11 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
                         setEditing(true);
                         setMenuOpen(false);
                       }}
-                      className="block w-full px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50"
+                      className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
                     >
                       Редактировать
                     </button>
-                    <button onClick={handleDelete} className="block w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-neutral-50">
+                    <button onClick={handleDelete} className="block w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-neutral-50 dark:hover:bg-neutral-900">
                       Удалить
                     </button>
                   </>
@@ -257,7 +257,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
             rows={3}
-            className="block w-full border border-neutral-300 px-3 py-2 text-sm"
+            className="block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
           />
           <div className="flex gap-2">
             <button onClick={submitEdit} className="border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-xs text-white">
@@ -268,47 +268,47 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
                 setEditing(false);
                 setEditText(content);
               }}
-              className="px-3 py-1.5 text-xs text-neutral-500"
+              className="px-3 py-1.5 text-xs text-neutral-500 dark:text-neutral-400"
             >
               Отмена
             </button>
           </div>
         </div>
       ) : (
-        content && <p className="mt-3 text-sm leading-relaxed text-neutral-700">{content}</p>
+        content && <p className="mt-3 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">{content}</p>
       )}
 
       {post.mediaUrls.length > 0 && (
         <div className="mt-3 grid grid-cols-1 gap-2">
           {post.mediaUrls.map((url) => (
             // eslint-disable-next-line @next/next/no-img-element
-            <img key={url} src={url} alt="" className="max-h-96 w-full border border-neutral-100 object-cover" />
+            <img key={url} src={url} alt="" className="max-h-96 w-full border border-neutral-100 dark:border-neutral-800 object-cover" />
           ))}
         </div>
       )}
 
       {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
 
-      <div className="mt-3 flex items-center gap-5 border-t border-neutral-100 pt-3 text-xs text-neutral-500">
+      <div className="mt-3 flex items-center gap-5 border-t border-neutral-100 dark:border-neutral-800 pt-3 text-xs text-neutral-500 dark:text-neutral-400">
         <button
           onClick={toggleLike}
-          className={`flex items-center gap-1.5 hover:text-neutral-900 ${liked ? "text-neutral-900 font-medium" : ""}`}
+          className={`flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white ${liked ? "text-neutral-900 dark:text-neutral-50 font-medium" : ""}`}
         >
           ♥ {likeCount > 0 ? likeCount : ""} Нравится
         </button>
-        <button onClick={loadComments} className="flex items-center gap-1.5 hover:text-neutral-900">
+        <button onClick={loadComments} className="flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white">
           💬 {commentCount > 0 ? commentCount : ""} Комментировать
         </button>
         <button
           onClick={handleRepost}
           disabled={reposted}
-          className={`flex items-center gap-1.5 hover:text-neutral-900 ${reposted ? "text-neutral-900 font-medium" : ""}`}
+          className={`flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white ${reposted ? "text-neutral-900 dark:text-neutral-50 font-medium" : ""}`}
         >
           ⟲ {repostCount > 0 ? repostCount : ""} {reposted ? "Репостнуто" : "Репост"}
         </button>
         <button
           onClick={toggleSave}
-          className={`ml-auto flex items-center gap-1.5 hover:text-neutral-900 ${saved ? "text-neutral-900 font-medium" : ""}`}
+          className={`ml-auto flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-white ${saved ? "text-neutral-900 dark:text-neutral-50 font-medium" : ""}`}
         >
           {saved ? "Сохранено" : "Сохранить"}
         </button>
@@ -316,11 +316,11 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
 
 
       {showComments && (
-        <div className="mt-3 space-y-2 border-t border-neutral-100 pt-3">
+        <div className="mt-3 space-y-2 border-t border-neutral-100 dark:border-neutral-800 pt-3">
           {comments?.map((c) => (
             <div key={c.id} className="text-xs">
-              <span className="font-medium text-neutral-900">{c.profiles?.display_name ?? "Пользователь"}</span>{" "}
-              <span className="text-neutral-600">{c.body}</span>
+              <span className="font-medium text-neutral-900 dark:text-neutral-50">{c.profiles?.display_name ?? "Пользователь"}</span>{" "}
+              <span className="text-neutral-600 dark:text-neutral-400">{c.body}</span>
             </div>
           ))}
           <form onSubmit={submitComment} className="flex gap-2 pt-1">
@@ -328,7 +328,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Написать комментарий…"
-              className="flex-1 border border-neutral-200 px-2 py-1.5 text-xs outline-none focus:border-neutral-400"
+              className="flex-1 border border-neutral-200 dark:border-neutral-800 px-2 py-1.5 text-xs outline-none focus:border-neutral-400"
             />
             <button type="submit" className="border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-xs text-white">
               Отправить

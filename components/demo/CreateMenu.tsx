@@ -17,7 +17,7 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
 
   return (
     <div ref={ref} className="relative">
-      <button onClick={() => setOpen((v) => !v)} aria-label="Создать" className="hover:text-neutral-900">
+      <button onClick={() => setOpen((v) => !v)} aria-label="Создать" className="hover:text-neutral-900 dark:hover:text-white">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
           <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.6" />
@@ -25,11 +25,11 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
       </button>
 
       {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-56 border border-neutral-200 bg-white py-1 shadow-lg">
+        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-56 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 py-1 shadow-lg">
           <Link
             href="/feed"
             onClick={() => setOpen(false)}
-            className="block px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+            className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
           >
             Новая запись
           </Link>
@@ -37,7 +37,7 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
             <Link
               href={`/co/${companySlug}?add=1`}
               onClick={() => setOpen(false)}
-              className="block px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+              className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
             >
               Товар или услуга
             </Link>
@@ -45,7 +45,7 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
             <Link
               href="/co/new"
               onClick={() => setOpen(false)}
-              className="block px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+              className="block px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-900"
             >
               Создать страницу компании
             </Link>

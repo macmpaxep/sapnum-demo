@@ -17,12 +17,12 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="space-y-4">
-      <Link href="/feed" className="text-sm text-neutral-400 hover:text-neutral-900">
+      <Link href="/feed" className="text-sm text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-white">
         ← В ленту
       </Link>
       <div className="text-center">
-        <h1 className="text-sm font-medium text-neutral-900">Запись</h1>
-        {post.viewCount > 0 && <p className="mt-0.5 text-xs text-neutral-400">{post.viewCount} просмотров</p>}
+        <h1 className="text-sm font-medium text-neutral-900 dark:text-neutral-50">Запись</h1>
+        {post.viewCount > 0 && <p className="mt-0.5 text-xs text-neutral-400 dark:text-neutral-500">{post.viewCount} просмотров</p>}
       </div>
       <PostCard post={post} linkToPost={false} />
     </div>

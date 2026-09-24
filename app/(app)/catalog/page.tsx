@@ -23,8 +23,8 @@ export default async function CatalogPage({
       </div>
 
       <main className="min-w-0 space-y-4">
-        <h1 className="text-lg font-semibold text-neutral-900">Каталог</h1>
-        <p className="text-sm text-neutral-500">Товары и услуги компаний сообщества SAPNUM.</p>
+        <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">Каталог</h1>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400">Товары и услуги компаний сообщества SAPNUM.</p>
 
         {companySlug ? (
           <Link
@@ -37,7 +37,7 @@ export default async function CatalogPage({
         ) : (
           <Link
             href="/co/new"
-            className="flex items-center justify-between border border-dashed border-neutral-300 px-4 py-3 text-sm text-neutral-600 hover:border-neutral-400 hover:text-neutral-900"
+            className="flex items-center justify-between border border-dashed border-neutral-300 dark:border-neutral-700 px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-neutral-600 hover:text-neutral-900 dark:hover:text-white"
           >
             <span>Хотите разместить здесь свои товары или услуги?</span>
             <span>Создать страницу компании →</span>
@@ -47,35 +47,49 @@ export default async function CatalogPage({
         <SearchBox placeholder="Поиск товаров и услуг…" />
 
         <div className="flex gap-2 text-xs">
-          <Link href="/catalog" className={`border px-2.5 py-1 ${!type ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 text-neutral-600"}`}>
+          <Link href="/catalog" className={`border px-2.5 py-1 ${!type ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400"}`}>
             Все
           </Link>
-          <Link href="/catalog?type=product" className={`border px-2.5 py-1 ${type === "product" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 text-neutral-600"}`}>
+          <Link href="/catalog?type=product" className={`border px-2.5 py-1 ${type === "product" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400"}`}>
             Товары
           </Link>
-          <Link href="/catalog?type=service" className={`border px-2.5 py-1 ${type === "service" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 text-neutral-600"}`}>
+          <Link href="/catalog?type=service" className={`border px-2.5 py-1 ${type === "service" ? "border-neutral-900 bg-neutral-900 text-white" : "border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400"}`}>
             Услуги
           </Link>
         </div>
 
         {items.length === 0 && (
-          <p className="border border-dashed border-neutral-300 p-6 text-center text-sm text-neutral-400">
+          <p className="border border-dashed border-neutral-300 dark:border-neutral-700 p-6 text-center text-sm text-neutral-400 dark:text-neutral-500">
             Пока ничего нет. Добавить можно со страницы вашей компании.
           </p>
         )}
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3">
           {items.map((item) => (
-            <Link key={item.id} href={`/co/${item.companySlug}`} className="text-center">
-              {item.imageUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={item.imageUrl} alt="" className="aspect-square w-full border border-neutral-200 object-cover" />
-              ) : (
-                <div className="aspect-square border border-neutral-200 bg-neutral-50" />
-              )}
-              <div className="mt-2 text-xs font-medium text-neutral-900">{item.name}</div>
-              {item.priceText && <div className="text-xs text-neutral-500">{item.priceText}</div>}
-              <div className="text-xs text-neutral-400">{item.companyName}</div>
+            <Link
+              key={item.id}
+              href={`/item/${item.id}`}
+              className="group border border-neutral-200 dark:border-neutral-800 transition-shadow hover:shadow-md"
+            >
+              <div className="aspect-square w-full overflow-hidden bg-neutral-50 dark:bg-neutral-900">
+                {item.imageUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.imageUrl}
+                    alt=""
+                    className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="h-full w-full" />
+                )}
+              </div>
+              <div className="space-y-0.5 p-2.5">
+                <div className="truncate text-sm font-medium text-neutral-900 dark:text-neutral-50">{item.name}</div>
+                <div className="text-sm text-neutral-900 dark:text-neutral-50">
+                  {item.priceOnRequest ? <span className="text-neutral-500 dark:text-neutral-400">Цена по запросу</span> : item.priceText || ""}
+                </div>
+                <div className="truncate text-xs text-neutral-400 dark:text-neutral-500">{item.companyName}</div>
+              </div>
             </Link>
           ))}
         </div>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
-export default function MessageButton({ otherUserId }: { otherUserId: string }) {
+export default function MessageButton({ otherUserId, label = "Написать" }: { otherUserId: string; label?: string }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -41,9 +41,9 @@ export default function MessageButton({ otherUserId }: { otherUserId: string }) 
       <button
         onClick={handleClick}
         disabled={loading}
-        className="border border-neutral-300 px-4 py-2 text-sm text-neutral-700 hover:border-neutral-400 disabled:opacity-40"
+        className="border border-neutral-300 dark:border-neutral-700 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600 disabled:opacity-40"
       >
-        Написать
+        {label}
       </button>
       {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
     </div>

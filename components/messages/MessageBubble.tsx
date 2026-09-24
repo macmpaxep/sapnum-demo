@@ -36,7 +36,7 @@ export default function MessageBubble({
       {canDelete && (
         <button
           onClick={handleDelete}
-          className="hidden shrink-0 text-xs text-neutral-400 hover:text-red-600 group-hover:block"
+          className="hidden shrink-0 text-xs text-neutral-400 dark:text-neutral-500 hover:text-red-600 group-hover:block"
           aria-label="Удалить сообщение"
         >
           ✕
@@ -44,7 +44,7 @@ export default function MessageBubble({
       )}
       <div
         className={`max-w-[75%] px-3 py-2 text-sm ${
-          isMine ? "bg-neutral-900 text-white" : "border border-neutral-200 text-neutral-700"
+          isMine ? "bg-neutral-900 text-white" : "border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300"
         }`}
       >
         {body}

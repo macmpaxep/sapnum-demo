@@ -30,8 +30,8 @@ export default function EmailLoginForm({ next = "/feed" }: { next?: string }) {
 
   if (status === "sent") {
     return (
-      <p className="text-sm text-neutral-600">
-        Мы отправили ссылку для входа на <span className="font-medium text-neutral-900">{email}</span>. Откройте почту и перейдите по ней.
+      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+        Мы отправили ссылку для входа на <span className="font-medium text-neutral-900 dark:text-neutral-50">{email}</span>. Откройте почту и перейдите по ней.
       </p>
     );
   }
@@ -44,7 +44,7 @@ export default function EmailLoginForm({ next = "/feed" }: { next?: string }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="you@example.com"
-        className="border border-neutral-300 px-3 py-2 text-sm text-neutral-900 outline-none placeholder:text-neutral-400 focus:border-neutral-400"
+        className="border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-50 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-neutral-400"
       />
       <button
         type="submit"

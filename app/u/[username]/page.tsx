@@ -30,16 +30,16 @@ export default async function UserProfilePage({ params }: { params: Promise<{ us
 
   return (
     <div className="space-y-6">
-      <div className="border border-neutral-200 p-6">
+      <div className="border border-neutral-200 dark:border-neutral-800 p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-center gap-4">
             <Avatar initials={initials} size={64} imageUrl={profile.avatarUrl ?? undefined} />
             <div>
-              <h1 className="text-lg font-semibold text-neutral-900">{profile.displayName}</h1>
-              <div className="text-sm text-neutral-500">@{profile.username}</div>
+              <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">{profile.displayName}</h1>
+              <div className="text-sm text-neutral-500 dark:text-neutral-400">@{profile.username}</div>
               <div className="mt-1 flex flex-wrap gap-1.5">
                 {profile.roles.map((r) => (
-                  <span key={r} className="border border-neutral-200 px-2 py-0.5 text-xs text-neutral-600">
+                  <span key={r} className="border border-neutral-200 dark:border-neutral-800 px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-400">
                     {ROLE_LABELS[r] ?? r}
                   </span>
                 ))}
@@ -54,29 +54,29 @@ export default async function UserProfilePage({ params }: { params: Promise<{ us
             </div>
           )}
           {profile.isOwnProfile && (
-            <Link href="/profile" className="border border-neutral-300 px-4 py-2 text-sm text-neutral-700 hover:border-neutral-400">
+            <Link href="/profile" className="border border-neutral-300 dark:border-neutral-700 px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600">
               Редактировать
             </Link>
           )}
         </div>
 
-        {profile.bio && <p className="mt-4 text-sm leading-relaxed text-neutral-700">{profile.bio}</p>}
+        {profile.bio && <p className="mt-4 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">{profile.bio}</p>}
 
-        <div className="mt-4 flex gap-4 text-sm text-neutral-500">
+        <div className="mt-4 flex gap-4 text-sm text-neutral-500 dark:text-neutral-400">
           <Link href={`/u/${profile.username}/followers`} className="hover:underline">
-            <span className="font-medium text-neutral-900">{profile.followerCount}</span> подписчиков
+            <span className="font-medium text-neutral-900 dark:text-neutral-50">{profile.followerCount}</span> подписчиков
           </Link>
           <Link href={`/u/${profile.username}/following`} className="hover:underline">
-            <span className="font-medium text-neutral-900">{profile.followingCount}</span> подписок
+            <span className="font-medium text-neutral-900 dark:text-neutral-50">{profile.followingCount}</span> подписок
           </Link>
         </div>
       </div>
 
       <div>
-        <h2 className="mb-2 text-sm font-medium text-neutral-900">
+        <h2 className="mb-2 text-sm font-medium text-neutral-900 dark:text-neutral-50">
           {profile.isOwnProfile ? "Мои записи" : "Записи"}
         </h2>
-        {posts.length === 0 && <p className="text-sm text-neutral-500">Пока нет записей.</p>}
+        {posts.length === 0 && <p className="text-sm text-neutral-500 dark:text-neutral-400">Пока нет записей.</p>}
         <div className="space-y-3">
           {posts.map((post) => (
             <PostCard key={post.id} post={post} />

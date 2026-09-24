@@ -12,14 +12,18 @@ const TYPE_LABELS: Record<string, string> = {
 export default function ApplicationForm({
   companyId,
   allowInvestment,
+  defaultMessage = "",
+  triggerLabel = "Подать заявку",
 }: {
   companyId: string;
   allowInvestment: boolean;
+  defaultMessage?: string;
+  triggerLabel?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("partnership");
   const visibleTypes = Object.entries(TYPE_LABELS).filter(([value]) => value !== "investment" || allowInvestment);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(defaultMessage);
   const [amount, setAmount] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -60,27 +64,27 @@ export default function ApplicationForm({
         onClick={() => setOpen(true)}
         className="border border-neutral-900 bg-neutral-900 px-4 py-2 text-sm text-white hover:bg-neutral-800"
       >
-        Подать заявку
+        {triggerLabel}
       </button>
     );
   }
 
   if (success) {
     return (
-      <div className="border border-neutral-200 p-4 text-sm text-neutral-700">
+      <div className="border border-neutral-200 dark:border-neutral-800 p-4 text-sm text-neutral-700 dark:text-neutral-300">
         Заявка отправлена. Владелец компании увидит её в разделе «Заявки».
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border border-neutral-200 p-4 space-y-3">
+    <form onSubmit={handleSubmit} className="border border-neutral-200 dark:border-neutral-800 p-4 space-y-3">
       <div>
-        <label className="text-xs text-neutral-500">Тип заявки</label>
+        <label className="text-xs text-neutral-500 dark:text-neutral-400">Тип заявки</label>
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
-          className="mt-1 block w-full border border-neutral-300 px-2 py-1.5 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-2 py-1.5 text-sm"
         >
           {visibleTypes.map(([value, label]) => (
             <option key={value} value={value}>
@@ -92,19 +96,19 @@ export default function ApplicationForm({
 
       {type === "investment" && (
         <div>
-          <label className="text-xs text-neutral-500">Сумма ($, опционально)</label>
+          <label className="text-xs text-neutral-500 dark:text-neutral-400">Сумма ($, опционально)</label>
           <input
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="mt-1 block w-full border border-neutral-300 px-2 py-1.5 text-sm"
+            className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-2 py-1.5 text-sm"
             placeholder="150000"
           />
         </div>
       )}
 
       <div>
-        <label className="text-xs text-neutral-500">
+        <label className="text-xs text-neutral-500 dark:text-neutral-400">
           {type === "investment" ? "Сообщение (краткий бизнес-план, условия)" : "Сообщение"}
         </label>
         <textarea
@@ -112,7 +116,7 @@ export default function ApplicationForm({
           onChange={(e) => setMessage(e.target.value)}
           required
           rows={4}
-          className="mt-1 block w-full border border-neutral-300 px-2 py-1.5 text-sm"
+          className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-2 py-1.5 text-sm"
         />
       </div>
 
@@ -126,7 +130,7 @@ export default function ApplicationForm({
         >
           Отправить
         </button>
-        <button type="button" onClick={() => setOpen(false)} className="px-4 py-2 text-sm text-neutral-500">
+        <button type="button" onClick={() => setOpen(false)} className="px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400">
           Отмена
         </button>
       </div>

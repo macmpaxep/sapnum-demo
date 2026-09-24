@@ -95,55 +95,55 @@ export default function ProfileForm({ user, bio: initialBio }: { user: CurrentUs
     <div className="space-y-6">
       <div className="flex items-center gap-4">
         <Avatar initials={initials} size={64} imageUrl={avatarUrl ?? undefined} />
-        <label className="cursor-pointer border border-neutral-300 px-3 py-1.5 text-xs text-neutral-700 hover:border-neutral-400">
+        <label className="cursor-pointer border border-neutral-300 dark:border-neutral-700 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600">
           {uploading ? "Загрузка…" : "Изменить фото"}
           <input type="file" accept="image/*" onChange={handleAvatarChange} className="hidden" />
         </label>
       </div>
 
       <div>
-        <div className="text-xs text-neutral-500">Роли</div>
+        <div className="text-xs text-neutral-500 dark:text-neutral-400">Роли</div>
         <div className="mt-1 flex flex-wrap gap-1.5">
-          {user.roles.length === 0 && <span className="text-sm text-neutral-400">—</span>}
+          {user.roles.length === 0 && <span className="text-sm text-neutral-400 dark:text-neutral-500">—</span>}
           {user.roles.map((r) => (
-            <span key={r} className="border border-neutral-200 px-2 py-0.5 text-xs text-neutral-600">
+            <span key={r} className="border border-neutral-200 dark:border-neutral-800 px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-400">
               {ROLE_LABELS[r]}
             </span>
           ))}
         </div>
-        <p className="mt-1 text-xs text-neutral-400">
+        <p className="mt-1 text-xs text-neutral-400 dark:text-neutral-500">
           Роль «Бизнес» добавляется автоматически при создании компании. Роль «Инвестор» подтверждается вручную.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="text-xs text-neutral-500">ФИО</label>
+          <label className="text-xs text-neutral-500 dark:text-neutral-400">ФИО</label>
           <input
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
             required
-            className="mt-1 block w-full border border-neutral-300 px-3 py-2 text-sm"
+            className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
           />
         </div>
 
         <div>
-          <label className="text-xs text-neutral-500">Юзернейм</label>
+          <label className="text-xs text-neutral-500 dark:text-neutral-400">Юзернейм</label>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            className="mt-1 block w-full border border-neutral-300 px-3 py-2 text-sm"
+            className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
           />
         </div>
 
         <div>
-          <label className="text-xs text-neutral-500">О себе</label>
+          <label className="text-xs text-neutral-500 dark:text-neutral-400">О себе</label>
           <textarea
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             rows={3}
-            className="mt-1 block w-full border border-neutral-300 px-3 py-2 text-sm"
+            className="mt-1 block w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm"
             placeholder="Пара слов о том, чем вы занимаетесь"
           />
         </div>

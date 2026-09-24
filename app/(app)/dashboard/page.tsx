@@ -15,12 +15,12 @@ export default function DashboardPage() {
       <main className="min-w-0 space-y-4">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-lg font-semibold text-neutral-900">Обзор</h1>
-            <p className="mt-1 text-sm text-neutral-500">
+            <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">Обзор</h1>
+            <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
               Показатели компании за текущий месяц
             </p>
           </div>
-          <Link href="/metrics" className="shrink-0 border border-neutral-300 px-3 py-1.5 text-xs text-neutral-700 hover:border-neutral-400">
+          <Link href="/metrics" className="shrink-0 border border-neutral-300 dark:border-neutral-700 px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600">
             Показатели →
           </Link>
         </div>
@@ -28,18 +28,18 @@ export default function DashboardPage() {
         {/* на мобильном: 2 колонки (продажи + эффективность), тенденция на след. строке */}
         <div className="grid grid-cols-2 gap-4">
           {overviewStats.map((s) => (
-            <div key={s.label} className="border border-neutral-200 p-4">
-              <div className="text-xs text-neutral-500">{s.label}</div>
-              <div className="num mt-2 font-mono text-2xl text-neutral-900">
+            <div key={s.label} className="border border-neutral-200 dark:border-neutral-800 p-4">
+              <div className="text-xs text-neutral-500 dark:text-neutral-400">{s.label}</div>
+              <div className="num mt-2 font-mono text-2xl text-neutral-900 dark:text-neutral-50">
                 {s.value}
-                <span className="ml-1 text-sm text-neutral-400">{s.unit}</span>
+                <span className="ml-1 text-sm text-neutral-400 dark:text-neutral-500">{s.unit}</span>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="border border-neutral-200 p-4">
-          <div className="text-sm font-medium text-neutral-900">
+        <div className="border border-neutral-200 dark:border-neutral-800 p-4">
+          <div className="text-sm font-medium text-neutral-900 dark:text-neutral-50">
             Динамика продаж
           </div>
           <div className="mt-3 h-52">

@@ -12,25 +12,25 @@ export default async function MessagesPage() {
 
   return (
     <div className="px-4 md:px-6 py-6">
-      <h1 className="text-lg font-semibold text-neutral-900">Сообщения</h1>
+      <h1 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">Сообщения</h1>
 
       {conversations.length === 0 && (
-        <p className="mt-6 text-sm text-neutral-500">
+        <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">
           Пока нет диалогов. Напишите кому-нибудь со страницы компании или профиля.
         </p>
       )}
 
-      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200">
+      <div className="mt-4 divide-y divide-neutral-100 border border-neutral-200 dark:border-neutral-800">
         {conversations.map((c) => (
           <Link
             key={c.id}
             href={`/messages/${c.id}`}
-            className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50"
+            className="flex items-center gap-3 px-4 py-3 hover:bg-neutral-50 dark:hover:bg-neutral-900"
           >
             <Avatar initials={c.initials} size={40} />
             <div className="min-w-0 flex-1">
-              <div className="truncate text-sm font-medium text-neutral-900">{c.name}</div>
-              <div className="truncate text-xs text-neutral-500">{c.preview}</div>
+              <div className="truncate text-sm font-medium text-neutral-900 dark:text-neutral-50">{c.name}</div>
+              <div className="truncate text-xs text-neutral-500 dark:text-neutral-400">{c.preview}</div>
             </div>
           </Link>
         ))}

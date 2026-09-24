@@ -14,6 +14,7 @@ export async function POST(req: Request) {
     type?: "product" | "service";
     name?: string;
     priceText?: string;
+    priceOnRequest?: boolean;
     description?: string;
     imageUrl?: string;
   };
@@ -39,9 +40,11 @@ export async function POST(req: Request) {
       company_id: companyId,
       type,
       name: name.trim(),
-      price_text: body.priceText?.trim() || null,
+      price_text: body.priceOnRequest ? null : body.priceText?.trim() || null,
+      price_on_request: Boolean(body.priceOnRequest),
       description: body.description?.trim() || null,
       image_url: body.imageUrl || null,
+      images: body.imageUrl ? [body.imageUrl] : [],
     })
     .select("id")
     .single();
@@ -55,7 +58,7 @@ export async function POST(req: Request) {
   try {
     const { data: company } = await supabase.from("companies").select("name").eq("id", companyId).single();
     const label = type === "product" ? "Новый товар" : "Новая услуга";
-    const priceLine = body.priceText?.trim() ? `\nЦена: ${body.priceText.trim()}` : "";
+    const priceLine = body.priceOnRequest ? "\nЦена по запросу" : body.priceText?.trim() ? `\nЦена: ${body.priceText.trim()}` : "";
     const descLine = body.description?.trim() ? `\n${body.description.trim()}` : "";
     await supabase.from("posts").insert({
       author_id: user.id,

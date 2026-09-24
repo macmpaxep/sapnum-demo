@@ -33,11 +33,11 @@ export default function AiPanel() {
   }
 
   return (
-    <section className="border border-neutral-200 p-4">
-      <h2 className="text-sm font-semibold text-neutral-900">
+    <section className="border border-neutral-200 dark:border-neutral-800 p-4">
+      <h2 className="text-sm font-semibold text-neutral-900 dark:text-neutral-50">
         ИИ-ассистент
       </h2>
-      <p className="mt-1 text-xs text-neutral-500">Задайте ваш вопрос</p>
+      <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">Задайте ваш вопрос</p>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -47,7 +47,7 @@ export default function AiPanel() {
         <input
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          className="mt-3 w-full border border-neutral-300 px-3 py-2 text-sm outline-none placeholder:text-neutral-400 focus:border-neutral-500"
+          className="mt-3 w-full border border-neutral-300 dark:border-neutral-700 px-3 py-2 text-sm outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-neutral-500"
           placeholder="Спросите про свои показатели…"
         />
       </form>
@@ -59,17 +59,17 @@ export default function AiPanel() {
               setQuestion(s);
               ask(s);
             }}
-            className="cursor-pointer border border-neutral-200 px-2.5 py-1 text-xs text-neutral-600 hover:border-neutral-400"
+            className="cursor-pointer border border-neutral-200 dark:border-neutral-800 px-2.5 py-1 text-xs text-neutral-600 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-neutral-600"
           >
             {s}
           </button>
         ))}
       </div>
 
-      {loading && <p className="mt-3 text-xs text-neutral-400">Думаю…</p>}
+      {loading && <p className="mt-3 text-xs text-neutral-400 dark:text-neutral-500">Думаю…</p>}
       {error && <p className="mt-3 text-xs text-red-600">{error}</p>}
       {answer && (
-        <p className="mt-3 border-t border-neutral-100 pt-3 text-sm leading-relaxed text-neutral-700">
+        <p className="mt-3 border-t border-neutral-100 dark:border-neutral-800 pt-3 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
           {answer}
         </p>
       )}
