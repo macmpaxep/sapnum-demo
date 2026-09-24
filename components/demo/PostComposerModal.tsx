@@ -6,7 +6,9 @@ import Avatar from "./Avatar";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { checkImageDimensions, checkPhotoQualitySoft, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
 import ImproveTextButton from "@/components/ai/ImproveTextButton";
+import Link from "next/link";
 import { useUser } from "@/lib/hooks/useUser";
+import { useMyCompany } from "@/lib/hooks/useMyCompany";
 import { listenForComposerOpen } from "@/lib/composerEvents";
 import { topics } from "@/lib/demo-data";
 
@@ -15,6 +17,7 @@ import { topics } from "@/lib/demo-data";
 // the feed for attention, opened from anywhere via openComposer().
 export default function PostComposerModal() {
   const { user } = useUser();
+  const companySlug = useMyCompany(user?.id);
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
@@ -31,7 +34,11 @@ export default function PostComposerModal() {
   useEffect(() => listenForComposerOpen(() => setOpen(true)), []);
 
   useEffect(() => {
-    if (open) setTimeout(() => textareaRef.current?.focus(), 50);
+    if (!open) return;
+    // Focusing right after mount can race the modal's own paint/transition
+    // and silently fail to raise the keyboard on iOS — a couple of rAFs
+    // pushes it past that first paint reliably.
+    requestAnimationFrame(() => requestAnimationFrame(() => textareaRef.current?.focus()));
   }, [open]);
 
   function reset() {
@@ -146,7 +153,7 @@ export default function PostComposerModal() {
       <form
         onSubmit={handleSubmit}
         onClick={(e) => e.stopPropagation()}
-        className="flex max-h-[90vh] w-full flex-col rounded-t-xl bg-white dark:bg-ink sm:max-w-lg sm:rounded-xl sm:border sm:border-neutral-200 sm:dark:border-line"
+        className="flex h-[92vh] w-full flex-col rounded-t-xl bg-white dark:bg-ink sm:h-auto sm:max-h-[85vh] sm:w-full sm:max-w-2xl sm:rounded-xl sm:border sm:border-neutral-200 sm:dark:border-line"
       >
         <div className="flex items-center justify-between border-b border-neutral-200 dark:border-line px-4 py-3">
           <button type="button" onClick={close} className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -221,7 +228,14 @@ export default function PostComposerModal() {
           </div>
         </div>
 
-        <div className="flex justify-end border-t border-neutral-200 dark:border-line px-4 py-3">
+        <div className="flex items-center justify-between border-t border-neutral-200 dark:border-line px-4 py-3">
+          <Link
+            href={companySlug ? `/co/${companySlug}?add=1` : "/co/new"}
+            onClick={close}
+            className="text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-paper"
+          >
+            Опубликовать товар/услугу →
+          </Link>
           <button
             type="submit"
             disabled={isPending || uploading || (!text.trim() && !imageFile)}

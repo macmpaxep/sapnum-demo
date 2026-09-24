@@ -44,7 +44,7 @@ export default function PostComposer() {
         </button>
         <button
           onClick={openComposer}
-          className="shrink-0 rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-1.5 text-xs text-white dark:text-ink"
+          className="hidden shrink-0 rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-1.5 text-xs text-white dark:text-ink sm:block"
         >
           Опубликовать
         </button>

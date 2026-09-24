@@ -91,6 +91,7 @@ export default function MobileTabBar() {
           <CreateMenu
             companySlug={companySlug}
             direction="up"
+            align="center"
             renderTrigger={(onClick) => (
               <button onClick={onClick} className="flex flex-col items-center gap-0.5 px-3 py-1 text-neutral-400 dark:text-neutral-500" aria-label="Создать">
                 {plusIcon}
