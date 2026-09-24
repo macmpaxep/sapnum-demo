@@ -25,7 +25,7 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
       </button>
 
       {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-56 border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 shadow-lg">
+        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-56 rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 shadow-lg">
           <Link
             href="/feed"
             onClick={() => setOpen(false)}

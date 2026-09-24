@@ -213,7 +213,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
               •••
             </button>
             {menuOpen && (
-              <div className="absolute right-0 top-[calc(100%+4px)] z-20 w-48 border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 text-left shadow-lg">
+              <div className="absolute right-0 top-[calc(100%+4px)] z-20 w-48 rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 text-left shadow-lg">
                 <button
                   onClick={() => {
                     toggleSave();
@@ -282,7 +282,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
         <div className="mt-3 grid grid-cols-1 gap-2">
           {post.mediaUrls.map((url) => (
             // eslint-disable-next-line @next/next/no-img-element
-            <img key={url} src={url} alt="" className="max-h-96 w-full border border-neutral-100 dark:border-line object-cover" />
+            <img key={url} src={url} alt="" className="max-h-96 w-full rounded-lg border border-neutral-100 dark:border-line object-cover" />
           ))}
         </div>
       )}

@@ -31,7 +31,7 @@ export default async function CompanyPage({
 
   return (
     <div className="space-y-6">
-      <div className="border border-neutral-200 dark:border-line p-6">
+      <div className="rounded-lg border border-neutral-200 dark:border-line p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1 className="text-xl font-semibold text-neutral-900 dark:text-paper">{company.name}</h1>
@@ -44,7 +44,9 @@ export default async function CompanyPage({
           </div>
 
           <div className="flex gap-2">
-            {!isOwnProfile && <MessageButton otherUserId={company.ownerId} />}
+            {!isOwnProfile && (
+              <MessageButton otherUserId={company.ownerId} draft={`Здравствуйте! Пишу из SAPNUM по поводу компании «${company.name}»`} />
+            )}
             <CopyCompanyLink slug={slug} />
           </div>
         </div>
@@ -55,7 +57,11 @@ export default async function CompanyPage({
       {!isOwnProfile && (
         <div>
           <h2 className="mb-2 text-sm font-medium text-neutral-900 dark:text-paper">Подать заявку</h2>
-          <ApplicationForm companyId={company.id} allowInvestment={user?.roles.includes("investor") ?? false} />
+          <ApplicationForm
+            companyId={company.id}
+            allowInvestment={user?.roles.includes("investor") ?? false}
+            defaultMessage={`Здравствуйте! Пишу из SAPNUM. `}
+          />
         </div>
       )}
 
@@ -85,7 +91,7 @@ export default async function CompanyPage({
         {posts.length === 0 && <p className="text-sm text-neutral-500 dark:text-neutral-400">Пока нет записей.</p>}
         <div className="space-y-3">
           {posts.map((p) => (
-            <article key={p.id} className="border border-neutral-200 dark:border-line p-4">
+            <article key={p.id} className="rounded-lg border border-neutral-200 dark:border-line p-4">
               <div className="flex items-center justify-between text-xs text-neutral-400 dark:text-neutral-500">
                 <span className="font-medium text-neutral-900 dark:text-paper">{p.author}</span>
                 <span>{p.time}</span>

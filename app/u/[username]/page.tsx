@@ -30,7 +30,7 @@ export default async function UserProfilePage({ params }: { params: Promise<{ us
 
   return (
     <div className="space-y-6">
-      <div className="border border-neutral-200 dark:border-line p-6">
+      <div className="rounded-lg border border-neutral-200 dark:border-line p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-center gap-4">
             <Avatar initials={initials} size={64} imageUrl={profile.avatarUrl ?? undefined} />
@@ -39,7 +39,7 @@ export default async function UserProfilePage({ params }: { params: Promise<{ us
               <div className="text-sm text-neutral-500 dark:text-neutral-400">@{profile.username}</div>
               <div className="mt-1 flex flex-wrap gap-1.5">
                 {profile.roles.map((r) => (
-                  <span key={r} className="border border-neutral-200 dark:border-line px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+                  <span key={r} className="rounded-lg border border-neutral-200 dark:border-line px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-400">
                     {ROLE_LABELS[r] ?? r}
                   </span>
                 ))}
@@ -54,7 +54,7 @@ export default async function UserProfilePage({ params }: { params: Promise<{ us
             </div>
           )}
           {profile.isOwnProfile && (
-            <Link href="/profile" className="border border-neutral-300 dark:border-line px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute">
+            <Link href="/profile" className="rounded-lg border border-neutral-300 dark:border-line px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute">
               Редактировать
             </Link>
           )}

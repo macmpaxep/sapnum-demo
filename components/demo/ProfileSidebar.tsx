@@ -13,7 +13,7 @@ export default function ProfileSidebar({ items }: { items: ProfileMenuItem[] }) 
   const pathname = usePathname();
 
   return (
-    <aside className="border border-neutral-200 dark:border-line p-4">
+    <aside className="rounded-lg border border-neutral-200 dark:border-line p-4">
       <h2 className="text-xs font-medium uppercase tracking-wide text-neutral-400 dark:text-neutral-500">
         Мой профиль
       </h2>

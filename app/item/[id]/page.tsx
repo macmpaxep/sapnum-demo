@@ -44,7 +44,7 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
               <Link
                 key={r.id}
                 href={`/item/${r.id}`}
-                className="group border border-neutral-200 dark:border-line transition-shadow hover:shadow-md"
+                className="group overflow-hidden rounded-lg border border-neutral-200 dark:border-line transition-shadow hover:shadow-md"
               >
                 <div className="aspect-square w-full overflow-hidden bg-neutral-50 dark:bg-panel">
                   {r.imageUrl ? (

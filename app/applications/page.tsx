@@ -35,7 +35,7 @@ export default async function ApplicationsPage() {
 
       <div className="mt-4 space-y-2">
         {applications.map((a) => (
-          <div key={a.id} className="border border-neutral-200 dark:border-line p-3">
+          <div key={a.id} className="rounded-lg border border-neutral-200 dark:border-line p-3">
             <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
               <span>{TYPE_LABELS[a.type] ?? a.type}</span>
               <span>{STATUS_LABELS[a.status] ?? a.status}</span>

@@ -147,7 +147,7 @@ export default function NotificationBell({ userId }: { userId: string }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-80 border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 shadow-lg">
+        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-80 rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 shadow-lg">
           {unreadMessages > 0 && (
             <Link
               href="/messages"

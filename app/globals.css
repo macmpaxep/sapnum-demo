@@ -29,6 +29,15 @@
   textarea::placeholder {
     @apply text-neutral-400 dark:text-neutral-500;
   }
+  /* Soft rounding app-wide instead of hard square corners on every
+     input/button — cards and containers get it per-component since
+     a blanket rule there would round things that shouldn't be. */
+  input,
+  textarea,
+  select,
+  button {
+    @apply rounded-lg;
+  }
 }
 
 @layer utilities {

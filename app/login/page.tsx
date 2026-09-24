@@ -17,7 +17,7 @@ export default async function LoginPage({
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-white dark:bg-panel px-4 text-neutral-900 dark:text-paper">
-      <div className="w-full max-w-sm border border-neutral-200 dark:border-line p-8 text-center">
+      <div className="w-full max-w-sm rounded-lg border border-neutral-200 dark:border-line p-8 text-center">
         <div className="font-display text-lg font-bold tracking-tight text-neutral-900 dark:text-paper">
           SAPNUM
         </div>

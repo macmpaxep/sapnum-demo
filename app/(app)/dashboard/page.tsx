@@ -28,7 +28,7 @@ export default function DashboardPage() {
         {/* на мобильном: 2 колонки (продажи + эффективность), тенденция на след. строке */}
         <div className="grid grid-cols-2 gap-4">
           {overviewStats.map((s) => (
-            <div key={s.label} className="border border-neutral-200 dark:border-line p-4">
+            <div key={s.label} className="rounded-lg border border-neutral-200 dark:border-line p-4">
               <div className="text-xs text-neutral-500 dark:text-neutral-400">{s.label}</div>
               <div className="num mt-2 font-mono text-2xl text-neutral-900 dark:text-paper">
                 {s.value}
@@ -38,7 +38,7 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        <div className="border border-neutral-200 dark:border-line p-4">
+        <div className="rounded-lg border border-neutral-200 dark:border-line p-4">
           <div className="text-sm font-medium text-neutral-900 dark:text-paper">
             Динамика продаж
           </div>

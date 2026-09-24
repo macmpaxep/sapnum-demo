@@ -106,7 +106,7 @@ export default function ProfileForm({ user, bio: initialBio }: { user: CurrentUs
         <div className="mt-1 flex flex-wrap gap-1.5">
           {user.roles.length === 0 && <span className="text-sm text-neutral-400 dark:text-neutral-500">—</span>}
           {user.roles.map((r) => (
-            <span key={r} className="border border-neutral-200 dark:border-line px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+            <span key={r} className="rounded-lg border border-neutral-200 dark:border-line px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-400">
               {ROLE_LABELS[r]}
             </span>
           ))}

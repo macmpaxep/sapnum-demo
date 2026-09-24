@@ -71,14 +71,14 @@ export default function ApplicationForm({
 
   if (success) {
     return (
-      <div className="border border-neutral-200 dark:border-line p-4 text-sm text-neutral-700 dark:text-neutral-300">
+      <div className="rounded-lg border border-neutral-200 dark:border-line p-4 text-sm text-neutral-700 dark:text-neutral-300">
         Заявка отправлена. Владелец компании увидит её в разделе «Заявки».
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border border-neutral-200 dark:border-line p-4 space-y-3">
+    <form onSubmit={handleSubmit} className="rounded-lg border border-neutral-200 dark:border-line p-4 space-y-3">
       <div>
         <label className="text-xs text-neutral-500 dark:text-neutral-400">Тип заявки</label>
         <select

@@ -25,14 +25,14 @@ export default async function SettingsPage() {
           <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">Аккаунт и подключённые сервисы.</p>
         </div>
 
-        <div className="border border-neutral-200 dark:border-line p-4">
+        <div className="rounded-lg border border-neutral-200 dark:border-line p-4">
           <div className="text-xs text-neutral-500 dark:text-neutral-400">Способ входа</div>
           <div className="mt-1 text-sm text-neutral-900 dark:text-paper">
             {profile?.telegram_username ? `Telegram @${profile.telegram_username}` : "Telegram"}
           </div>
         </div>
 
-        <div className="border border-neutral-200 dark:border-line p-4">
+        <div className="rounded-lg border border-neutral-200 dark:border-line p-4">
           <div className="text-xs text-neutral-500 dark:text-neutral-400">Дата регистрации</div>
           <div className="mt-1 text-sm text-neutral-900 dark:text-paper">
             {profile?.created_at ? new Date(profile.created_at).toLocaleDateString("ru-RU") : "—"}

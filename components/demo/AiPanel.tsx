@@ -33,7 +33,7 @@ export default function AiPanel() {
   }
 
   return (
-    <section className="border border-neutral-200 dark:border-line p-4">
+    <section className="rounded-lg border border-neutral-200 dark:border-line p-4">
       <h2 className="text-sm font-semibold text-neutral-900 dark:text-paper">
         ИИ-ассистент
       </h2>

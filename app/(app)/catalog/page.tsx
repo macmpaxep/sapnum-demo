@@ -69,7 +69,7 @@ export default async function CatalogPage({
             <Link
               key={item.id}
               href={`/item/${item.id}`}
-              className="group border border-neutral-200 dark:border-line transition-shadow hover:shadow-md"
+              className="group overflow-hidden rounded-lg border border-neutral-200 dark:border-line transition-shadow hover:shadow-md"
             >
               <div className="aspect-square w-full overflow-hidden bg-neutral-50 dark:bg-panel">
                 {item.imageUrl ? (

@@ -9,7 +9,7 @@ export default async function Chat() {
   if (!user) {
     return (
       <aside className="w-full min-w-0">
-        <section className="border border-neutral-200 dark:border-line p-4">
+        <section className="rounded-lg border border-neutral-200 dark:border-line p-4">
           <h2 className="text-sm font-semibold text-neutral-900 dark:text-paper">Чат</h2>
           <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
             <Link href="/login" className="underline hover:text-neutral-900 dark:hover:text-paper">
@@ -26,7 +26,7 @@ export default async function Chat() {
 
   return (
     <aside className="flex flex-col gap-6 min-w-0 w-full overflow-hidden">
-      <section className="border border-neutral-200 dark:border-line p-4 w-full min-w-0 box-border">
+      <section className="rounded-lg border border-neutral-200 dark:border-line p-4 w-full min-w-0 box-border">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold text-neutral-900 dark:text-paper">Чат</h2>
           <Link href="/messages" className="text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper">

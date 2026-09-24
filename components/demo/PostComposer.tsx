@@ -106,22 +106,26 @@ export default function PostComposer() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border border-neutral-200 dark:border-line p-4">
+    <form onSubmit={handleSubmit} className="rounded-lg border border-neutral-200 dark:border-line p-4">
       <div className="flex items-start gap-3">
         <Avatar initials="ВЫ" />
-        <input
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Напишите что-нибудь…"
-          className="flex-1 border-b border-neutral-200 dark:border-line pb-2 text-sm text-neutral-700 dark:text-neutral-300 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-neutral-400"
-        />
-        <button
-          type="submit"
-          disabled={isPending || uploading || (!text.trim() && !imageFile)}
-          className="shrink-0 border border-neutral-900 bg-neutral-900 px-3 py-1.5 text-xs text-white disabled:opacity-40"
-        >
-          {uploading ? "Загрузка…" : "Опубликовать"}
-        </button>
+        <div className="min-w-0 flex-1 space-y-2">
+          <input
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Напишите что-нибудь…"
+            className="block w-full border border-neutral-200 dark:border-line px-3 py-2 text-sm text-neutral-700 dark:text-neutral-300 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-neutral-400"
+          />
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              disabled={isPending || uploading || (!text.trim() && !imageFile)}
+              className="border border-neutral-900 bg-neutral-900 px-4 py-1.5 text-xs text-white disabled:opacity-40"
+            >
+              {uploading ? "Загрузка…" : "Опубликовать"}
+            </button>
+          </div>
+        </div>
       </div>
 
       {text.trim() && (
@@ -157,7 +161,7 @@ export default function PostComposer() {
         <select
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
-          className="border border-neutral-200 dark:border-line bg-white dark:bg-panel px-2 py-1 text-neutral-600 dark:text-neutral-400"
+          className="rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel px-2 py-1 text-neutral-600 dark:text-neutral-400"
         >
           <option value="">Без темы</option>
           {topics.map((t) => (

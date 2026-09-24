@@ -36,7 +36,7 @@ export default function ApplicationRow({ application }: { application: CompanyAp
   }
 
   return (
-    <div className="border border-neutral-200 dark:border-line p-3">
+    <div className="rounded-lg border border-neutral-200 dark:border-line p-3">
       <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
         <span>{TYPE_LABELS[application.type] ?? application.type}</span>
         <span>{STATUS_LABELS[status] ?? status}</span>

@@ -30,7 +30,7 @@ export default function TopicsSidebar() {
   }
 
   return (
-    <aside className="border border-neutral-200 dark:border-line">
+    <aside className="rounded-lg border border-neutral-200 dark:border-line">
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between px-4 py-3 text-left"

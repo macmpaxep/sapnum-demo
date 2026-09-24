@@ -16,7 +16,7 @@ export default async function SavedPage() {
 
       <div className="mt-4 space-y-3">
         {saved.map((s) => (
-          <article key={s.id} className="border border-neutral-200 dark:border-line p-4">
+          <article key={s.id} className="rounded-lg border border-neutral-200 dark:border-line p-4">
             <div className="text-sm font-medium text-neutral-900 dark:text-paper">{s.author}</div>
             <p className="mt-2 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">{s.content}</p>
           </article>

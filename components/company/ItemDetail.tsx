@@ -152,7 +152,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
           ) : (
             <button
               onClick={() => setEditing(true)}
-              className="border border-neutral-300 dark:border-line px-4 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute"
+              className="rounded-lg border border-neutral-300 dark:border-line px-4 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute"
             >
               ✎ Редактировать
             </button>
@@ -179,7 +179,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                     <div key={url} className="relative shrink-0">
                       <button
                         onClick={() => setActivePhoto(idx)}
-                        className={`h-16 w-16 overflow-hidden border ${idx === activePhoto ? "border-neutral-900 dark:border-white" : "border-neutral-200 dark:border-line"}`}
+                        className={`h-16 w-16 overflow-hidden rounded-lg border ${idx === activePhoto ? "border-neutral-900 dark:border-white" : "border-neutral-200 dark:border-line"}`}
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={url} alt="" className="h-full w-full object-cover" />
@@ -211,7 +211,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploading}
-                className="mx-auto flex aspect-square w-full max-w-[420px] items-center justify-center border border-dashed border-neutral-300 dark:border-line text-sm text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-mute"
+                className="mx-auto flex aspect-square w-full max-w-[420px] items-center justify-center rounded-lg border border-dashed border-neutral-300 dark:border-line text-sm text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-mute"
               >
                 {uploading ? "Загрузка…" : "+ Добавить фото"}
               </button>
@@ -328,12 +328,12 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                     companyId={item.companyId}
                     allowInvestment={false}
                     triggerLabel="Оставить заявку"
-                    defaultMessage={`По поводу «${item.name}»: `}
+                    defaultMessage={`Здравствуйте! Пишу из SAPNUM по поводу «${item.name}»: `}
                   />
                   <MessageButton
                     otherUserId={item.companyOwnerId}
                     label="Написать о товаре"
-                    draft={`Здравствуйте! Подскажите, пожалуйста, про «${item.name}»`}
+                    draft={`Здравствуйте! Пишу из SAPNUM. Подскажите, пожалуйста, про «${item.name}»`}
                   />
                 </div>
               )}
