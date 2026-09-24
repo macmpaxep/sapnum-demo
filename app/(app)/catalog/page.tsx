@@ -36,7 +36,7 @@ export default async function CatalogPage({
           </Link>
         ) : (
           <Link
-            href="/company/new"
+            href="/co/new"
             className="flex items-center justify-between border border-dashed border-neutral-300 px-4 py-3 text-sm text-neutral-600 hover:border-neutral-400 hover:text-neutral-900"
           >
             <span>Хотите разместить здесь свои товары или услуги?</span>

@@ -43,7 +43,7 @@ export default function CreateMenu({ companySlug }: { companySlug: string | null
             </Link>
           ) : (
             <Link
-              href="/company/new"
+              href="/co/new"
               onClick={() => setOpen(false)}
               className="block px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
             >

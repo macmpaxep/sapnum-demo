@@ -8,6 +8,9 @@ const TRANSLIT: Record<string, string> = {
   э: "e", ю: "yu", я: "ya",
 };
 
+// Slugs under /co/{slug} that would otherwise collide with app routes.
+const RESERVED_SLUGS = new Set(["new", "api", "login", "feed", "catalog", "people", "companies", "messages", "settings", "profile"]);
+
 function slugify(name: string): string {
   const transliterated = name
     .toLowerCase()
@@ -43,10 +46,10 @@ export async function POST(req: Request) {
   if (!name) return NextResponse.json({ error: "Укажите название компании" }, { status: 400 });
 
   const baseSlug = slugify(name);
-  let slug = baseSlug;
+  let slug = RESERVED_SLUGS.has(baseSlug) ? `${baseSlug}-${Math.floor(Math.random() * 10000)}` : baseSlug;
   for (let i = 0; i < 20; i++) {
     const { data: taken } = await supabase.from("companies").select("id").eq("slug", slug).maybeSingle();
-    if (!taken) break;
+    if (!taken && !RESERVED_SLUGS.has(slug)) break;
     slug = `${baseSlug}-${Math.floor(Math.random() * 10000)}`;
   }
 
