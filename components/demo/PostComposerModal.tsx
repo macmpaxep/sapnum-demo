@@ -12,6 +12,15 @@ import { useMyCompany } from "@/lib/hooks/useMyCompany";
 import { listenForComposerOpen, registerComposerTextarea } from "@/lib/composerEvents";
 import { topics } from "@/lib/demo-data";
 
+// Threads caps posts at 500 characters.
+const MAX_POST_LENGTH = 500;
+
+function autoGrow(el: HTMLTextAreaElement | null) {
+  if (!el) return;
+  el.style.height = "auto";
+  el.style.height = `${el.scrollHeight}px`;
+}
+
 // Threads-style: writing happens in a focused full-screen (mobile) /
 // centered (desktop) modal instead of an inline field competing with
 // the feed for attention, opened from anywhere via openComposer().
@@ -72,6 +81,7 @@ export default function PostComposerModal() {
     setError(null);
     setQualityWarning(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
+    if (textareaRef.current) textareaRef.current.style.height = "auto";
   }
 
   function close() {
@@ -229,10 +239,14 @@ export default function PostComposerModal() {
               <textarea
                 ref={textareaRef}
                 value={text}
-                onChange={(e) => setText(e.target.value)}
+                onChange={(e) => {
+                  setText(e.target.value);
+                  autoGrow(e.target);
+                }}
                 placeholder="Что нового?"
-                rows={4}
-                className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-sm text-neutral-900 dark:bg-transparent dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                maxLength={MAX_POST_LENGTH}
+                rows={1}
+                className="mt-1.5 block w-full resize-none overflow-hidden border-0 bg-transparent p-0 text-sm text-neutral-900 dark:bg-transparent dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
               />
 
               {imagePreview && (
@@ -310,10 +324,14 @@ export default function PostComposerModal() {
               <div className="min-w-0 flex-1">
                 <textarea
                   value={part}
-                  onChange={(e) => updateThreadPart(i, e.target.value)}
+                  onChange={(e) => {
+                    updateThreadPart(i, e.target.value);
+                    autoGrow(e.target);
+                  }}
                   placeholder="Дополните ветку"
-                  rows={2}
-                  className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-sm text-neutral-900 dark:bg-transparent dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                  maxLength={MAX_POST_LENGTH}
+                  rows={1}
+                  className="mt-1.5 block w-full resize-none overflow-hidden border-0 bg-transparent p-0 text-sm text-neutral-900 dark:bg-transparent dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                 />
               </div>
               <button
