@@ -25,7 +25,7 @@ export function useUser() {
       }
 
       const [{ data: profile }, { data: roles }] = await Promise.all([
-        supabase.from("profiles").select("id, username, display_name, avatar_url").eq("id", authUser.id).single(),
+        supabase.from("profiles").select("id, username, display_name, avatar_url, onboarding_completed").eq("id", authUser.id).single(),
         supabase.from("user_roles").select("role").eq("user_id", authUser.id),
       ]);
 
@@ -41,6 +41,7 @@ export function useUser() {
         displayName: profile.display_name,
         avatarUrl: profile.avatar_url,
         roles: (roles ?? []).map((r) => r.role) as CurrentUser["roles"],
+        onboardingCompleted: profile.onboarding_completed,
       });
       setLoading(false);
     }

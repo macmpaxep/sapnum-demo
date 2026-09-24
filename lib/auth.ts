@@ -8,6 +8,7 @@ export interface CurrentUser {
   displayName: string;
   avatarUrl: string | null;
   roles: UserRole[];
+  onboardingCompleted: boolean;
 }
 
 export async function getCurrentUser(): Promise<CurrentUser | null> {
@@ -19,7 +20,7 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
   if (!user) return null;
 
   const [{ data: profile }, { data: roles }] = await Promise.all([
-    supabase.from("profiles").select("id, username, display_name, avatar_url").eq("id", user.id).single(),
+    supabase.from("profiles").select("id, username, display_name, avatar_url, onboarding_completed").eq("id", user.id).single(),
     supabase.from("user_roles").select("role").eq("user_id", user.id),
   ]);
 
@@ -31,6 +32,7 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
     displayName: profile.display_name,
     avatarUrl: profile.avatar_url,
     roles: (roles ?? []).map((r) => r.role as UserRole),
+    onboardingCompleted: profile.onboarding_completed,
   };
 }
 

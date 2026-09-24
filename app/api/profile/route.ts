@@ -9,14 +9,22 @@ export async function PATCH(req: Request) {
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Не авторизован" }, { status: 401 });
 
-  let body: { displayName?: string; username?: string; bio?: string; avatarUrl?: string };
+  let body: {
+    displayName?: string;
+    username?: string;
+    bio?: string;
+    avatarUrl?: string;
+    goal?: string;
+    interests?: string[];
+    onboardingCompleted?: boolean;
+  };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Некорректный запрос" }, { status: 400 });
   }
 
-  const update: Record<string, string | null> = {};
+  const update: Record<string, unknown> = {};
 
   if (body.displayName !== undefined) {
     const displayName = body.displayName.trim();
@@ -47,6 +55,18 @@ export async function PATCH(req: Request) {
 
   if (body.avatarUrl !== undefined) {
     update.avatar_url = body.avatarUrl || null;
+  }
+
+  if (body.goal !== undefined) {
+    update.goal = body.goal || null;
+  }
+
+  if (body.interests !== undefined) {
+    update.interests = body.interests;
+  }
+
+  if (body.onboardingCompleted !== undefined) {
+    update.onboarding_completed = body.onboardingCompleted;
   }
 
   if (Object.keys(update).length === 0) {
