@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Avatar from "./Avatar";
 import type { FeedPost } from "@/lib/queries";
+import { useUser } from "@/lib/hooks/useUser";
 
-type Comment = { id: string; body: string; created_at: string; profiles: { display_name: string } | null };
+type Comment = { id: string; body: string; created_at: string; author_id: string; profiles: { display_name: string } | null };
 
 const EDIT_WINDOW_MS = 15 * 60 * 1000;
 
@@ -27,8 +28,10 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
   const [editText, setEditText] = useState(post.content);
   const [content, setContent] = useState(post.content);
   const [deleted, setDeleted] = useState(false);
+  const [threadText, setThreadText] = useState("");
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { user } = useUser();
 
   const canEdit = post.isMine && Date.now() - new Date(post.createdAt).getTime() < EDIT_WINDOW_MS;
 
@@ -87,10 +90,9 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
     }
   }
 
-  async function submitComment(e: React.FormEvent) {
-    e.preventDefault();
-    const text = commentText.trim();
-    if (!text) return;
+  async function postComment(rawText: string) {
+    const text = rawText.trim();
+    if (!text) return false;
     const res = await fetch(`/api/posts/${post.id}/comments`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -100,10 +102,27 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
       const data = await res.json();
       setComments((prev) => [...(prev ?? []), { ...data.comment, profiles: { display_name: "Вы" } }]);
       setCommentCount((c) => c + 1);
-      setCommentText("");
-    } else {
-      setError("Войдите, чтобы комментировать");
+      return true;
     }
+    setError("Войдите, чтобы комментировать");
+    return false;
+  }
+
+  async function submitComment(e: React.FormEvent) {
+    e.preventDefault();
+    if (await postComment(commentText)) setCommentText("");
+  }
+
+  async function submitThread(e: React.FormEvent) {
+    e.preventDefault();
+    if (!showComments) {
+      setShowComments(true);
+      if (comments === null) {
+        const res = await fetch(`/api/posts/${post.id}/comments`);
+        if (res.ok) setComments((await res.json()).comments ?? []);
+      }
+    }
+    if (await postComment(threadText)) setThreadText("");
   }
 
   function copyLink() {
@@ -315,14 +334,36 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
       </div>
 
 
+      {user?.id === post.authorId && (
+        <div className="relative mt-3 flex items-center gap-3 border-t border-neutral-100 dark:border-line pt-3">
+          <span className="absolute left-[17px] top-0 h-3 w-px bg-neutral-200 dark:bg-line" />
+          <Avatar initials={post.author.split(" ").map((w) => w[0]).join("")} size={28} />
+          <form onSubmit={submitThread} className="flex-1">
+            <input
+              value={threadText}
+              onChange={(e) => setThreadText(e.target.value)}
+              placeholder="Дополните ветку"
+              className="w-full border-0 bg-transparent text-sm text-neutral-400 dark:text-neutral-500 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+            />
+          </form>
+        </div>
+      )}
+
       {showComments && (
-        <div className="mt-3 space-y-2 border-t border-neutral-100 dark:border-line pt-3">
-          {comments?.map((c) => (
-            <div key={c.id} className="text-xs">
-              <span className="font-medium text-neutral-900 dark:text-paper">{c.profiles?.display_name ?? "Пользователь"}</span>{" "}
-              <span className="text-neutral-600 dark:text-neutral-400">{c.body}</span>
-            </div>
-          ))}
+        <div className="mt-3 space-y-3 border-t border-neutral-100 dark:border-line pt-3">
+          {comments?.map((c) => {
+            const isThread = c.author_id === post.authorId;
+            return (
+              <div key={c.id} className={`flex items-start gap-2.5 text-xs ${isThread ? "border-l-2 border-neutral-200 dark:border-line pl-2.5" : ""}`}>
+                <Avatar initials={(c.profiles?.display_name ?? "?").split(" ").map((w) => w[0]).join("")} size={22} />
+                <div>
+                  <span className="font-medium text-neutral-900 dark:text-paper">{c.profiles?.display_name ?? "Пользователь"}</span>{" "}
+                  {isThread && <span className="text-neutral-400 dark:text-neutral-500">· продолжение ветки</span>}
+                  <div className="text-neutral-600 dark:text-neutral-400">{c.body}</div>
+                </div>
+              </div>
+            );
+          })}
           <form onSubmit={submitComment} className="flex gap-2 pt-1">
             <input
               value={commentText}
