@@ -186,7 +186,7 @@ export default function PostComposerModal() {
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Что нового?"
                 rows={4}
-                className="mt-2 block w-full resize-none rounded-none border-0 bg-transparent px-0 pb-0 pt-1 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                className="mt-2 block w-full resize-none rounded-lg border-0 bg-neutral-50 dark:bg-panel p-3 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
               />
 
               {imagePreview && (
