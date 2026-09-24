@@ -1,28 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Unbounded, JetBrains_Mono, Inter } from "next/font/google";
+import "@fontsource-variable/unbounded/wght.css";
+import "@fontsource-variable/jetbrains-mono/wght.css";
+import "@fontsource-variable/inter/wght.css";
 import PwaRegister from "@/components/PwaRegister";
 import "./globals.css";
-
-const display = Unbounded({
-  subsets: ["latin", "cyrillic"],
-  weight: ["500", "700"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-const body = Inter({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600"],
-  variable: "--font-body",
-  display: "swap",
-});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 
@@ -93,7 +74,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="ru" className={`${display.variable} ${mono.variable} ${body.variable}`}>
+    <html lang="ru">
       <body className="font-body antialiased">
         {children}
         <PwaRegister />

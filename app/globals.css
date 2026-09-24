@@ -5,6 +5,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    --font-display: "Unbounded Variable", sans-serif;
+    --font-mono: "JetBrains Mono Variable", monospace;
+    --font-body: "Inter Variable", sans-serif;
   }
   body {
     background-color: #0e1320;
