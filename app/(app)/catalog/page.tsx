@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ProfileTabsHorizontalData from "@/components/demo/ProfileTabsHorizontalData";
 import AiPanel from "@/components/demo/AiPanel";
 import SearchBox from "@/components/people/SearchBox";
 import { listCatalog } from "@/lib/catalog";
@@ -17,35 +16,32 @@ export default async function CatalogPage({
 
   return (
     <div className="space-y-4">
-      <ProfileTabsHorizontalData />
-
-      {/* Липкая шапка каталога: заголовок, поиск, фильтры, баннер, ИИ-ассистент —
-          остаются видимыми при прокрутке, чтобы каталог не терялся под сайдбарами. */}
-      <div className="sticky top-14 z-10 -mx-4 md:-mx-6 space-y-3 border-b border-neutral-200 dark:border-line bg-white/95 dark:bg-ink/95 px-4 py-3 backdrop-blur md:px-6">
+      {/* Липкая шапка каталога: заголовок, поиск, фильтры, ИИ-ассистент —
+          остаются видимыми при прокрутке. Без "bleed"-трюка с отрицательными
+          отступами — держится в пределах обычного контентного отступа
+          страницы, чтобы не задевать позиционирование хедера сайта. */}
+      <div className="sticky top-14 z-10 space-y-3 rounded-lg border border-neutral-200 dark:border-line bg-white/95 dark:bg-ink/95 p-3 backdrop-blur">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-lg font-semibold text-neutral-900 dark:text-paper">Каталог</h1>
             <p className="text-sm text-neutral-500 dark:text-neutral-400">Товары и услуги компаний сообщества SAPNUM.</p>
           </div>
+          {companySlug ? (
+            <Link
+              href={`/co/${companySlug}?add=1`}
+              className="shrink-0 rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-3 py-1.5 text-xs text-white dark:text-ink hover:bg-neutral-800 dark:hover:bg-neutral-100"
+            >
+              + Добавить товар
+            </Link>
+          ) : (
+            <Link
+              href="/co/new"
+              className="shrink-0 rounded-lg border border-dashed border-neutral-300 dark:border-line px-3 py-1.5 text-xs text-neutral-600 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-mute hover:text-neutral-900 dark:hover:text-paper"
+            >
+              Создать страницу компании →
+            </Link>
+          )}
         </div>
-
-        {companySlug ? (
-          <Link
-            href={`/co/${companySlug}?add=1`}
-            className="flex items-center justify-between rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-2.5 text-sm text-white dark:text-ink hover:bg-neutral-800 dark:hover:bg-neutral-100"
-          >
-            <span>Разместите свои товары и услуги в каталоге</span>
-            <span>+ Добавить</span>
-          </Link>
-        ) : (
-          <Link
-            href="/co/new"
-            className="flex items-center justify-between rounded-lg border border-dashed border-neutral-300 dark:border-line px-4 py-2.5 text-sm text-neutral-600 dark:text-neutral-400 hover:border-neutral-400 dark:hover:border-mute hover:text-neutral-900 dark:hover:text-paper"
-          >
-            <span>Хотите разместить здесь свои товары или услуги?</span>
-            <span>Создать страницу компании →</span>
-          </Link>
-        )}
 
         <SearchBox placeholder="Поиск товаров и услуг…" />
 

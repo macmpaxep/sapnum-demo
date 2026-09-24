@@ -81,8 +81,8 @@ export default function MobileTabBar() {
   const profileHref = user ? `/u/${user.username}` : "/login";
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-20 border-t border-neutral-200 bg-white pb-[env(safe-area-inset-bottom)] dark:border-line dark:bg-ink">
-      <div className="flex items-center justify-around py-2">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-20 border-t border-neutral-200 bg-white pb-[calc(env(safe-area-inset-bottom)+12px)] dark:border-line dark:bg-ink">
+      <div className="flex items-center justify-around py-3">
         {leftTabs.map((tab) => (
           <TabLink key={tab.href} href={tab.href} label={tab.label} icon={tab.icon(pathname === tab.href)} active={pathname === tab.href} />
         ))}
