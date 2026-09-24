@@ -27,6 +27,26 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Заполните сообщение" }, { status: 400 });
   }
 
+  const { data: conversation } = await supabase
+    .from("conversations")
+    .select("initiator_id, accepted")
+    .eq("id", conversationId)
+    .single();
+
+  if (conversation && !conversation.accepted && conversation.initiator_id === user.id) {
+    const { count } = await supabase
+      .from("messages")
+      .select("id", { count: "exact", head: true })
+      .eq("conversation_id", conversationId)
+      .eq("sender_id", user.id);
+    if ((count ?? 0) >= 3) {
+      return NextResponse.json(
+        { error: "Вы можете отправить до 3 сообщений, прежде чем получатель ответит" },
+        { status: 403 }
+      );
+    }
+  }
+
   const { data, error } = await supabase
     .from("messages")
     .insert({ conversation_id: conversationId, sender_id: user.id, body: text, media_url: mediaUrl })
@@ -35,6 +55,11 @@ export async function POST(req: Request) {
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 400 });
+  }
+
+  // A reply from the non-initiator accepts the request.
+  if (conversation && !conversation.accepted && conversation.initiator_id !== user.id) {
+    await supabase.from("conversations").update({ accepted: true }).eq("id", conversationId);
   }
 
   return NextResponse.json({ message: data });

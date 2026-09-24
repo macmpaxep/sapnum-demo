@@ -52,7 +52,12 @@ export async function POST(req: Request) {
   // makes postgrest use `Prefer: return=minimal`, side-stepping that.
   const conversationId = crypto.randomUUID();
 
-  const { error: convError } = await supabase.from("conversations").insert({ id: conversationId, is_group: false });
+  // A conversation started with someone you've never talked to before is a
+  // "request", capped to 3 messages from the initiator until the other
+  // person replies (see /api/messages) — mirrors Threads' DM requests.
+  const { error: convError } = await supabase
+    .from("conversations")
+    .insert({ id: conversationId, is_group: false, initiator_id: user.id, accepted: false });
 
   if (convError) {
     return NextResponse.json({ error: convError.message }, { status: 400 });

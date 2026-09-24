@@ -27,6 +27,7 @@ export default function MessageBubble({
   const [editText, setEditText] = useState(body);
   const [text, setText] = useState(body);
   const [error, setError] = useState<string | null>(null);
+  const [actionsOpen, setActionsOpen] = useState(false);
   const router = useRouter();
   const canManage = isMine && Date.now() - new Date(createdAt).getTime() < EDIT_WINDOW_MS;
 
@@ -63,17 +64,34 @@ export default function MessageBubble({
   return (
     <div className={`group flex items-center gap-2 ${isMine ? "justify-end" : "justify-start"}`}>
       {canManage && !editing && (
-        <div className="hidden shrink-0 items-center gap-1.5 text-xs text-neutral-400 dark:text-neutral-500 group-hover:flex">
-          <button onClick={() => setEditing(true)} className="hover:text-neutral-900 dark:hover:text-paper" aria-label="Редактировать сообщение">
-            ✎
+        <div
+          className={`shrink-0 items-center gap-1 text-neutral-400 dark:text-neutral-500 group-hover:flex ${
+            actionsOpen ? "flex" : "hidden"
+          }`}
+        >
+          <button
+            onClick={() => setEditing(true)}
+            aria-label="Редактировать сообщение"
+            className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-line hover:text-neutral-900 dark:hover:text-paper"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20l1-4.5L15.5 5 19 8.5 8.5 19 4 20Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+            </svg>
           </button>
-          <button onClick={handleDelete} className="hover:text-red-600" aria-label="Удалить сообщение">
-            ✕
+          <button
+            onClick={handleDelete}
+            aria-label="Удалить сообщение"
+            className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-red-50 dark:hover:bg-red-950/30 hover:text-red-600"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M5 7h14M9 7V5h6v2m-8 0 1 13h10l1-13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </button>
         </div>
       )}
       <div
-        className={`max-w-[75%] rounded-lg px-3 py-2 text-sm ${
+        onClick={() => canManage && setActionsOpen((v) => !v)}
+        className={`max-w-[75%] rounded-lg px-3 py-2 text-sm ${canManage ? "cursor-pointer" : ""} ${
           isMine
             ? "bg-neutral-900 text-white dark:bg-paper dark:text-ink"
             : "border border-neutral-200 dark:border-line text-neutral-700 dark:text-neutral-300"
