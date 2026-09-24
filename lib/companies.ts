@@ -134,7 +134,9 @@ export async function getCompanyPosts(companyId: string): Promise<CompanyPost[]>
 
 export interface CompanyApplication {
   id: string;
+  applicantId: string;
   applicantName: string;
+  applicantUsername: string;
   type: string;
   status: string;
   message: string;
@@ -146,17 +148,24 @@ export async function getCompanyApplications(companyId: string): Promise<Company
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase
     .from("applications")
-    .select("id, type, status, message, requested_amount, created_at, profiles!applications_applicant_id_fkey(display_name)")
+    .select(
+      "id, applicant_id, type, status, message, requested_amount, created_at, profiles!applications_applicant_id_fkey(display_name, username)"
+    )
     .eq("target_company_id", companyId)
     .order("created_at", { ascending: false });
 
-  return (data ?? []).map((a) => ({
-    id: a.id,
-    applicantName: (a.profiles as unknown as { display_name: string } | null)?.display_name ?? "Пользователь",
-    type: a.type,
-    status: a.status,
-    message: a.message,
-    requestedAmount: a.requested_amount,
-    createdAt: a.created_at,
-  }));
+  return (data ?? []).map((a) => {
+    const profile = a.profiles as unknown as { display_name: string; username: string } | null;
+    return {
+      id: a.id,
+      applicantId: a.applicant_id,
+      applicantName: profile?.display_name ?? "Пользователь",
+      applicantUsername: profile?.username ?? "",
+      type: a.type,
+      status: a.status,
+      message: a.message,
+      requestedAmount: a.requested_amount,
+      createdAt: a.created_at,
+    };
+  });
 }

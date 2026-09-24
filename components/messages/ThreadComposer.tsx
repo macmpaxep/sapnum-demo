@@ -3,8 +3,8 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
-export default function ThreadComposer({ conversationId }: { conversationId: string }) {
-  const [text, setText] = useState("");
+export default function ThreadComposer({ conversationId, initialText = "" }: { conversationId: string; initialText?: string }) {
+  const [text, setText] = useState(initialText);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();

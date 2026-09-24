@@ -3,7 +3,15 @@
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
-export default function MessageButton({ otherUserId, label = "Написать" }: { otherUserId: string; label?: string }) {
+export default function MessageButton({
+  otherUserId,
+  label = "Написать",
+  draft,
+}: {
+  otherUserId: string;
+  label?: string;
+  draft?: string;
+}) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -33,7 +41,8 @@ export default function MessageButton({ otherUserId, label = "Написать" 
     }
 
     const data = await res.json();
-    router.push(`/messages/${data.conversationId}`);
+    const query = draft ? `?draft=${encodeURIComponent(draft)}` : "";
+    router.push(`/messages/${data.conversationId}${query}`);
   }
 
   return (

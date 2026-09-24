@@ -17,6 +17,18 @@
     background-color: #3ecf8e;
     color: #0e1320;
   }
+  /* Form fields must stay legible no matter what text color their
+     wrapping context sets — inputs inherit `color` by default, so a
+     muted-gray label wrapper was making typed text unreadable. */
+  input,
+  textarea,
+  select {
+    @apply text-neutral-900 dark:text-neutral-100;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-neutral-400 dark:text-neutral-500;
+  }
 }
 
 @layer utilities {

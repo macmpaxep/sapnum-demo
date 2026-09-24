@@ -6,8 +6,15 @@ import MessageBubble from "@/components/messages/MessageBubble";
 import { getCurrentUser } from "@/lib/auth";
 import { getThread, markThreadRead } from "@/lib/messages";
 
-export default async function ThreadPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function ThreadPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ draft?: string }>;
+}) {
   const { id } = await params;
+  const { draft } = await searchParams;
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
@@ -35,7 +42,7 @@ export default async function ThreadPage({ params }: { params: Promise<{ id: str
         )}
       </div>
 
-      <ThreadComposer conversationId={id} />
+      <ThreadComposer conversationId={id} initialText={draft ?? ""} />
     </div>
   );
 }

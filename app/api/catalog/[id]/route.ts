@@ -17,6 +17,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     description?: string;
     imageUrl?: string;
     images?: string[];
+    specs?: { label?: string; value?: string }[];
   };
   try {
     body = await req.json();
@@ -32,6 +33,14 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     return NextResponse.json({ error: check.reason ?? "Не прошло модерацию" }, { status: 422 });
   }
 
+  const specs = body.specs
+    ? body.specs.map((s) => ({ label: s.label?.trim() ?? "", value: s.value?.trim() ?? "" })).filter((s) => s.label && s.value)
+    : undefined;
+
+  if (specs && specs.length < 2) {
+    return NextResponse.json({ error: "Укажите хотя бы 2 характеристики — это помогает покупателям сравнивать" }, { status: 400 });
+  }
+
   const { error } = await supabase
     .from("catalog_items")
     .update({
@@ -41,6 +50,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       description: body.description?.trim() || null,
       ...(body.imageUrl ? { image_url: body.imageUrl } : {}),
       ...(body.images ? { images: body.images } : {}),
+      ...(specs ? { specs } : {}),
     })
     .eq("id", id);
 

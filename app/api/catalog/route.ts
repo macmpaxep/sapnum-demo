@@ -18,6 +18,7 @@ export async function POST(req: Request) {
     description?: string;
     imageUrl?: string;
     images?: string[];
+    specs?: { label?: string; value?: string }[];
   };
   try {
     body = await req.json();
@@ -28,6 +29,14 @@ export async function POST(req: Request) {
   const { companyId, type, name } = body;
   if (!companyId || (type !== "product" && type !== "service") || !name?.trim()) {
     return NextResponse.json({ error: "Заполните название и тип" }, { status: 400 });
+  }
+
+  const specs = (body.specs ?? [])
+    .map((s) => ({ label: s.label?.trim() ?? "", value: s.value?.trim() ?? "" }))
+    .filter((s) => s.label && s.value);
+
+  if (specs.length < 2) {
+    return NextResponse.json({ error: "Укажите хотя бы 2 характеристики — это помогает покупателям сравнивать" }, { status: 400 });
   }
 
   const check = await moderateText(`${name} ${body.description ?? ""}`);
@@ -46,6 +55,7 @@ export async function POST(req: Request) {
       description: body.description?.trim() || null,
       image_url: body.imageUrl || null,
       images: body.images && body.images.length > 0 ? body.images : body.imageUrl ? [body.imageUrl] : [],
+      specs,
     })
     .select("id")
     .single();

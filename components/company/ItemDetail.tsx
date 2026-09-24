@@ -8,7 +8,7 @@ import { checkImageDimensions, checkPhotoQualitySoft, MIN_IMAGE_DIMENSION } from
 import ImproveTextButton from "@/components/ai/ImproveTextButton";
 import MessageButton from "@/components/company/MessageButton";
 import ApplicationForm from "@/components/company/ApplicationForm";
-import type { CatalogItem } from "@/lib/catalog";
+import type { CatalogItem, CatalogSpec } from "@/lib/catalog";
 
 export default function ItemDetail({ item, canManage }: { item: CatalogItem; canManage: boolean }) {
   const [editing, setEditing] = useState(false);
@@ -19,6 +19,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
   const [priceText, setPriceText] = useState(item.priceText ?? "");
   const [priceOnRequest, setPriceOnRequest] = useState(item.priceOnRequest);
   const [description, setDescription] = useState(item.description ?? "");
+  const [specs, setSpecs] = useState<CatalogSpec[]>(item.specs.length > 0 ? item.specs : [{ label: "", value: "" }, { label: "", value: "" }]);
   const [images, setImages] = useState<string[]>(item.images.length > 0 ? item.images : item.imageUrl ? [item.imageUrl] : []);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -69,10 +70,27 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
     setActivePhoto(0);
   }
 
+  function updateSpec(idx: number, field: "label" | "value", value: string) {
+    setSpecs((prev) => prev.map((s, i) => (i === idx ? { ...s, [field]: value } : s)));
+  }
+
+  function addSpecRow() {
+    setSpecs((prev) => [...prev, { label: "", value: "" }]);
+  }
+
+  function removeSpecRow(idx: number) {
+    setSpecs((prev) => prev.filter((_, i) => i !== idx));
+  }
+
   async function handleSave() {
     const trimmed = name.trim();
     if (!trimmed) {
       setError("Введите название");
+      return;
+    }
+    const filledSpecs = specs.filter((s) => s.label.trim() && s.value.trim());
+    if (filledSpecs.length < 2) {
+      setError("Укажите хотя бы 2 характеристики");
       return;
     }
     setSubmitting(true);
@@ -88,6 +106,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
         description,
         images,
         imageUrl: images[0],
+        specs: filledSpecs,
       }),
     });
     const data = await res.json().catch(() => ({}));
@@ -108,6 +127,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
     setPriceOnRequest(item.priceOnRequest);
     setDescription(item.description ?? "");
     setImages(item.images.length > 0 ? item.images : item.imageUrl ? [item.imageUrl] : []);
+    setSpecs(item.specs.length > 0 ? item.specs : [{ label: "", value: "" }, { label: "", value: "" }]);
     setError(null);
     setEditing(false);
   }
@@ -251,6 +271,42 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                 )}
               </div>
 
+              <div>
+                <label className="text-xs text-neutral-500 dark:text-neutral-400">Характеристики — минимум 2</label>
+                <div className="mt-1 space-y-1.5">
+                  {specs.map((spec, idx) => (
+                    <div key={idx} className="flex gap-1.5">
+                      <input
+                        value={spec.label}
+                        onChange={(e) => updateSpec(idx, "label", e.target.value)}
+                        placeholder="Параметр"
+                        className="w-1/2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-2 py-1.5 text-xs"
+                      />
+                      <input
+                        value={spec.value}
+                        onChange={(e) => updateSpec(idx, "value", e.target.value)}
+                        placeholder="Значение"
+                        className="w-1/2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-2 py-1.5 text-xs"
+                      />
+                      {specs.length > 2 && (
+                        <button
+                          onClick={() => removeSpecRow(idx)}
+                          className="shrink-0 px-1 text-neutral-400 dark:text-neutral-500 hover:text-red-600"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  onClick={addSpecRow}
+                  className="mt-1.5 text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-white"
+                >
+                  + Добавить характеристику
+                </button>
+              </div>
+
               {error && <p className="text-xs text-red-600">{error}</p>}
             </div>
           ) : (
@@ -274,7 +330,22 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                     triggerLabel="Оставить заявку"
                     defaultMessage={`По поводу «${item.name}»: `}
                   />
-                  <MessageButton otherUserId={item.companyOwnerId} label="Написать о товаре" />
+                  <MessageButton
+                    otherUserId={item.companyOwnerId}
+                    label="Написать о товаре"
+                    draft={`Здравствуйте! Подскажите, пожалуйста, про «${item.name}»`}
+                  />
+                </div>
+              )}
+
+              {item.specs.length > 0 && (
+                <div className="grid grid-cols-2 gap-px overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800">
+                  {item.specs.map((s, idx) => (
+                    <div key={idx} className="bg-white dark:bg-neutral-900 p-3">
+                      <div className="text-[11px] uppercase tracking-wide text-neutral-400 dark:text-neutral-500">{s.label}</div>
+                      <div className="mt-0.5 text-sm font-medium text-neutral-900 dark:text-neutral-50">{s.value}</div>
+                    </div>
+                  ))}
                 </div>
               )}
 

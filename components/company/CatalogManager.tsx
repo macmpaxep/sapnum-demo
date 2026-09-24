@@ -6,7 +6,7 @@ import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { checkImageDimensions, checkPhotoQualitySoft, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
 import ImproveTextButton from "@/components/ai/ImproveTextButton";
-import type { CatalogItem } from "@/lib/catalog";
+import type { CatalogItem, CatalogSpec } from "@/lib/catalog";
 
 export default function CatalogManager({
   companyId,
@@ -32,6 +32,10 @@ export default function CatalogManager({
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [extraFiles, setExtraFiles] = useState<File[]>([]);
+  const [specs, setSpecs] = useState<CatalogSpec[]>([
+    { label: "", value: "" },
+    { label: "", value: "" },
+  ]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [qualityWarning, setQualityWarning] = useState<string | null>(null);
@@ -50,8 +54,26 @@ export default function CatalogManager({
     return supabase.storage.from("post-media").getPublicUrl(path).data.publicUrl;
   }
 
+  function updateSpec(idx: number, field: "label" | "value", value: string) {
+    setSpecs((prev) => prev.map((s, i) => (i === idx ? { ...s, [field]: value } : s)));
+  }
+
+  function addSpecRow() {
+    setSpecs((prev) => [...prev, { label: "", value: "" }]);
+  }
+
+  function removeSpecRow(idx: number) {
+    setSpecs((prev) => prev.filter((_, i) => i !== idx));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const filledSpecs = specs.filter((s) => s.label.trim() && s.value.trim());
+    if (filledSpecs.length < 2) {
+      setError("Укажите хотя бы 2 характеристики — это помогает покупателям сравнивать");
+      return;
+    }
+
     setSubmitting(true);
     setError(null);
 
@@ -64,7 +86,17 @@ export default function CatalogManager({
       const res = await fetch("/api/catalog", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ companyId, type, name, priceText, priceOnRequest, description, imageUrl, images }),
+        body: JSON.stringify({
+          companyId,
+          type,
+          name,
+          priceText,
+          priceOnRequest,
+          description,
+          imageUrl,
+          images,
+          specs: filledSpecs,
+        }),
       });
 
       if (!res.ok) {
@@ -78,6 +110,10 @@ export default function CatalogManager({
       setDescription("");
       setImageFile(null);
       setExtraFiles([]);
+      setSpecs([
+        { label: "", value: "" },
+        { label: "", value: "" },
+      ]);
       setQualityWarning(null);
       setOpen(false);
       router.refresh();
@@ -213,6 +249,46 @@ export default function CatalogManager({
                   </div>
                 )}
               </div>
+              <div>
+                <label className="text-xs text-neutral-500 dark:text-neutral-400">
+                  Характеристики — минимум 2 (напр. «Материал» / «Гарантия»)
+                </label>
+                <div className="mt-1 space-y-1.5">
+                  {specs.map((spec, idx) => (
+                    <div key={idx} className="flex gap-1.5">
+                      <input
+                        value={spec.label}
+                        onChange={(e) => updateSpec(idx, "label", e.target.value)}
+                        placeholder="Параметр (напр. Материал)"
+                        className="w-1/2 border border-neutral-300 dark:border-neutral-700 px-2 py-1.5 text-xs"
+                      />
+                      <input
+                        value={spec.value}
+                        onChange={(e) => updateSpec(idx, "value", e.target.value)}
+                        placeholder="Значение (напр. Нержавеющая сталь)"
+                        className="w-1/2 border border-neutral-300 dark:border-neutral-700 px-2 py-1.5 text-xs"
+                      />
+                      {specs.length > 2 && (
+                        <button
+                          type="button"
+                          onClick={() => removeSpecRow(idx)}
+                          className="shrink-0 px-1 text-neutral-400 dark:text-neutral-500 hover:text-red-600"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={addSpecRow}
+                  className="mt-1.5 text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-white"
+                >
+                  + Добавить характеристику
+                </button>
+              </div>
+
               <div>
                 <label className="text-xs text-neutral-500 dark:text-neutral-400">
                   Основное фото — оно будет главным на карточке товара

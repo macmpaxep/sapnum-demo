@@ -1,5 +1,10 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
+export interface CatalogSpec {
+  label: string;
+  value: string;
+}
+
 export interface CatalogItem {
   id: string;
   type: "product" | "service";
@@ -9,6 +14,7 @@ export interface CatalogItem {
   description: string | null;
   imageUrl: string | null;
   images: string[];
+  specs: CatalogSpec[];
   companyId: string;
   companyName: string;
   companySlug: string;
@@ -16,7 +22,7 @@ export interface CatalogItem {
 }
 
 const ITEM_SELECT =
-  "id, type, name, price_text, price_on_request, description, image_url, images, company_id, companies(name, slug, owner_id)";
+  "id, type, name, price_text, price_on_request, description, image_url, images, specs, company_id, companies(name, slug, owner_id)";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapRow(i: any): CatalogItem {
@@ -30,6 +36,7 @@ function mapRow(i: any): CatalogItem {
     description: i.description,
     imageUrl: i.image_url,
     images: i.images ?? [],
+    specs: Array.isArray(i.specs) ? i.specs : [],
     companyId: i.company_id,
     companyName: company?.name ?? "",
     companySlug: company?.slug ?? "",
