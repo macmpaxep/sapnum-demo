@@ -12,7 +12,7 @@ export default function CreateMenu({
 }: {
   companySlug: string | null;
   direction?: "down" | "up";
-  align?: "right" | "center";
+  align?: "right" | "center" | "left";
   renderTrigger?: (onClick: () => void) => React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function CreateMenu({
         <div
           className={`absolute z-20 w-56 max-w-[calc(100vw-2rem)] rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 shadow-lg ${
             direction === "up" ? "bottom-[calc(100%+8px)]" : "top-[calc(100%+8px)]"
-          } ${align === "center" ? "left-1/2 -translate-x-1/2" : "right-0"}`}
+          } ${align === "center" ? "left-1/2 -translate-x-1/2" : align === "left" ? "left-0" : "right-0"}`}
         >
           <button
             onClick={() => {

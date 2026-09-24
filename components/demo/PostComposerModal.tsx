@@ -9,7 +9,7 @@ import ImproveTextButton from "@/components/ai/ImproveTextButton";
 import Link from "next/link";
 import { useUser } from "@/lib/hooks/useUser";
 import { useMyCompany } from "@/lib/hooks/useMyCompany";
-import { listenForComposerOpen } from "@/lib/composerEvents";
+import { listenForComposerOpen, registerComposerTextarea } from "@/lib/composerEvents";
 import { topics } from "@/lib/demo-data";
 
 // Threads-style: writing happens in a focused full-screen (mobile) /
@@ -33,13 +33,14 @@ export default function PostComposerModal() {
 
   useEffect(() => listenForComposerOpen(() => setOpen(true)), []);
 
+  // Registering the textarea lets openComposer() call .focus() synchronously
+  // inside the triggering click, which is what actually raises the iOS
+  // keyboard — see the comment in composerEvents.ts. The modal itself stays
+  // mounted (never unmounts to display:none) so the ref is always valid.
   useEffect(() => {
-    if (!open) return;
-    // Focusing right after mount can race the modal's own paint/transition
-    // and silently fail to raise the keyboard on iOS — a couple of rAFs
-    // pushes it past that first paint reliably.
-    requestAnimationFrame(() => requestAnimationFrame(() => textareaRef.current?.focus()));
-  }, [open]);
+    registerComposerTextarea(textareaRef.current);
+    return () => registerComposerTextarea(null);
+  }, [user]);
 
   function reset() {
     setText("");
@@ -139,7 +140,7 @@ export default function PostComposerModal() {
     startTransition(() => router.refresh());
   }
 
-  if (!open || !user) return null;
+  if (!user) return null;
 
   const initials = user.displayName
     .split(" ")
@@ -149,11 +150,22 @@ export default function PostComposerModal() {
     .join("");
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-end justify-center bg-black/50 sm:items-center" onClick={close}>
+    <div
+      // Stays in the DOM (never display:none) even while closed, so the
+      // textarea below remains focusable — that's what lets openComposer()
+      // raise the iOS keyboard synchronously from the triggering click.
+      className={`fixed inset-0 z-[60] flex items-end justify-center bg-black/50 transition-opacity duration-200 sm:items-center ${
+        open ? "opacity-100" : "pointer-events-none opacity-0"
+      }`}
+      onClick={close}
+      aria-hidden={!open}
+    >
       <form
         onSubmit={handleSubmit}
         onClick={(e) => e.stopPropagation()}
-        className="flex h-[92vh] w-full flex-col rounded-t-xl bg-white dark:bg-ink sm:h-auto sm:max-h-[85vh] sm:w-full sm:max-w-2xl sm:rounded-xl sm:border sm:border-neutral-200 sm:dark:border-line"
+        className={`flex h-[92vh] w-full flex-col rounded-t-xl bg-white dark:bg-ink transition-transform duration-200 sm:h-auto sm:max-h-[85vh] sm:w-full sm:max-w-2xl sm:translate-y-0 sm:rounded-xl sm:border sm:border-neutral-200 sm:dark:border-line ${
+          open ? "translate-y-0" : "translate-y-full"
+        }`}
       >
         <div className="flex items-center justify-between border-b border-neutral-200 dark:border-line px-4 py-3">
           <button type="button" onClick={close} className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -163,7 +175,7 @@ export default function PostComposerModal() {
           <span className="w-12" />
         </div>
 
-        <div className="flex-1 overflow-y-auto px-5 py-4">
+        <div className="flex-1 overflow-y-auto px-5 pb-4 pt-5">
           <div className="flex items-start gap-3.5">
             <Avatar initials={initials} imageUrl={user.avatarUrl ?? undefined} />
             <div className="min-w-0 flex-1 pt-0.5">
@@ -174,7 +186,7 @@ export default function PostComposerModal() {
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Что нового?"
                 rows={4}
-                className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                className="mt-2 block w-full resize-none rounded-none border-0 bg-transparent px-0 pb-0 pt-1 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
               />
 
               {imagePreview && (
@@ -246,7 +258,7 @@ export default function PostComposerModal() {
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-2 border-t border-neutral-200 dark:border-line px-4 py-3 sm:justify-between">
+        <div className="flex items-center justify-end gap-2 border-t border-neutral-200 dark:border-line px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-3 sm:justify-between sm:pb-3">
           <Link
             href={companySlug ? `/co/${companySlug}?add=1` : "/co/new"}
             onClick={close}
