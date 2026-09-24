@@ -170,7 +170,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                 <img
                   src={photos[Math.min(activePhoto, photos.length - 1)]}
                   alt={item.name}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain p-4"
                 />
               </div>
               {(photos.length > 1 || editing) && (
