@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { checkImageDimensions, checkPhotoQualitySoft, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
@@ -11,12 +11,19 @@ export default function CatalogManager({
   companyId,
   items,
   canManage,
+  autoOpen = false,
 }: {
   companyId: string;
   items: CatalogItem[];
   canManage: boolean;
+  autoOpen?: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(autoOpen);
+  const formRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (autoOpen) formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [autoOpen]);
   const [type, setType] = useState<"product" | "service">("product");
   const [name, setName] = useState("");
   const [priceText, setPriceText] = useState("");
@@ -108,7 +115,7 @@ export default function CatalogManager({
   return (
     <div className="space-y-6">
       {canManage && (
-        <div>
+        <div ref={formRef}>
           {!open ? (
             <button
               onClick={() => setOpen(true)}

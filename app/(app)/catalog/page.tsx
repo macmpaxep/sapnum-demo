@@ -28,7 +28,7 @@ export default async function CatalogPage({
 
         {companySlug ? (
           <Link
-            href={`/company/${companySlug}`}
+            href={`/company/${companySlug}?add=1`}
             className="flex items-center justify-between border border-neutral-900 bg-neutral-900 px-4 py-3 text-sm text-white hover:bg-neutral-800"
           >
             <span>Разместите свои товары и услуги в каталоге</span>

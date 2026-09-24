@@ -7,8 +7,15 @@ import { getCurrentUser } from "@/lib/auth";
 import { getCompanyBySlug, getCompanyPosts, getCompanyApplications } from "@/lib/companies";
 import { getCompanyCatalog } from "@/lib/catalog";
 
-export default async function CompanyPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CompanyPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ add?: string }>;
+}) {
   const { slug } = await params;
+  const { add } = await searchParams;
   const company = await getCompanyBySlug(slug);
   if (!company) notFound();
 
@@ -65,7 +72,12 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
 
       <div>
         <h2 className="mb-2 text-sm font-medium text-neutral-900">Каталог</h2>
-        <CatalogManager companyId={company.id} items={catalogItems} canManage={company.isOwnerOrAdmin} />
+        <CatalogManager
+          companyId={company.id}
+          items={catalogItems}
+          canManage={company.isOwnerOrAdmin}
+          autoOpen={add === "1" && company.isOwnerOrAdmin}
+        />
       </div>
 
       <div>
