@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BackButton from "@/components/demo/BackButton";
 import ItemDetail from "@/components/company/ItemDetail";
 import { getCatalogItemById, getRelatedCatalogItems, formatCatalogPrice } from "@/lib/catalog";
 import { getCurrentUser } from "@/lib/auth";
@@ -22,6 +23,7 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="space-y-8">
+      <BackButton />
       <nav className="flex items-center gap-1.5 text-xs text-neutral-400 dark:text-neutral-500">
         <Link href="/catalog" className="hover:text-neutral-900 dark:hover:text-paper hover:underline">
           Каталог

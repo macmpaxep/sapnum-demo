@@ -72,6 +72,7 @@ export interface ThreadMessage {
   id: string;
   senderId: string;
   body: string;
+  mediaUrl: string | null;
   createdAt: string;
 }
 
@@ -92,7 +93,7 @@ export async function getThread(conversationId: string): Promise<{
       .eq("conversation_id", conversationId),
     supabase
       .from("messages")
-      .select("id, sender_id, body, created_at")
+      .select("id, sender_id, body, media_url, created_at")
       .eq("conversation_id", conversationId)
       .order("created_at", { ascending: true }),
   ]);
@@ -108,6 +109,7 @@ export async function getThread(conversationId: string): Promise<{
       id: m.id,
       senderId: m.sender_id,
       body: m.body ?? "",
+      mediaUrl: m.media_url ?? null,
       createdAt: m.created_at,
     })),
   };

@@ -22,7 +22,7 @@ export default async function ThreadPage({
   await markThreadRead(id);
 
   return (
-    <div className="flex h-[calc(100vh-56px)] flex-col md:h-[calc(100vh-56px-2rem)] md:my-4 md:border md:border-neutral-200">
+    <div className="flex h-[calc(100vh-56px)] flex-col md:h-[calc(100vh-56px-2rem)] md:my-4 md:rounded-xl md:border md:border-neutral-200 dark:md:border-line md:overflow-hidden">
       <div className="flex items-center gap-3 border-b border-neutral-200 dark:border-line px-4 py-3">
         <Link href="/messages" className="text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-paper md:hidden">
           ←
@@ -35,7 +35,7 @@ export default async function ThreadPage({
 
       <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
         {messages.map((m) => (
-          <MessageBubble key={m.id} id={m.id} body={m.body} isMine={m.senderId === user.id} createdAt={m.createdAt} />
+          <MessageBubble key={m.id} id={m.id} body={m.body} mediaUrl={m.mediaUrl} isMine={m.senderId === user.id} createdAt={m.createdAt} />
         ))}
         {messages.length === 0 && (
           <p className="text-center text-sm text-neutral-400 dark:text-neutral-500">Сообщений пока нет</p>

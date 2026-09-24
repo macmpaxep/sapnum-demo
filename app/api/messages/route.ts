@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Не авторизован" }, { status: 401 });
   }
 
-  let body: { conversationId?: string; text?: string };
+  let body: { conversationId?: string; text?: string; mediaUrl?: string };
   try {
     body = await req.json();
   } catch {
@@ -21,15 +21,16 @@ export async function POST(req: Request) {
   }
 
   const conversationId = body.conversationId?.trim();
-  const text = body.text?.trim();
-  if (!conversationId || !text) {
+  const text = body.text?.trim() ?? "";
+  const mediaUrl = body.mediaUrl?.trim() || null;
+  if (!conversationId || (!text && !mediaUrl)) {
     return NextResponse.json({ error: "Заполните сообщение" }, { status: 400 });
   }
 
   const { data, error } = await supabase
     .from("messages")
-    .insert({ conversation_id: conversationId, sender_id: user.id, body: text })
-    .select("id, sender_id, body, created_at")
+    .insert({ conversation_id: conversationId, sender_id: user.id, body: text, media_url: mediaUrl })
+    .select("id, sender_id, body, media_url, created_at")
     .single();
 
   if (error) {

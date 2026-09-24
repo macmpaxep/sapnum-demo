@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import BackButton from "@/components/demo/BackButton";
 import ApplicationForm from "@/components/company/ApplicationForm";
 import ApplicationRow from "@/components/company/ApplicationRow";
 import MessageButton from "@/components/company/MessageButton";
@@ -31,6 +32,7 @@ export default async function CompanyPage({
 
   return (
     <div className="space-y-6">
+      <BackButton />
       <div className="rounded-lg border border-neutral-200 dark:border-line p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

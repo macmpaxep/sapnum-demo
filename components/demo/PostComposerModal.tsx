@@ -52,8 +52,17 @@ export default function PostComposerModal() {
   useEffect(() => {
     if (!open || typeof window === "undefined" || !window.visualViewport || window.innerWidth >= 640) return;
     const vv = window.visualViewport;
+    let last = vv.height;
+    // Typing (especially growing a textarea) makes Safari's own address
+    // bar hide/show, which also fires visualViewport "resize" with a small
+    // height delta — reacting to that as if the keyboard moved is what
+    // made the sheet visibly jump while typing. Only treat it as a real
+    // keyboard open/close once the change is bigger than that chrome.
     function update() {
-      setViewportHeight(vv!.height);
+      const next = vv!.height;
+      if (Math.abs(next - last) < 100) return;
+      last = next;
+      setViewportHeight(next);
     }
     update();
     vv.addEventListener("resize", update);
@@ -348,7 +357,7 @@ export default function PostComposerModal() {
           <button
             type="button"
             onClick={addThreadPart}
-            disabled={!text.trim()}
+            disabled={!(threadParts.length ? threadParts[threadParts.length - 1] : text).trim()}
             className="relative mt-3 flex items-center gap-3.5 pt-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:text-neutral-500 dark:disabled:hover:text-neutral-400"
           >
             <span className="absolute left-[17px] top-0 h-3 w-px bg-neutral-200 dark:bg-line" />

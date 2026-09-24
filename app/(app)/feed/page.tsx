@@ -22,6 +22,13 @@ export default async function FeedPage({
         <TopicsSidebar />
       </div>
 
+      {/* На мобильном ИИ-ассистент сразу под выбором темы, а не в самом
+          низу страницы — иначе при длинной ленте до него никто не доскроллит.
+          На десктопе он уже есть в правой колонке, так что здесь скрыт. */}
+      <div className="lg:hidden">
+        <AiPanel compact />
+      </div>
+
       <main className="min-w-0 space-y-4">
         {topic && (
           <div className="flex items-center justify-between">
@@ -47,9 +54,13 @@ export default async function FeedPage({
         ))}
       </main>
 
-      {/* Правая колонка — скрыта на мобильном, показывается на десктопе */}
+      {/* Правая колонка: на десктопе — полноценный ИИ-ассистент + чат.
+          На мобильном ИИ-ассистент уже показан выше (компактно), поэтому
+          здесь скрыт, а чат остаётся виден. */}
       <div className="flex flex-col gap-6 min-w-0">
-        <AiPanel />
+        <div className="hidden lg:block">
+          <AiPanel />
+        </div>
         <Chat />
       </div>
     </div>

@@ -4,6 +4,14 @@ import { useState } from "react";
 
 const suggestions = ["Почему упала маржа?", "Сравни с конкурентами"];
 
+function SendIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M4 12l16-8-6 16-2.5-6.5L4 12Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function AiPanel({ compact = false }: { compact?: boolean } = {}) {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState<string | null>(null);
@@ -49,6 +57,14 @@ export default function AiPanel({ compact = false }: { compact?: boolean } = {})
             className="min-w-0 flex-1 border border-neutral-300 dark:border-line px-2 py-1 text-xs outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-neutral-500"
             placeholder="Спросите про свои показатели…"
           />
+          <button
+            type="submit"
+            disabled={!question.trim()}
+            aria-label="Отправить"
+            className="shrink-0 flex h-7 w-7 items-center justify-center rounded-full border border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400 hover:border-neutral-500 disabled:opacity-40"
+          >
+            <SendIcon />
+          </button>
           {suggestions.map((s) => (
             <button
               key={s}
@@ -85,13 +101,22 @@ export default function AiPanel({ compact = false }: { compact?: boolean } = {})
           e.preventDefault();
           ask(question);
         }}
+        className="mt-3 flex items-center gap-2"
       >
         <input
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          className="mt-3 w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-neutral-500"
+          className="w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:border-neutral-500"
           placeholder="Спросите про свои показатели…"
         />
+        <button
+          type="submit"
+          disabled={!question.trim()}
+          aria-label="Отправить"
+          className="shrink-0 flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400 hover:border-neutral-500 disabled:opacity-40"
+        >
+          <SendIcon />
+        </button>
       </form>
       <div className="mt-3 flex flex-wrap gap-2">
         {suggestions.map((s) => (

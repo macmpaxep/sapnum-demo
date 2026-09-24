@@ -28,6 +28,8 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
   const [editText, setEditText] = useState(post.content);
   const [content, setContent] = useState(post.content);
   const [deleted, setDeleted] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [reported, setReported] = useState(false);
   const [threadText, setThreadText] = useState("");
   const [shareMenuOpen, setShareMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -167,7 +169,13 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
     setMenuOpen(false);
   }
 
-  if (deleted) return null;
+  if (deleted || hidden) return null;
+
+  function handleReport() {
+    fetch(`/api/posts/${post.id}/report`, { method: "POST" }).catch(() => {});
+    setReported(true);
+    setMenuOpen(false);
+  }
 
   function handleCardClick(e: React.MouseEvent<HTMLElement>) {
     if (!linkToPost) return;
@@ -222,7 +230,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
             </button>
             {menuOpen && (
               <div className="absolute right-0 top-[calc(100%+4px)] z-20 w-48 rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 text-left shadow-lg">
-                {canEdit && (
+                {canEdit ? (
                   <>
                     <button
                       onClick={() => {
@@ -235,6 +243,25 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
                     </button>
                     <button onClick={handleDelete} className="block w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
                       Удалить
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => {
+                        setHidden(true);
+                        setMenuOpen(false);
+                      }}
+                      className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
+                    >
+                      Скрыть запись
+                    </button>
+                    <button
+                      onClick={handleReport}
+                      disabled={reported}
+                      className="block w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink disabled:opacity-40"
+                    >
+                      {reported ? "Жалоба отправлена" : "Пожаловаться"}
                     </button>
                   </>
                 )}

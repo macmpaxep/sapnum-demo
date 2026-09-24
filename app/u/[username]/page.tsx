@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Avatar from "@/components/demo/Avatar";
+import BackButton from "@/components/demo/BackButton";
 import PostCard from "@/components/demo/PostCard";
 import FollowButton from "@/components/profile/FollowButton";
 import MessageButton from "@/components/company/MessageButton";
@@ -30,6 +31,7 @@ export default async function UserProfilePage({ params }: { params: Promise<{ us
 
   return (
     <div className="space-y-6">
+      <BackButton />
       <div className="rounded-lg border border-neutral-200 dark:border-line p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="flex items-center gap-4">
