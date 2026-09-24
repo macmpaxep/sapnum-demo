@@ -29,7 +29,9 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
   const [content, setContent] = useState(post.content);
   const [deleted, setDeleted] = useState(false);
   const [threadText, setThreadText] = useState("");
+  const [shareMenuOpen, setShareMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const shareMenuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { user } = useUser();
 
@@ -38,6 +40,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenuOpen(false);
+      if (shareMenuRef.current && !shareMenuRef.current.contains(e.target as Node)) setShareMenuOpen(false);
     }
     document.addEventListener("mousedown", onClickOutside);
     return () => document.removeEventListener("mousedown", onClickOutside);
@@ -134,20 +137,6 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
     setMenuOpen(false);
   }
 
-  async function handleShare() {
-    const url = `${window.location.origin}/post/${post.id}`;
-    if (navigator.share) {
-      try {
-        await navigator.share({ url, text: content.slice(0, 100) });
-      } catch {
-        // user cancelled share sheet — no-op
-      }
-    } else {
-      copyLink();
-    }
-    setMenuOpen(false);
-  }
-
   async function submitEdit() {
     const text = editText.trim();
     if (!text) return;
@@ -233,21 +222,6 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
             </button>
             {menuOpen && (
               <div className="absolute right-0 top-[calc(100%+4px)] z-20 w-48 rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 text-left shadow-lg">
-                <button
-                  onClick={() => {
-                    toggleSave();
-                    setMenuOpen(false);
-                  }}
-                  className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
-                >
-                  {saved ? "Убрать из сохранённого" : "Сохранить"}
-                </button>
-                <button onClick={copyLink} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
-                  {copied ? "Ссылка скопирована" : "Скопировать ссылку"}
-                </button>
-                <button onClick={handleShare} className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink">
-                  Поделиться
-                </button>
                 {canEdit && (
                   <>
                     <button
@@ -311,26 +285,90 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
       <div className="mt-3 flex items-center gap-5 border-t border-neutral-100 dark:border-line pt-3 text-xs text-neutral-500 dark:text-neutral-400">
         <button
           onClick={toggleLike}
-          className={`flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-paper ${liked ? "text-neutral-900 dark:text-paper font-medium" : ""}`}
+          className={`flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-paper ${liked ? "text-red-500 dark:text-red-500 font-medium" : ""}`}
         >
-          ♥ {likeCount > 0 ? likeCount : ""} Нравится
+          <svg width="18" height="18" viewBox="0 0 24 24" fill={liked ? "currentColor" : "none"}>
+            <path
+              d="M12 20.3c-.3 0-.6-.1-.8-.3C7.7 17 4 13.5 4 9.7 4 7 6.1 4.8 8.8 4.8c1.4 0 2.7.6 3.2 1.6.5-1 1.8-1.6 3.2-1.6C17.9 4.8 20 7 20 9.7c0 3.8-3.7 7.3-7.2 10.3-.2.2-.5.3-.8.3Z"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+            />
+          </svg>
+          {likeCount > 0 ? likeCount : ""}
         </button>
         <button onClick={loadComments} className="flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-paper">
-          💬 {commentCount > 0 ? commentCount : ""} Комментировать
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M4 5h16v11H8l-4 4V5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+          </svg>
+          {commentCount > 0 ? commentCount : ""}
         </button>
         <button
           onClick={handleRepost}
           disabled={reposted}
           className={`flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-paper ${reposted ? "text-neutral-900 dark:text-paper font-medium" : ""}`}
         >
-          ⟲ {repostCount > 0 ? repostCount : ""} {reposted ? "Репостнуто" : "Репост"}
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M6 8h9a3 3 0 0 1 3 3v2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <path d="M9 5 6 8l3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M18 16H9a3 3 0 0 1-3-3v-2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <path d="M15 19l3-3-3-3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          {repostCount > 0 ? repostCount : ""}
         </button>
-        <button
-          onClick={toggleSave}
-          className={`ml-auto flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-paper ${saved ? "text-neutral-900 dark:text-paper font-medium" : ""}`}
-        >
-          {saved ? "Сохранено" : "Сохранить"}
-        </button>
+        <div className="relative ml-auto" ref={shareMenuRef}>
+          <button
+            onClick={() => setShareMenuOpen((v) => !v)}
+            aria-label="Поделиться"
+            className="flex items-center gap-1.5 hover:text-neutral-900 dark:hover:text-paper"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 15V4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              <path d="M8 8l4-4 4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          {shareMenuOpen && (
+            <div className="absolute right-0 top-[calc(100%+4px)] z-20 w-56 rounded-lg border border-neutral-200 dark:border-line bg-white dark:bg-panel py-1 text-left shadow-lg">
+              <button
+                onClick={() => {
+                  copyLink();
+                  setShareMenuOpen(false);
+                }}
+                className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
+              >
+                {copied ? "Ссылка скопирована" : "Скопировать ссылку"}
+              </button>
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(`${content.slice(0, 100)} ${typeof window !== "undefined" ? window.location.origin : ""}/post/${post.id}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setShareMenuOpen(false)}
+                className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
+              >
+                Переслать в WhatsApp
+              </a>
+              <a
+                href={`https://t.me/share/url?url=${encodeURIComponent(`${typeof window !== "undefined" ? window.location.origin : ""}/post/${post.id}`)}&text=${encodeURIComponent(content.slice(0, 100))}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setShareMenuOpen(false)}
+                className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
+              >
+                Переслать в Telegram
+              </a>
+              <button
+                onClick={() => {
+                  toggleSave();
+                  setShareMenuOpen(false);
+                }}
+                className="block w-full px-3 py-2 text-left text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-paper dark:hover:text-ink"
+              >
+                {saved ? "Убрать из сохранённого" : "Сохранить"}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
 
@@ -343,7 +381,7 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
               value={threadText}
               onChange={(e) => setThreadText(e.target.value)}
               placeholder="Дополните ветку"
-              className="w-full border-0 bg-transparent text-sm text-neutral-400 dark:text-neutral-500 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+              className="w-full border-0 bg-transparent text-sm text-neutral-400 dark:bg-transparent dark:text-neutral-500 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
             />
           </form>
         </div>

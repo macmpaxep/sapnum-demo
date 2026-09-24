@@ -232,7 +232,7 @@ export default function PostComposerModal() {
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Что нового?"
                 rows={4}
-                className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-sm text-neutral-900 dark:bg-transparent dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
               />
 
               {imagePreview && (
@@ -281,7 +281,7 @@ export default function PostComposerModal() {
                   <select
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
-                    className="ml-1.5 appearance-none border-0 bg-transparent pr-2 text-xs text-neutral-600 dark:text-neutral-400 outline-none"
+                    className="ml-1.5 appearance-none border-0 bg-transparent pr-2 text-xs text-neutral-600 dark:bg-transparent dark:text-neutral-400 outline-none"
                   >
                     <option value="">Выберите тему</option>
                     {topics.map((t) => (
@@ -313,7 +313,7 @@ export default function PostComposerModal() {
                   onChange={(e) => updateThreadPart(i, e.target.value)}
                   placeholder="Дополните ветку"
                   rows={2}
-                  className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-base text-neutral-900 dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                  className="mt-1.5 block w-full resize-none border-0 bg-transparent p-0 text-sm text-neutral-900 dark:bg-transparent dark:text-neutral-100 outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                 />
               </div>
               <button
