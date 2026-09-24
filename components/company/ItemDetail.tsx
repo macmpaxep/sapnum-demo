@@ -8,7 +8,9 @@ import { checkImageDimensions, checkPhotoQualitySoft, MIN_IMAGE_DIMENSION } from
 import ImproveTextButton from "@/components/ai/ImproveTextButton";
 import MessageButton from "@/components/company/MessageButton";
 import ApplicationForm from "@/components/company/ApplicationForm";
-import type { CatalogItem, CatalogSpec } from "@/lib/catalog";
+import type { CatalogItem } from "@/lib/catalog";
+import type { CatalogSpec, CatalogCurrency } from "@/lib/catalogFormat";
+import { CURRENCY_LABELS, formatCatalogPrice } from "@/lib/catalogFormat";
 
 export default function ItemDetail({ item, canManage }: { item: CatalogItem; canManage: boolean }) {
   const [editing, setEditing] = useState(false);
@@ -18,6 +20,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
   const [name, setName] = useState(item.name);
   const [priceText, setPriceText] = useState(item.priceText ?? "");
   const [priceOnRequest, setPriceOnRequest] = useState(item.priceOnRequest);
+  const [currency, setCurrency] = useState<CatalogCurrency>(item.currency);
   const [description, setDescription] = useState(item.description ?? "");
   const [specs, setSpecs] = useState<CatalogSpec[]>(item.specs.length > 0 ? item.specs : [{ label: "", value: "" }, { label: "", value: "" }]);
   const [images, setImages] = useState<string[]>(item.images.length > 0 ? item.images : item.imageUrl ? [item.imageUrl] : []);
@@ -103,6 +106,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
         name: trimmed,
         priceText,
         priceOnRequest,
+        currency,
         description,
         images,
         imageUrl: images[0],
@@ -125,6 +129,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
     setName(item.name);
     setPriceText(item.priceText ?? "");
     setPriceOnRequest(item.priceOnRequest);
+    setCurrency(item.currency);
     setDescription(item.description ?? "");
     setImages(item.images.length > 0 ? item.images : item.imageUrl ? [item.imageUrl] : []);
     setSpecs(item.specs.length > 0 ? item.specs : [{ label: "", value: "" }, { label: "", value: "" }]);
@@ -248,12 +253,25 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                 Цена по запросу
               </label>
               {!priceOnRequest && (
-                <input
-                  value={priceText}
-                  onChange={(e) => setPriceText(e.target.value)}
-                  placeholder="Цена (напр. от 12 000 ₸)"
-                  className="block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-3 py-2 text-sm"
-                />
+                <div className="flex gap-2">
+                  <input
+                    value={priceText}
+                    onChange={(e) => setPriceText(e.target.value)}
+                    placeholder="Цена (напр. от 12 000)"
+                    className="block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-3 py-2 text-sm"
+                  />
+                  <select
+                    value={currency}
+                    onChange={(e) => setCurrency(e.target.value as CatalogCurrency)}
+                    className="shrink-0 border border-neutral-300 dark:border-line bg-white dark:bg-panel px-2 py-2 text-sm"
+                  >
+                    {Object.entries(CURRENCY_LABELS).map(([code, label]) => (
+                      <option key={code} value={code}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               )}
 
               <div>
@@ -313,13 +331,11 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
             <>
               <div>
                 <h1 className="text-2xl font-semibold leading-tight text-neutral-900 dark:text-paper">{item.name}</h1>
-                <div className="mt-2 text-2xl font-semibold text-neutral-900 dark:text-paper">
-                  {item.priceOnRequest ? (
-                    <span className="text-lg font-medium text-neutral-500 dark:text-neutral-400">Цена по запросу</span>
-                  ) : (
-                    item.priceText || ""
-                  )}
-                </div>
+                {(item.priceOnRequest || item.priceText) && (
+                  <div className={`mt-2 text-2xl font-semibold ${item.priceOnRequest ? "text-lg font-medium text-neutral-500 dark:text-neutral-400" : "text-emerald-600 dark:text-gain"}`}>
+                    {formatCatalogPrice(item)}
+                  </div>
+                )}
               </div>
 
               {!canManage && (

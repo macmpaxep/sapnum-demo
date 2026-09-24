@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { moderateText } from "@/lib/moderation";
+import type { CatalogCurrency } from "@/lib/catalog";
+
+const VALID_CURRENCIES = new Set(["USD", "KZT", "RUB"]);
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -14,6 +17,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     name?: string;
     priceText?: string;
     priceOnRequest?: boolean;
+    currency?: string;
     description?: string;
     imageUrl?: string;
     images?: string[];
@@ -41,12 +45,19 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     return NextResponse.json({ error: "Укажите хотя бы 2 характеристики — это помогает покупателям сравнивать" }, { status: 400 });
   }
 
+  const currency: CatalogCurrency | undefined = body.currency
+    ? VALID_CURRENCIES.has(body.currency)
+      ? (body.currency as CatalogCurrency)
+      : "KZT"
+    : undefined;
+
   const { error } = await supabase
     .from("catalog_items")
     .update({
       name,
       price_text: body.priceOnRequest ? null : body.priceText?.trim() || null,
       price_on_request: Boolean(body.priceOnRequest),
+      ...(currency ? { currency } : {}),
       description: body.description?.trim() || null,
       ...(body.imageUrl ? { image_url: body.imageUrl } : {}),
       ...(body.images ? { images: body.images } : {}),

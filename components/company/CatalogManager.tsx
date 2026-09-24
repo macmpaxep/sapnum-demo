@@ -6,7 +6,9 @@ import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { checkImageDimensions, checkPhotoQualitySoft, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
 import ImproveTextButton from "@/components/ai/ImproveTextButton";
-import type { CatalogItem, CatalogSpec } from "@/lib/catalog";
+import type { CatalogItem } from "@/lib/catalog";
+import type { CatalogSpec, CatalogCurrency } from "@/lib/catalogFormat";
+import { CURRENCY_LABELS, formatCatalogPrice } from "@/lib/catalogFormat";
 
 export default function CatalogManager({
   companyId,
@@ -29,6 +31,7 @@ export default function CatalogManager({
   const [name, setName] = useState("");
   const [priceText, setPriceText] = useState("");
   const [priceOnRequest, setPriceOnRequest] = useState(false);
+  const [currency, setCurrency] = useState<CatalogCurrency>("KZT");
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [extraFiles, setExtraFiles] = useState<File[]>([]);
@@ -92,6 +95,7 @@ export default function CatalogManager({
           name,
           priceText,
           priceOnRequest,
+          currency,
           description,
           imageUrl,
           images,
@@ -107,6 +111,7 @@ export default function CatalogManager({
       setName("");
       setPriceText("");
       setPriceOnRequest(false);
+      setCurrency("KZT");
       setDescription("");
       setImageFile(null);
       setExtraFiles([]);
@@ -228,12 +233,25 @@ export default function CatalogManager({
                 Цена по запросу
               </label>
               {!priceOnRequest && (
-                <input
-                  value={priceText}
-                  onChange={(e) => setPriceText(e.target.value)}
-                  placeholder="Цена (напр. от 12 000 ₸)"
-                  className="block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
-                />
+                <div className="flex gap-2">
+                  <input
+                    value={priceText}
+                    onChange={(e) => setPriceText(e.target.value)}
+                    placeholder="Цена (напр. от 12 000)"
+                    className="block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
+                  />
+                  <select
+                    value={currency}
+                    onChange={(e) => setCurrency(e.target.value as CatalogCurrency)}
+                    className="shrink-0 border border-neutral-300 dark:border-line bg-white dark:bg-panel px-2 py-2 text-sm"
+                  >
+                    {Object.entries(CURRENCY_LABELS).map(([code, label]) => (
+                      <option key={code} value={code}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               )}
               <div>
                 <textarea
@@ -370,9 +388,11 @@ export default function CatalogManager({
                       <div className="aspect-square rounded-lg border border-neutral-200 dark:border-line bg-neutral-50 dark:bg-panel" />
                     )}
                     <div className="mt-2 text-xs font-medium text-neutral-900 dark:text-paper">{item.name}</div>
-                    <div className="text-xs text-neutral-500 dark:text-neutral-400">
-                      {item.priceOnRequest ? "Цена по запросу" : item.priceText}
-                    </div>
+                    {(item.priceOnRequest || item.priceText) && (
+                      <div className={`text-xs font-medium ${item.priceOnRequest ? "text-neutral-500 dark:text-neutral-400" : "text-emerald-600 dark:text-gain"}`}>
+                        {formatCatalogPrice(item)}
+                      </div>
+                    )}
                   </Link>
                   {canManage && (
                     <button

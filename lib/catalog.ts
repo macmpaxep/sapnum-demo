@@ -1,9 +1,8 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import type { CatalogCurrency, CatalogSpec } from "@/lib/catalogFormat";
 
-export interface CatalogSpec {
-  label: string;
-  value: string;
-}
+export type { CatalogCurrency, CatalogSpec } from "@/lib/catalogFormat";
+export { CURRENCY_SYMBOLS, CURRENCY_LABELS, formatCatalogPrice } from "@/lib/catalogFormat";
 
 export interface CatalogItem {
   id: string;
@@ -11,6 +10,7 @@ export interface CatalogItem {
   name: string;
   priceText: string | null;
   priceOnRequest: boolean;
+  currency: CatalogCurrency;
   description: string | null;
   imageUrl: string | null;
   images: string[];
@@ -22,7 +22,7 @@ export interface CatalogItem {
 }
 
 const ITEM_SELECT =
-  "id, type, name, price_text, price_on_request, description, image_url, images, specs, company_id, companies(name, slug, owner_id)";
+  "id, type, name, price_text, price_on_request, currency, description, image_url, images, specs, company_id, companies(name, slug, owner_id)";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapRow(i: any): CatalogItem {
@@ -33,6 +33,7 @@ function mapRow(i: any): CatalogItem {
     name: i.name,
     priceText: i.price_text,
     priceOnRequest: i.price_on_request ?? false,
+    currency: (i.currency as CatalogCurrency) ?? "KZT",
     description: i.description,
     imageUrl: i.image_url,
     images: i.images ?? [],

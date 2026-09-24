@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ItemDetail from "@/components/company/ItemDetail";
-import { getCatalogItemById, getRelatedCatalogItems } from "@/lib/catalog";
+import { getCatalogItemById, getRelatedCatalogItems, formatCatalogPrice } from "@/lib/catalog";
 import { getCurrentUser } from "@/lib/auth";
 import { getSupabaseAdmin } from "@/lib/supabase";
 
@@ -60,13 +60,11 @@ export default async function ItemPage({ params }: { params: Promise<{ id: strin
                 </div>
                 <div className="space-y-0.5 p-2.5">
                   <div className="truncate text-sm font-medium text-neutral-900 dark:text-paper">{r.name}</div>
-                  <div className="text-sm text-neutral-900 dark:text-paper">
-                    {r.priceOnRequest ? (
-                      <span className="text-neutral-500 dark:text-neutral-400">Цена по запросу</span>
-                    ) : (
-                      r.priceText || ""
-                    )}
-                  </div>
+                  {(r.priceOnRequest || r.priceText) && (
+                    <div className={`text-sm font-medium ${r.priceOnRequest ? "text-neutral-500 dark:text-neutral-400" : "text-emerald-600 dark:text-gain"}`}>
+                      {formatCatalogPrice(r)}
+                    </div>
+                  )}
                   <div className="truncate text-xs text-neutral-400 dark:text-neutral-500">{r.companyName}</div>
                 </div>
               </Link>

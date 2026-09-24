@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { moderateText } from "@/lib/moderation";
 import { notifyAdmin } from "@/lib/telegramNotify";
+import { CURRENCY_SYMBOLS, type CatalogCurrency } from "@/lib/catalog";
+
+const VALID_CURRENCIES = new Set(["USD", "KZT", "RUB"]);
 
 export async function POST(req: Request) {
   const supabase = await createSupabaseServerClient();
@@ -16,6 +19,7 @@ export async function POST(req: Request) {
     name?: string;
     priceText?: string;
     priceOnRequest?: boolean;
+    currency?: string;
     description?: string;
     imageUrl?: string;
     images?: string[];
@@ -45,6 +49,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: check.reason ?? "Не прошло модерацию" }, { status: 422 });
   }
 
+  const currency: CatalogCurrency = VALID_CURRENCIES.has(body.currency ?? "") ? (body.currency as CatalogCurrency) : "KZT";
+
   const { data, error } = await supabase
     .from("catalog_items")
     .insert({
@@ -53,6 +59,7 @@ export async function POST(req: Request) {
       name: name.trim(),
       price_text: body.priceOnRequest ? null : body.priceText?.trim() || null,
       price_on_request: Boolean(body.priceOnRequest),
+      currency,
       description: body.description?.trim() || null,
       image_url: body.imageUrl || null,
       images: body.images && body.images.length > 0 ? body.images : body.imageUrl ? [body.imageUrl] : [],
@@ -70,7 +77,11 @@ export async function POST(req: Request) {
   try {
     const { data: company } = await supabase.from("companies").select("name").eq("id", companyId).single();
     const label = type === "product" ? "Новый товар" : "Новая услуга";
-    const priceLine = body.priceOnRequest ? "\nЦена по запросу" : body.priceText?.trim() ? `\nЦена: ${body.priceText.trim()}` : "";
+    const priceLine = body.priceOnRequest
+      ? "\nЦена по запросу"
+      : body.priceText?.trim()
+        ? `\nЦена: ${body.priceText.trim()} ${CURRENCY_SYMBOLS[currency]}`
+        : "";
     const descLine = body.description?.trim() ? `\n${body.description.trim()}` : "";
     await supabase.from("posts").insert({
       author_id: user.id,

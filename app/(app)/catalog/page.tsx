@@ -1,7 +1,7 @@
 import Link from "next/link";
 import AiPanel from "@/components/demo/AiPanel";
 import SearchBox from "@/components/people/SearchBox";
-import { listCatalog } from "@/lib/catalog";
+import { listCatalog, formatCatalogPrice } from "@/lib/catalog";
 import { getCurrentUser } from "@/lib/auth";
 import { getCompanySlugForUser } from "@/lib/companies";
 
@@ -98,9 +98,11 @@ export default async function CatalogPage({
             </div>
             <div className="space-y-0.5 p-2.5">
               <div className="truncate text-sm font-medium text-neutral-900 dark:text-paper">{item.name}</div>
-              <div className="text-sm text-neutral-900 dark:text-paper">
-                {item.priceOnRequest ? <span className="text-neutral-500 dark:text-neutral-400">Цена по запросу</span> : item.priceText || ""}
-              </div>
+              {(item.priceOnRequest || item.priceText) && (
+                <div className={`text-sm font-medium ${item.priceOnRequest ? "text-neutral-500 dark:text-neutral-400" : "text-emerald-600 dark:text-gain"}`}>
+                  {formatCatalogPrice(item)}
+                </div>
+              )}
               <div className="truncate text-xs text-neutral-400 dark:text-neutral-500">{item.companyName}</div>
             </div>
           </Link>
