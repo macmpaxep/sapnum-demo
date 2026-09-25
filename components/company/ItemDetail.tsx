@@ -75,16 +75,18 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
   const descSpecsBlockStart = useMemo(() => (editing ? findSpecsBlockStart(description) : null), [editing, description]);
   const showDescSpecsSuggestion = descSpecsBlockStart !== null && descSpecsBlockStart !== descSpecsDismissedAt;
 
-  async function handleExtractSpecsFromDescription() {
-    if (descSpecsBlockStart === null) return;
-    const block = description.slice(descSpecsBlockStart).trim();
+  // Shared by the auto-detected banner (extracts just the matched block)
+  // and the manual "Проверить описание" button (hands the whole text to
+  // Claude, which handles ambiguous formats — dashes, no punctuation —
+  // that a regex can't safely tell apart from ordinary prose).
+  async function extractSpecsFromText(text: string, cutFrom: number | null) {
     setDescSpecsExtracting(true);
     setSpecParseError(null);
     try {
       const res = await fetch("/api/catalog/parse-specs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: block }),
+        body: JSON.stringify({ text }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -96,10 +98,19 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
         const existing = prev.filter((s) => s.label.trim() && s.value.trim());
         return [...existing, ...parsed];
       });
-      setDescription(description.slice(0, descSpecsBlockStart).trim());
+      if (cutFrom !== null) setDescription(description.slice(0, cutFrom).trim());
     } finally {
       setDescSpecsExtracting(false);
     }
+  }
+
+  function handleExtractSpecsFromDescription() {
+    if (descSpecsBlockStart === null) return;
+    extractSpecsFromText(description.slice(descSpecsBlockStart).trim(), descSpecsBlockStart);
+  }
+
+  function handleCheckDescriptionManually() {
+    extractSpecsFromText(description.trim(), null);
   }
 
   async function handleAddPhoto(e: React.ChangeEvent<HTMLInputElement>) {
@@ -386,7 +397,15 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                   className="block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-3 py-2 text-sm"
                 />
                 {description.trim() && (
-                  <div className="mt-1 text-right">
+                  <div className="mt-1 flex items-center justify-end gap-3">
+                    <button
+                      type="button"
+                      onClick={handleCheckDescriptionManually}
+                      disabled={descSpecsExtracting}
+                      className="text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-paper disabled:opacity-40"
+                    >
+                      {descSpecsExtracting ? "Проверяем…" : "🔍 Проверить описание на характеристики"}
+                    </button>
                     <ImproveTextButton text={description} onImproved={setDescription} />
                   </div>
                 )}
