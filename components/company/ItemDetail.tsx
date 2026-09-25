@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -11,6 +11,36 @@ import ApplicationForm from "@/components/company/ApplicationForm";
 import type { CatalogItem } from "@/lib/catalog";
 import type { CatalogSpec, CatalogCurrency } from "@/lib/catalogFormat";
 import { CURRENCY_LABELS, formatCatalogPrice } from "@/lib/catalogFormat";
+
+// Finds where a copy-pasted "Дополнительные характеристики:"-style bullet
+// list starts inside free-form text, so we can offer to split it out into
+// the specs field instead of leaving it stuck in the description.
+function findSpecsBlockStart(text: string): number | null {
+  const lines = text.split("\n");
+  const bulletLine = /^\s*[*•\-]\s*.+:\s*.+/;
+  const headingLine = /^\s*(дополнительные\s+)?характеристики:?\s*$/i;
+
+  let offset = 0;
+  let consecutiveBullets = 0;
+  let blockStart: number | null = null;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (headingLine.test(line)) {
+      return offset;
+    }
+    if (bulletLine.test(line)) {
+      if (consecutiveBullets === 0) blockStart = offset;
+      consecutiveBullets++;
+      if (consecutiveBullets >= 3) return blockStart;
+    } else if (line.trim() !== "") {
+      consecutiveBullets = 0;
+      blockStart = null;
+    }
+    offset += line.length + 1;
+  }
+  return null;
+}
 
 export default function ItemDetail({ item, canManage }: { item: CatalogItem; canManage: boolean }) {
   const [editing, setEditing] = useState(false);
@@ -34,8 +64,40 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
   const [specPasteText, setSpecPasteText] = useState("");
   const [specParsing, setSpecParsing] = useState(false);
   const [specParseError, setSpecParseError] = useState<string | null>(null);
+  const [descSpecsExtracting, setDescSpecsExtracting] = useState(false);
+  const [descSpecsDismissedAt, setDescSpecsDismissedAt] = useState<number | null>(null);
 
   const photos = editing ? images : item.images.length > 0 ? item.images : item.imageUrl ? [item.imageUrl] : [];
+
+  const descSpecsBlockStart = useMemo(() => (editing ? findSpecsBlockStart(description) : null), [editing, description]);
+  const showDescSpecsSuggestion = descSpecsBlockStart !== null && descSpecsBlockStart !== descSpecsDismissedAt;
+
+  async function handleExtractSpecsFromDescription() {
+    if (descSpecsBlockStart === null) return;
+    const block = description.slice(descSpecsBlockStart).trim();
+    setDescSpecsExtracting(true);
+    setSpecParseError(null);
+    try {
+      const res = await fetch("/api/catalog/parse-specs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: block }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setSpecParseError(data.error ?? "Не удалось распознать характеристики");
+        return;
+      }
+      const parsed: CatalogSpec[] = data.specs;
+      setSpecs((prev) => {
+        const existing = prev.filter((s) => s.label.trim() && s.value.trim());
+        return [...existing, ...parsed];
+      });
+      setDescription(description.slice(0, descSpecsBlockStart).trim());
+    } finally {
+      setDescSpecsExtracting(false);
+    }
+  }
 
   async function handleAddPhoto(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -323,6 +385,30 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                 {description.trim() && (
                   <div className="mt-1 text-right">
                     <ImproveTextButton text={description} onImproved={setDescription} />
+                  </div>
+                )}
+                {showDescSpecsSuggestion && (
+                  <div className="mt-2 flex items-center justify-between gap-2 rounded-lg border border-dashed border-neutral-300 dark:border-line p-2 text-xs">
+                    <span className="text-neutral-600 dark:text-neutral-400">
+                      Похоже, в описании есть список характеристик — перенести их в «Характеристики»?
+                    </span>
+                    <div className="flex shrink-0 gap-2">
+                      <button
+                        type="button"
+                        onClick={handleExtractSpecsFromDescription}
+                        disabled={descSpecsExtracting}
+                        className="rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-2.5 py-1 text-white dark:text-ink disabled:opacity-40"
+                      >
+                        {descSpecsExtracting ? "Переносим…" : "Перенести"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setDescSpecsDismissedAt(descSpecsBlockStart)}
+                        className="text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+                      >
+                        Не сейчас
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
