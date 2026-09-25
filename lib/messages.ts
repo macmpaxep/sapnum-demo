@@ -63,6 +63,12 @@ export async function listConversations(userId: string): Promise<ConversationSum
       if (!profile) return null;
       const last = lastByConversation.get(p.conversation_id);
       const conv = convById.get(p.conversation_id);
+
+      // MessageButton creates the conversation row as soon as someone clicks
+      // "Написать", before they've actually typed anything — don't surface
+      // that as a "request" to the other person until a message exists.
+      if (!last && conv && conv.initiator_id !== userId) return null;
+
       return {
         id: p.conversation_id,
         otherUserId: profile.id,
