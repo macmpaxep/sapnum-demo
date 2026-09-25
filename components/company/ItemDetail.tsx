@@ -17,11 +17,14 @@ import { CURRENCY_LABELS, formatCatalogPrice } from "@/lib/catalogFormat";
 // the specs field instead of leaving it stuck in the description.
 function findSpecsBlockStart(text: string): number | null {
   const lines = text.split("\n");
-  const bulletLine = /^\s*[*•\-]\s*.+:\s*.+/;
+  // A "spec line" is a short label followed by a value after a colon —
+  // with or without a leading bullet marker. Capped label length so an
+  // ordinary sentence that happens to contain a colon doesn't match.
+  const specLine = /^\s*(?:[*•\-]\s*)?[^\s:][^:]{1,45}:\s*\S.*/;
   const headingLine = /^\s*(дополнительные\s+)?характеристики:?\s*$/i;
 
   let offset = 0;
-  let consecutiveBullets = 0;
+  let consecutiveSpecLines = 0;
   let blockStart: number | null = null;
 
   for (let i = 0; i < lines.length; i++) {
@@ -29,12 +32,12 @@ function findSpecsBlockStart(text: string): number | null {
     if (headingLine.test(line)) {
       return offset;
     }
-    if (bulletLine.test(line)) {
-      if (consecutiveBullets === 0) blockStart = offset;
-      consecutiveBullets++;
-      if (consecutiveBullets >= 3) return blockStart;
+    if (specLine.test(line)) {
+      if (consecutiveSpecLines === 0) blockStart = offset;
+      consecutiveSpecLines++;
+      if (consecutiveSpecLines >= 3) return blockStart;
     } else if (line.trim() !== "") {
-      consecutiveBullets = 0;
+      consecutiveSpecLines = 0;
       blockStart = null;
     }
     offset += line.length + 1;
