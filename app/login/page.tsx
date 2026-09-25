@@ -1,4 +1,5 @@
 import TelegramLoginButton from "@/components/auth/TelegramLoginButton";
+import WhatsAppLoginForm from "@/components/auth/WhatsAppLoginForm";
 import EmailLoginForm from "@/components/auth/EmailLoginForm";
 
 export default async function LoginPage({
@@ -27,6 +28,14 @@ export default async function LoginPage({
         <div className="mt-6 flex justify-center">
           <TelegramLoginButton botId={botId} next={safeNext} />
         </div>
+
+        <div className="my-6 flex items-center gap-3 text-xs text-neutral-400 dark:text-neutral-500">
+          <div className="h-px flex-1 bg-neutral-200" />
+          или через WhatsApp
+          <div className="h-px flex-1 bg-neutral-200" />
+        </div>
+
+        <WhatsAppLoginForm next={safeNext} />
 
         <div className="my-6 flex items-center gap-3 text-xs text-neutral-400 dark:text-neutral-500">
           <div className="h-px flex-1 bg-neutral-200" />
