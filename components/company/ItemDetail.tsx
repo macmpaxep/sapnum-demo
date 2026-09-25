@@ -30,6 +30,10 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [specPasteOpen, setSpecPasteOpen] = useState(false);
+  const [specPasteText, setSpecPasteText] = useState("");
+  const [specParsing, setSpecParsing] = useState(false);
+  const [specParseError, setSpecParseError] = useState<string | null>(null);
 
   const photos = editing ? images : item.images.length > 0 ? item.images : item.imageUrl ? [item.imageUrl] : [];
 
@@ -85,6 +89,34 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
 
   function removeSpecRow(idx: number) {
     setSpecs((prev) => prev.filter((_, i) => i !== idx));
+  }
+
+  async function handleParseSpecs() {
+    const trimmed = specPasteText.trim();
+    if (!trimmed) return;
+    setSpecParsing(true);
+    setSpecParseError(null);
+    try {
+      const res = await fetch("/api/catalog/parse-specs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: trimmed }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setSpecParseError(data.error ?? "Не удалось распознать характеристики");
+        return;
+      }
+      const parsed: CatalogSpec[] = data.specs;
+      setSpecs((prev) => {
+        const existing = prev.filter((s) => s.label.trim() && s.value.trim());
+        return [...existing, ...parsed];
+      });
+      setSpecPasteText("");
+      setSpecPasteOpen(false);
+    } finally {
+      setSpecParsing(false);
+    }
   }
 
   async function handleSave() {
@@ -296,8 +328,41 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               </div>
 
               <div>
-                <label className="text-xs text-neutral-500 dark:text-neutral-400">Характеристики — минимум 2</label>
-                <div className="mt-1 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs text-neutral-500 dark:text-neutral-400">Характеристики — минимум 2</label>
+                  <button
+                    type="button"
+                    onClick={() => setSpecPasteOpen((v) => !v)}
+                    className="text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-paper"
+                  >
+                    ✨ Вставить списком
+                  </button>
+                </div>
+
+                {specPasteOpen && (
+                  <div className="mt-1.5 space-y-1.5 rounded-lg border border-dashed border-neutral-300 dark:border-line p-2">
+                    <textarea
+                      value={specPasteText}
+                      onChange={(e) => setSpecPasteText(e.target.value)}
+                      rows={4}
+                      placeholder="Вставьте скопированный список характеристик — ИИ сам разложит их по параметрам"
+                      className="block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-2 py-1.5 text-xs"
+                    />
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={handleParseSpecs}
+                        disabled={specParsing || !specPasteText.trim()}
+                        className="rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-3 py-1 text-xs text-white dark:text-ink disabled:opacity-40"
+                      >
+                        {specParsing ? "Распознаём…" : "Распознать с ИИ"}
+                      </button>
+                      {specParseError && <span className="text-xs text-red-600">{specParseError}</span>}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-1.5 space-y-1.5">
                   {specs.map((spec, idx) => (
                     <div key={idx} className="flex gap-1.5">
                       <input
@@ -388,10 +453,10 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               <button
                 key={key}
                 onClick={() => setTab(key)}
-                className={`rounded-t-lg px-3 py-2 text-sm font-medium ${
+                className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium ${
                   tab === key
-                    ? "border-b-2 border-neutral-900 dark:border-paper text-neutral-900 dark:text-paper"
-                    : "text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+                    ? "border-neutral-900 dark:border-paper text-neutral-900 dark:text-paper"
+                    : "border-transparent text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
                 }`}
               >
                 {label}
@@ -444,6 +509,34 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
           >
             ✕
           </button>
+          {photos.length > 1 && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActivePhoto((p) => (p - 1 + photos.length) % photos.length);
+                }}
+                aria-label="Предыдущее фото"
+                className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 md:left-4"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActivePhoto((p) => (p + 1) % photos.length);
+                }}
+                aria-label="Следующее фото"
+                className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 md:right-4"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </>
+          )}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={photos[Math.min(activePhoto, photos.length - 1)]}
