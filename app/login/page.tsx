@@ -10,6 +10,10 @@ export default async function LoginPage({
   // The bot ID is the numeric prefix of the bot token (it's public — the
   // official widget exposes it too); the secret part never leaves the server.
   const botId = process.env.TELEGRAM_BOT_TOKEN?.split(":")[0] || null;
+  // Hidden until the WhatsApp number finishes Meta's review and real
+  // credentials are set — shows up on its own once WHATSAPP_ACCESS_TOKEN
+  // is added, no code change needed to re-enable it.
+  const whatsappEnabled = Boolean(process.env.WHATSAPP_ACCESS_TOKEN);
 
   const { next } = await searchParams;
   // Only ever redirect to a relative in-app path — "//evil.com" or an
@@ -29,13 +33,17 @@ export default async function LoginPage({
           <TelegramLoginButton botId={botId} next={safeNext} />
         </div>
 
-        <div className="my-6 flex items-center gap-3 text-xs text-neutral-400 dark:text-neutral-500">
-          <div className="h-px flex-1 bg-neutral-200" />
-          или через WhatsApp
-          <div className="h-px flex-1 bg-neutral-200" />
-        </div>
+        {whatsappEnabled && (
+          <>
+            <div className="my-6 flex items-center gap-3 text-xs text-neutral-400 dark:text-neutral-500">
+              <div className="h-px flex-1 bg-neutral-200" />
+              или через WhatsApp
+              <div className="h-px flex-1 bg-neutral-200" />
+            </div>
 
-        <WhatsAppLoginForm next={safeNext} />
+            <WhatsAppLoginForm next={safeNext} />
+          </>
+        )}
 
         <div className="my-6 flex items-center gap-3 text-xs text-neutral-400 dark:text-neutral-500">
           <div className="h-px flex-1 bg-neutral-200" />
