@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -9,6 +9,7 @@ import ImproveTextButton from "@/components/ai/ImproveTextButton";
 import type { CatalogItem } from "@/lib/catalog";
 import type { CatalogSpec, CatalogCurrency } from "@/lib/catalogFormat";
 import { CURRENCY_LABELS, formatCatalogPrice } from "@/lib/catalogFormat";
+import { findSpecsBlockStart } from "@/lib/specsDetect";
 
 export default function CatalogManager({
   companyId,
@@ -42,7 +43,78 @@ export default function CatalogManager({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [qualityWarning, setQualityWarning] = useState<string | null>(null);
+  const [specPasteOpen, setSpecPasteOpen] = useState(false);
+  const [specPasteText, setSpecPasteText] = useState("");
+  const [specParsing, setSpecParsing] = useState(false);
+  const [specParseError, setSpecParseError] = useState<string | null>(null);
+  const [descSpecsExtracting, setDescSpecsExtracting] = useState(false);
+  const [descSpecsDismissedAt, setDescSpecsDismissedAt] = useState<number | null>(null);
   const router = useRouter();
+
+  const descSpecsBlockStart = useMemo(() => findSpecsBlockStart(description), [description]);
+  const showDescSpecsSuggestion = descSpecsBlockStart !== null && descSpecsBlockStart !== descSpecsDismissedAt;
+
+  async function extractSpecsFromText(text: string, cutFrom: number | null) {
+    setDescSpecsExtracting(true);
+    setSpecParseError(null);
+    try {
+      const res = await fetch("/api/catalog/parse-specs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setSpecParseError(data.error ?? "Не удалось распознать характеристики");
+        return;
+      }
+      const parsed: CatalogSpec[] = data.specs;
+      setSpecs((prev) => {
+        const existing = prev.filter((s) => s.label.trim() && s.value.trim());
+        return [...existing, ...parsed];
+      });
+      if (cutFrom !== null) setDescription(description.slice(0, cutFrom).trim());
+    } finally {
+      setDescSpecsExtracting(false);
+    }
+  }
+
+  function handleExtractSpecsFromDescription() {
+    if (descSpecsBlockStart === null) return;
+    extractSpecsFromText(description.slice(descSpecsBlockStart).trim(), descSpecsBlockStart);
+  }
+
+  function handleCheckDescriptionManually() {
+    extractSpecsFromText(description.trim(), null);
+  }
+
+  async function handleParseSpecs() {
+    const trimmed = specPasteText.trim();
+    if (!trimmed) return;
+    setSpecParsing(true);
+    setSpecParseError(null);
+    try {
+      const res = await fetch("/api/catalog/parse-specs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: trimmed }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setSpecParseError(data.error ?? "Не удалось распознать характеристики");
+        return;
+      }
+      const parsed: CatalogSpec[] = data.specs;
+      setSpecs((prev) => {
+        const existing = prev.filter((s) => s.label.trim() && s.value.trim());
+        return [...existing, ...parsed];
+      });
+      setSpecPasteText("");
+      setSpecPasteOpen(false);
+    } finally {
+      setSpecParsing(false);
+    }
+  }
 
   async function uploadOne(file: File): Promise<string> {
     const supabase = createSupabaseBrowserClient();
@@ -262,16 +334,81 @@ export default function CatalogManager({
                   className="block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
                 />
                 {description.trim() && (
-                  <div className="mt-1 text-right">
+                  <div className="mt-1 flex items-center justify-end gap-3">
+                    <button
+                      type="button"
+                      onClick={handleCheckDescriptionManually}
+                      disabled={descSpecsExtracting}
+                      className="text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-paper disabled:opacity-40"
+                    >
+                      {descSpecsExtracting ? "Проверяем…" : "🔍 Проверить описание на характеристики"}
+                    </button>
                     <ImproveTextButton text={description} onImproved={setDescription} />
+                  </div>
+                )}
+                {showDescSpecsSuggestion && (
+                  <div className="mt-2 flex items-center justify-between gap-2 rounded-lg border border-dashed border-neutral-300 dark:border-line p-2 text-xs">
+                    <span className="text-neutral-600 dark:text-neutral-400">
+                      Похоже, в описании есть список характеристик — перенести их в «Характеристики»?
+                    </span>
+                    <div className="flex shrink-0 gap-2">
+                      <button
+                        type="button"
+                        onClick={handleExtractSpecsFromDescription}
+                        disabled={descSpecsExtracting}
+                        className="rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-2.5 py-1 text-white dark:text-ink disabled:opacity-40"
+                      >
+                        {descSpecsExtracting ? "Переносим…" : "Перенести"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setDescSpecsDismissedAt(descSpecsBlockStart)}
+                        className="text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+                      >
+                        Не сейчас
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
               <div>
-                <label className="text-xs text-neutral-500 dark:text-neutral-400">
-                  Характеристики — минимум 2 (напр. «Материал» / «Гарантия»)
-                </label>
-                <div className="mt-1 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs text-neutral-500 dark:text-neutral-400">
+                    Характеристики — минимум 2 (напр. «Материал» / «Гарантия»)
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setSpecPasteOpen((v) => !v)}
+                    className="text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-paper"
+                  >
+                    ✨ Вставить списком
+                  </button>
+                </div>
+
+                {specPasteOpen && (
+                  <div className="mt-1.5 space-y-1.5 rounded-lg border border-dashed border-neutral-300 dark:border-line p-2">
+                    <textarea
+                      value={specPasteText}
+                      onChange={(e) => setSpecPasteText(e.target.value)}
+                      rows={4}
+                      placeholder="Вставьте скопированный список характеристик — ИИ сам разложит их по параметрам"
+                      className="block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-2 py-1.5 text-xs"
+                    />
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={handleParseSpecs}
+                        disabled={specParsing || !specPasteText.trim()}
+                        className="rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-3 py-1 text-xs text-white dark:text-ink disabled:opacity-40"
+                      >
+                        {specParsing ? "Распознаём…" : "Распознать с ИИ"}
+                      </button>
+                      {specParseError && <span className="text-xs text-red-600">{specParseError}</span>}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-1.5 space-y-1.5">
                   {specs.map((spec, idx) => (
                     <div key={idx} className="flex gap-1.5">
                       <input

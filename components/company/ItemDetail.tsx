@@ -11,39 +11,7 @@ import ApplicationForm from "@/components/company/ApplicationForm";
 import type { CatalogItem } from "@/lib/catalog";
 import type { CatalogSpec, CatalogCurrency } from "@/lib/catalogFormat";
 import { CURRENCY_LABELS, formatCatalogPrice } from "@/lib/catalogFormat";
-
-// Finds where a copy-pasted "Дополнительные характеристики:"-style bullet
-// list starts inside free-form text, so we can offer to split it out into
-// the specs field instead of leaving it stuck in the description.
-function findSpecsBlockStart(text: string): number | null {
-  const lines = text.split("\n");
-  // A "spec line" is a short label followed by a value after a colon —
-  // with or without a leading bullet marker. Capped label length so an
-  // ordinary sentence that happens to contain a colon doesn't match.
-  const specLine = /^\s*(?:[*•\-]\s*)?[^\s:][^:]{1,45}:\s*\S.*/;
-  const headingLine = /^\s*(дополнительные\s+)?характеристики:?\s*$/i;
-
-  let offset = 0;
-  let consecutiveSpecLines = 0;
-  let blockStart: number | null = null;
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (headingLine.test(line)) {
-      return offset;
-    }
-    if (specLine.test(line)) {
-      if (consecutiveSpecLines === 0) blockStart = offset;
-      consecutiveSpecLines++;
-      if (consecutiveSpecLines >= 3) return blockStart;
-    } else if (line.trim() !== "") {
-      consecutiveSpecLines = 0;
-      blockStart = null;
-    }
-    offset += line.length + 1;
-  }
-  return null;
-}
+import { findSpecsBlockStart } from "@/lib/specsDetect";
 
 export default function ItemDetail({ item, canManage }: { item: CatalogItem; canManage: boolean }) {
   const [editing, setEditing] = useState(false);
@@ -561,7 +529,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               <button
                 key={key}
                 onClick={() => setTab(key)}
-                className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium ${
+                className={`-mb-px rounded-none border-b-2 px-3 py-2 text-sm font-medium ${
                   tab === key
                     ? "border-neutral-900 dark:border-paper text-neutral-900 dark:text-paper"
                     : "border-transparent text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
