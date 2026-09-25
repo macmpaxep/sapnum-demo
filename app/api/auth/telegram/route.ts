@@ -58,10 +58,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Подпись Telegram не прошла проверку" }, { status: 401 });
   }
 
-  const supabase = getSupabaseAdmin();
-  if (!supabase) {
+  const supabaseAdmin = getSupabaseAdmin();
+  if (!supabaseAdmin) {
     return NextResponse.json({ error: "Supabase не настроен" }, { status: 500 });
   }
+  const supabase = supabaseAdmin;
 
   // Telegram accounts don't have email — use a synthetic, stable address
   // as the Supabase Auth identity key, keyed by telegram_id.
@@ -89,23 +90,45 @@ export async function POST(req: Request) {
     // the profile — recover that user's id from generateLink below instead.
     userId = created?.user?.id;
     if (createError && !/already|registered|exists/i.test(createError.message)) {
-      return NextResponse.json({ error: createError.message }, { status: 500 });
+      // A concurrent request (double-tap, retry) may have created the user
+      // a moment ago — re-check by telegram_id before giving up, instead of
+      // surfacing a transient race as a hard login failure.
+      const { data: retryProfile } = await supabase.from("profiles").select("id").eq("telegram_id", payload.id).maybeSingle();
+      if (retryProfile) {
+        userId = retryProfile.id;
+      } else {
+        console.error("[telegram-auth] createUser failed", { telegramId: payload.id, error: createError.message });
+        return NextResponse.json({ error: createError.message }, { status: 500 });
+      }
     }
   }
 
   // Issue a one-time magic link and hand its token back to the client,
-  // which exchanges it for a session via supabase-js verifyOtp.
-  const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
-    type: "magiclink",
-    email: syntheticEmail,
-  });
-
+  // which exchanges it for a session via supabase-js verifyOtp. Retried
+  // once — this call to Supabase's Admin API occasionally blips, and a
+  // retry costs far less than sending the user back to a broken login.
+  async function tryGenerateLink() {
+    return supabase.auth.admin.generateLink({ type: "magiclink", email: syntheticEmail });
+  }
+  let { data: linkData, error: linkError } = await tryGenerateLink();
   if (linkError || !linkData) {
-    return NextResponse.json({ error: linkError?.message ?? "Не удалось создать сессию" }, { status: 500 });
+    console.error("[telegram-auth] generateLink failed, retrying once", { telegramId: payload.id, error: linkError?.message });
+    ({ data: linkData, error: linkError } = await tryGenerateLink());
   }
 
+  if (linkError || !linkData) {
+    console.error("[telegram-auth] generateLink failed after retry", { telegramId: payload.id, error: linkError?.message });
+    return NextResponse.json({ error: linkError?.message ?? "Не удалось создать сессию" }, { status: 500 });
+  }
+  // Supabase's generateLink types mark `user`/`properties` as nullable on
+  // the type in general, but they're always populated on an errorless
+  // response — the retry-friendly `let` above just loses the tied
+  // discriminant TS would otherwise infer from a single non-reassigned
+  // destructure.
+  const link = linkData as { user: { id: string }; properties: { hashed_token: string } };
+
   if (!existingProfile) {
-    userId = userId ?? linkData.user.id;
+    userId = userId ?? link.user.id;
     const baseUsername = payload.username ?? `user${payload.id}`;
     const { error: profileError } = await supabase.from("profiles").insert({
       id: userId,
@@ -133,6 +156,6 @@ export async function POST(req: Request) {
   return NextResponse.json({
     ok: true,
     email: syntheticEmail,
-    tokenHash: linkData.properties.hashed_token,
+    tokenHash: link.properties.hashed_token,
   });
 }
