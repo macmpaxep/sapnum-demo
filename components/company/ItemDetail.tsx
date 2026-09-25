@@ -16,6 +16,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
   const [editing, setEditing] = useState(false);
   const [activePhoto, setActivePhoto] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [tab, setTab] = useState<"description" | "specs" | "delivery">(item.description ? "description" : "specs");
   const router = useRouter();
 
   const [name, setName] = useState(item.name);
@@ -174,7 +175,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               <button
                 type="button"
                 onClick={() => !editing && setLightboxOpen(true)}
-                className={`mx-auto flex max-h-[420px] w-full max-w-[420px] items-center justify-center rounded-lg bg-neutral-50 dark:bg-panel p-3 ${editing ? "" : "cursor-zoom-in"}`}
+                className={`flex max-h-[420px] w-full items-center justify-center rounded-lg bg-neutral-50 dark:bg-panel p-3 ${editing ? "" : "cursor-zoom-in"}`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -184,7 +185,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                 />
               </button>
               {(photos.length > 1 || editing) && (
-                <div className="mx-auto flex max-w-[420px] gap-2 overflow-x-auto">
+                <div className="flex gap-2 overflow-x-auto">
                   {photos.map((url, idx) => (
                     <div key={url} className="relative shrink-0">
                       <button
@@ -221,7 +222,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploading}
-                className="mx-auto flex aspect-square w-full max-w-[420px] items-center justify-center rounded-lg border border-dashed border-neutral-300 dark:border-line text-sm text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-mute"
+                className="flex aspect-square w-full items-center justify-center rounded-lg border border-dashed border-neutral-300 dark:border-line text-sm text-neutral-400 dark:text-neutral-500 hover:border-neutral-400 dark:hover:border-mute"
               >
                 {uploading ? "Загрузка…" : "+ Добавить фото"}
               </button>
@@ -371,8 +372,43 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                   />
                 </div>
               )}
+            </>
+          )}
+        </div>
+      </div>
 
-              {item.specs.length > 0 && (
+      {!editing && (
+        <div className="rounded-lg border border-neutral-200 dark:border-line">
+          <div className="flex gap-1 border-b border-neutral-200 dark:border-line px-2 pt-2">
+            {([
+              ["description", "Описание"],
+              ["specs", `${item.type === "product" ? "Характеристики" : "Детали услуги"}`],
+              ["delivery", item.type === "product" ? "Доставка" : "Условия"],
+            ] as const).map(([key, label]) => (
+              <button
+                key={key}
+                onClick={() => setTab(key)}
+                className={`rounded-t-lg px-3 py-2 text-sm font-medium ${
+                  tab === key
+                    ? "border-b-2 border-neutral-900 dark:border-paper text-neutral-900 dark:text-paper"
+                    : "text-neutral-400 dark:text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          <div className="p-4">
+            {tab === "description" &&
+              (item.description ? (
+                <p className="whitespace-pre-line text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">{item.description}</p>
+              ) : (
+                <p className="text-sm text-neutral-400 dark:text-neutral-500">Продавец пока не добавил описание.</p>
+              ))}
+
+            {tab === "specs" &&
+              (item.specs.length > 0 ? (
                 <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-neutral-200 dark:border-line bg-neutral-200 dark:bg-line">
                   {item.specs.map((s, idx) => (
                     <div key={idx} className="bg-white dark:bg-panel p-3">
@@ -381,16 +417,19 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                     </div>
                   ))}
                 </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
+              ) : (
+                <p className="text-sm text-neutral-400 dark:text-neutral-500">Характеристики не указаны.</p>
+              ))}
 
-      {!editing && item.description && (
-        <p className="whitespace-pre-line rounded-lg border border-neutral-200 dark:border-line p-4 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
-          {item.description}
-        </p>
+            {tab === "delivery" && (
+              <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                {item.type === "product"
+                  ? "Способ и стоимость доставки уточняйте у продавца — напишите ему напрямую или оставьте заявку."
+                  : "Формат оказания услуги и условия уточняйте у продавца — напишите ему напрямую или оставьте заявку."}
+              </p>
+            )}
+          </div>
+        </div>
       )}
 
       {lightboxOpen && photos.length > 0 && (
