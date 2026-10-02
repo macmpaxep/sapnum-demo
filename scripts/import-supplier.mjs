@@ -28,7 +28,12 @@ const collections = args.flatMap((a, i) => (a === "--collection" ? [args[i + 1]]
 if (!file) throw new Error("usage: import-supplier.mjs <data.json> [--dry-run] [--limit N] [--collection <category>]...");
 
 const data = JSON.parse(readFileSync(file, "utf8"));
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } });
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
+  auth: { persistSession: false },
+  // Node 20 (our VPS) has no native WebSocket and supabase-js builds its realtime client eagerly;
+  // this script never uses realtime, so hand it a stub instead of requiring Node 22.
+  realtime: { transport: class NoopWebSocket {} },
+});
 const log = (...m) => console.log(DRY ? "[dry]" : "", ...m);
 
 const TRANSLIT = { а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "e", ж: "zh", з: "z", и: "i", й: "y", к: "k", л: "l", м: "m", н: "n", о: "o", п: "p", р: "r", с: "s", т: "t", у: "u", ф: "f", х: "h", ц: "c", ч: "ch", ш: "sh", щ: "sch", ы: "y", э: "e", ю: "yu", я: "ya" };
