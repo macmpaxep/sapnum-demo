@@ -63,7 +63,7 @@ if (!company) {
     await supabase.from("user_roles").upsert([{ user_id: ownerId, role: "simple" }, { user_id: ownerId, role: "business" }], { onConflict: "user_id,role", ignoreDuplicates: true });
     const { data: c, error: cErr } = await supabase
       .from("companies")
-      .insert({ owner_id: ownerId, slug, name: data.company.name, industry: data.company.industry, description: data.company.description, website: data.company.website })
+      .insert({ owner_id: ownerId, slug, name: data.company.name, industry: data.company.industry, description: data.company.description, website: data.company.website, bin: data.company.bin ?? null, contacts: data.company.contacts ?? [] })
       .select("id, owner_id, slug")
       .single();
     if (cErr) throw cErr;
