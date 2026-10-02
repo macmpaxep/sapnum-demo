@@ -1,5 +1,7 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
+import type { CompanyContact } from "@/lib/companyContacts";
+
 export interface CompanyProfile {
   id: string;
   slug: string;
@@ -7,6 +9,8 @@ export interface CompanyProfile {
   description: string | null;
   industry: string | null;
   website: string | null;
+  bin: string | null;
+  contacts: CompanyContact[];
   ownerId: string;
   isOwnerOrAdmin: boolean;
 }
@@ -19,7 +23,7 @@ export async function getCompanyBySlug(slug: string): Promise<CompanyProfile | n
 
   const { data: company } = await supabase
     .from("companies")
-    .select("id, slug, name, description, industry, website, owner_id")
+    .select("id, slug, name, description, industry, website, bin, contacts, owner_id")
     .eq("slug", slug)
     .single();
 
@@ -44,6 +48,8 @@ export async function getCompanyBySlug(slug: string): Promise<CompanyProfile | n
     description: company.description,
     industry: company.industry,
     website: company.website,
+    bin: company.bin ?? null,
+    contacts: Array.isArray(company.contacts) ? (company.contacts as CompanyContact[]) : [],
     ownerId: company.owner_id,
     isOwnerOrAdmin,
   };

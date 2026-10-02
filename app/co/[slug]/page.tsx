@@ -4,6 +4,8 @@ import ApplicationForm from "@/components/company/ApplicationForm";
 import ApplicationRow from "@/components/company/ApplicationRow";
 import MessageButton from "@/components/company/MessageButton";
 import CopyCompanyLink from "@/components/company/CopyCompanyLink";
+import CompanyEditor from "@/components/company/CompanyEditor";
+import { contactHref, CONTACT_TYPES } from "@/lib/companyContacts";
 import CatalogManager from "@/components/company/CatalogManager";
 import { getCurrentUser } from "@/lib/auth";
 import { getCompanyBySlug, getCompanyPosts, getCompanyApplications } from "@/lib/companies";
@@ -43,17 +45,56 @@ export default async function CompanyPage({
                 {company.website}
               </a>
             )}
+            {company.bin && <p className="mt-1 text-xs text-neutral-400 dark:text-neutral-500">БИН {company.bin}</p>}
           </div>
 
           <div className="flex gap-2">
             {!isOwnProfile && (
               <MessageButton otherUserId={company.ownerId} draft={`Здравствуйте! Пишу из SAPNUM по поводу компании «${company.name}»`} />
             )}
+            {company.isOwnerOrAdmin && (
+              <CompanyEditor
+                slug={slug}
+                initial={{
+                  name: company.name,
+                  industry: company.industry,
+                  description: company.description,
+                  website: company.website,
+                  bin: company.bin,
+                  contacts: company.contacts,
+                }}
+              />
+            )}
             <CopyCompanyLink slug={slug} />
           </div>
         </div>
 
         {company.description && <p className="mt-4 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">{company.description}</p>}
+
+        {company.contacts.length > 0 && (
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {company.contacts.map((c, i) => {
+              const href = contactHref(c);
+              const label = CONTACT_TYPES.find((t) => t.value === c.type)?.label ?? "";
+              const chip = "inline-flex items-center gap-1.5 rounded-full border border-neutral-200 dark:border-line px-3 py-1 text-xs";
+              return (
+                <li key={i}>
+                  {href ? (
+                    <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className={`${chip} text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-mute`}>
+                      <span className="text-neutral-400 dark:text-neutral-500">{label}</span>
+                      {c.value}
+                    </a>
+                  ) : (
+                    <span className={`${chip} text-neutral-700 dark:text-neutral-300`}>
+                      <span className="text-neutral-400 dark:text-neutral-500">{label}</span>
+                      {c.value}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
 
       {!isOwnProfile && (
