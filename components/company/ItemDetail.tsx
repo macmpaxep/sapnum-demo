@@ -7,6 +7,7 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { checkImageDimensions, checkPhotoQualitySoft, MIN_IMAGE_DIMENSION } from "@/lib/imageQuality";
 import ImproveTextButton from "@/components/ai/ImproveTextButton";
 import MessageButton from "@/components/company/MessageButton";
+import { contactHref } from "@/lib/companyContacts";
 import ApplicationForm from "@/components/company/ApplicationForm";
 import type { CatalogItem } from "@/lib/catalog";
 import type { CatalogSpec, CatalogCurrency } from "@/lib/catalogFormat";
@@ -542,6 +543,33 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                       onClose={() => setPanel(null)}
                       defaultMessage={panel === "cooperation" ? `Здравствуйте! Пишу из SAPNUM по поводу «${item.name}»: ` : ""}
                     />
+                  )}
+
+                  {item.companyContacts.some((c) => c.type === "phone" || c.type === "whatsapp" || c.type === "telegram") && (
+                    <div className="rounded-lg border border-neutral-200 dark:border-line p-3">
+                      <div className="mb-2 text-xs text-neutral-500 dark:text-neutral-400">Связаться с продавцом напрямую — без регистрации</div>
+                      <div className="flex flex-wrap gap-2">
+                        {item.companyContacts
+                          .filter((c) => c.type === "phone" || c.type === "whatsapp" || c.type === "telegram")
+                          .map((c, i) => {
+                            let href = contactHref(c);
+                            if (!href) return null;
+                            if (c.type === "whatsapp") href += `?text=${encodeURIComponent(`Здравствуйте! Пишу с SAPNUM про «${item.name}»`)}`;
+                            const label = c.type === "phone" ? "Позвонить" : c.type === "whatsapp" ? "WhatsApp" : "Telegram";
+                            return (
+                              <a
+                                key={i}
+                                href={href}
+                                target={c.type === "phone" ? undefined : "_blank"}
+                                rel="noopener noreferrer"
+                                className="rounded-lg border border-neutral-300 dark:border-line px-3 py-1.5 text-sm text-neutral-800 dark:text-paper hover:border-neutral-500"
+                              >
+                                {label}: {c.value}
+                              </a>
+                            );
+                          })}
+                      </div>
+                    </div>
                   )}
 
                   {panel !== "cooperation" && (

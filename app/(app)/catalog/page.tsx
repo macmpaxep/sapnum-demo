@@ -8,10 +8,22 @@ import { getCompanySlugForUser } from "@/lib/companies";
 export default async function CatalogPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; type?: "product" | "service" }>;
+  searchParams: Promise<{ q?: string; type?: "product" | "service"; page?: string }>;
 }) {
-  const { q, type } = await searchParams;
-  const [items, user] = await Promise.all([listCatalog({ search: q, type }), getCurrentUser()]);
+  const { q, type, page: pageParam } = await searchParams;
+  const [{ items, total, page, pages }, user] = await Promise.all([
+    listCatalog({ search: q, type, page: Number(pageParam) || 1 }),
+    getCurrentUser(),
+  ]);
+  const pageHref = (n: number) => {
+    const sp = new URLSearchParams();
+    if (q) sp.set("q", q);
+    if (type) sp.set("type", type);
+    if (n > 1) sp.set("page", String(n));
+    const qs = sp.toString();
+    return qs ? `/catalog?${qs}` : "/catalog";
+  };
+  const nums = Array.from({ length: pages }, (_, i) => i + 1).filter((n) => n === 1 || n === pages || Math.abs(n - page) <= 2);
   const companySlug = user ? await getCompanySlugForUser(user.id) : null;
 
   return (
@@ -108,6 +120,34 @@ export default async function CatalogPage({
           </Link>
         ))}
       </div>
+
+      {pages > 1 && (
+        <nav className="flex flex-wrap items-center justify-center gap-1.5 pt-2 text-sm" aria-label="Страницы каталога">
+          {page > 1 && (
+            <Link href={pageHref(page - 1)} className="rounded-lg border border-neutral-300 dark:border-line px-3 py-1.5 text-neutral-600 dark:text-neutral-400">
+              ← Назад
+            </Link>
+          )}
+          {nums.map((n, i) => (
+            <span key={n} className="flex items-center gap-1.5">
+              {i > 0 && n - nums[i - 1] > 1 && <span className="text-neutral-400">…</span>}
+              <Link
+                href={pageHref(n)}
+                aria-current={n === page ? "page" : undefined}
+                className={`rounded-lg border px-3 py-1.5 ${n === page ? "border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper text-white dark:text-ink" : "border-neutral-300 dark:border-line text-neutral-600 dark:text-neutral-400"}`}
+              >
+                {n}
+              </Link>
+            </span>
+          ))}
+          {page < pages && (
+            <Link href={pageHref(page + 1)} className="rounded-lg border border-neutral-300 dark:border-line px-3 py-1.5 text-neutral-600 dark:text-neutral-400">
+              Дальше →
+            </Link>
+          )}
+        </nav>
+      )}
+      {total > 0 && <p className="text-center text-xs text-neutral-400 dark:text-neutral-500">Всего: {total}</p>}
     </div>
   );
 }

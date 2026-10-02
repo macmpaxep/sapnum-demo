@@ -36,6 +36,10 @@ export default function ApplicationForm({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (mode === "purchase" && !quantity.trim()) {
+      setError("Укажите количество");
+      return;
+    }
     setSubmitting(true);
     setError(null);
 
@@ -103,11 +107,12 @@ export default function ApplicationForm({
       <form onSubmit={handleSubmit} className="w-full space-y-3 rounded-lg border border-neutral-200 dark:border-line p-4">
         <div className="text-sm font-medium text-neutral-900 dark:text-paper">Заказ: {itemName}</div>
         <div>
-          <label className="text-xs text-neutral-500 dark:text-neutral-400">Количество (необязательно)</label>
+          <label className="text-xs text-neutral-500 dark:text-neutral-400">Количество</label>
           <input
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             maxLength={60}
+            required
             placeholder="Например: 50 шт. или 120 м²"
             className="mt-1 block w-full rounded-lg border border-neutral-300 dark:border-line px-3 py-2 text-sm"
           />

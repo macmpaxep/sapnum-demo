@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import type { CompanyContact } from "@/lib/companyContacts";
 import type { CatalogCurrency, CatalogSpec } from "@/lib/catalogFormat";
 
 export type { CatalogCurrency, CatalogSpec } from "@/lib/catalogFormat";
@@ -20,14 +21,15 @@ export interface CatalogItem {
   companyName: string;
   companySlug: string;
   companyOwnerId: string;
+  companyContacts: CompanyContact[];
 }
 
 const ITEM_SELECT =
-  "id, type, name, price_text, price_on_request, currency, description, image_url, images, specs, category, company_id, companies(name, slug, owner_id)";
+  "id, type, name, price_text, price_on_request, currency, description, image_url, images, specs, category, company_id, companies(name, slug, owner_id, contacts)";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapRow(i: any): CatalogItem {
-  const company = i.companies as { name: string; slug: string; owner_id: string } | null;
+  const company = i.companies as { name: string; slug: string; owner_id: string; contacts: CompanyContact[] | null } | null;
   return {
     id: i.id,
     type: i.type,
@@ -44,6 +46,7 @@ function mapRow(i: any): CatalogItem {
     companyName: company?.name ?? "",
     companySlug: company?.slug ?? "",
     companyOwnerId: company?.owner_id ?? "",
+    companyContacts: Array.isArray(company?.contacts) ? company!.contacts! : [],
   };
 }
 
@@ -58,15 +61,24 @@ export async function getCompanyCatalog(companyId: string): Promise<CatalogItem[
   return (data ?? []).map(mapRow);
 }
 
-export async function listCatalog(filters?: { search?: string; type?: "product" | "service" }): Promise<CatalogItem[]> {
+export const CATALOG_PAGE_SIZE = 24;
+
+export async function listCatalog(filters?: {
+  search?: string;
+  type?: "product" | "service";
+  page?: number;
+}): Promise<{ items: CatalogItem[]; total: number; page: number; pages: number }> {
   const supabase = await createSupabaseServerClient();
-  let query = supabase.from("catalog_items").select(ITEM_SELECT).order("created_at", { ascending: false }).limit(60);
+  let query = supabase.from("catalog_items").select(ITEM_SELECT, { count: "exact" }).order("created_at", { ascending: false });
 
   if (filters?.type) query = query.eq("type", filters.type);
   if (filters?.search?.trim()) query = query.ilike("name", `%${filters.search.trim()}%`);
 
-  const { data } = await query;
-  return (data ?? []).map(mapRow);
+  const page = Math.max(1, Math.floor(filters?.page ?? 1) || 1);
+  const from = (page - 1) * CATALOG_PAGE_SIZE;
+  const { data, count } = await query.range(from, from + CATALOG_PAGE_SIZE - 1);
+  const total = count ?? 0;
+  return { items: (data ?? []).map(mapRow), total, page, pages: Math.max(1, Math.ceil(total / CATALOG_PAGE_SIZE)) };
 }
 
 export async function getCatalogItemById(id: string): Promise<CatalogItem | null> {
