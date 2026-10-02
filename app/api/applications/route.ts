@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { notifyAdmin } from "@/lib/telegramNotify";
 
-const VALID_TYPES = ["partnership", "distributor", "commercial_offer", "investment"];
+const VALID_TYPES = ["partnership", "distributor", "commercial_offer", "investment", "purchase"];
 
 export async function POST(req: Request) {
   const supabase = await createSupabaseServerClient();

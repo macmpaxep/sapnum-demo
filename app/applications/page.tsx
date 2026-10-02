@@ -8,6 +8,7 @@ const TYPE_LABELS: Record<string, string> = {
   distributor: "Дистрибьютор",
   commercial_offer: "Коммерческое предложение",
   investment: "Инвестиции",
+  purchase: "Заказ / запрос цены",
 };
 
 const STATUS_LABELS: Record<string, string> = {

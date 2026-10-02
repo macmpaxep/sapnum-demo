@@ -9,18 +9,30 @@ const TYPE_LABELS: Record<string, string> = {
   investment: "Инвестиции",
 };
 
+// "purchase" is deliberately not in the cooperation list: buyers get their own simpler form.
+
 export default function ApplicationForm({
   companyId,
   allowInvestment,
   defaultMessage = "",
   triggerLabel = "Подать заявку",
+  mode = "cooperation",
+  itemName,
+  defaultOpen = false,
+  onClose,
 }: {
   companyId: string;
   allowInvestment: boolean;
   defaultMessage?: string;
   triggerLabel?: string;
+  // "purchase": a buyer ordering / asking for a price — no cooperation types, just quantity + comment.
+  mode?: "cooperation" | "purchase";
+  itemName?: string;
+  defaultOpen?: boolean;
+  onClose?: () => void;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
+  const [quantity, setQuantity] = useState("");
   const [type, setType] = useState("partnership");
   const visibleTypes = Object.entries(TYPE_LABELS).filter(([value]) => value !== "investment" || allowInvestment);
   const [message, setMessage] = useState(defaultMessage);
@@ -39,8 +51,11 @@ export default function ApplicationForm({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         companyId,
-        type,
-        message,
+        type: mode === "purchase" ? "purchase" : type,
+        message:
+          mode === "purchase"
+            ? [`Заказ: «${itemName ?? "товар"}»`, quantity.trim() && `Количество: ${quantity.trim()}`, message.trim()].filter(Boolean).join("\n")
+            : message,
         amount: type === "investment" && amount ? Number(amount) : undefined,
       }),
     });
@@ -56,6 +71,12 @@ export default function ApplicationForm({
     setSuccess(true);
     setMessage("");
     setAmount("");
+    setQuantity("");
+  }
+
+  function close() {
+    setOpen(false);
+    onClose?.();
   }
 
   if (!open) {
@@ -72,13 +93,61 @@ export default function ApplicationForm({
   if (success) {
     return (
       <div className="rounded-lg border border-neutral-200 dark:border-line p-4 text-sm text-neutral-700 dark:text-neutral-300">
-        Заявка отправлена. Владелец компании увидит её в разделе «Заявки».
+        {mode === "purchase"
+          ? "Заявка отправлена. Продавец увидит её и свяжется с вами — ответ придёт в раздел «Сообщения»."
+          : "Заявка отправлена. Владелец компании увидит её в разделе «Заявки»."}
+        {onClose && (
+          <button type="button" onClick={close} className="ml-2 underline text-neutral-500 dark:text-neutral-400">
+            Закрыть
+          </button>
+        )}
       </div>
     );
   }
 
+  if (mode === "purchase") {
+    return (
+      <form onSubmit={handleSubmit} className="w-full space-y-3 rounded-lg border border-neutral-200 dark:border-line p-4">
+        <div className="text-sm font-medium text-neutral-900 dark:text-paper">Заказ: {itemName}</div>
+        <div>
+          <label className="text-xs text-neutral-500 dark:text-neutral-400">Количество (необязательно)</label>
+          <input
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            maxLength={60}
+            placeholder="Например: 50 шт. или 120 м²"
+            className="mt-1 block w-full rounded-lg border border-neutral-300 dark:border-line px-3 py-2 text-sm"
+          />
+        </div>
+        <div>
+          <label className="text-xs text-neutral-500 dark:text-neutral-400">Комментарий (необязательно)</label>
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={3}
+            placeholder="Город доставки, сроки, вопросы по цене"
+            className="mt-1 block w-full rounded-lg border border-neutral-300 dark:border-line px-3 py-2 text-sm"
+          />
+        </div>
+        {error && <p className="text-xs text-red-600">{error}</p>}
+        <div className="flex gap-2">
+          <button
+            type="submit"
+            disabled={submitting}
+            className="rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-4 py-2 text-sm text-white dark:text-ink disabled:opacity-40"
+          >
+            {submitting ? "Отправляем…" : "Отправить заявку"}
+          </button>
+          <button type="button" onClick={close} className="px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400">
+            Отмена
+          </button>
+        </div>
+      </form>
+    );
+  }
+
   return (
-    <form onSubmit={handleSubmit} className="rounded-lg border border-neutral-200 dark:border-line p-4 space-y-3">
+    <form onSubmit={handleSubmit} className="w-full rounded-lg border border-neutral-200 dark:border-line p-4 space-y-3">
       <div>
         <label className="text-xs text-neutral-500 dark:text-neutral-400">Тип заявки</label>
         <select
@@ -130,7 +199,7 @@ export default function ApplicationForm({
         >
           Отправить
         </button>
-        <button type="button" onClick={() => setOpen(false)} className="px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400">
+        <button type="button" onClick={close} className="px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400">
           Отмена
         </button>
       </div>

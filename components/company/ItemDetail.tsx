@@ -18,6 +18,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
   const [activePhoto, setActivePhoto] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [tab, setTab] = useState<"description" | "specs" | "delivery">(item.description ? "description" : "specs");
+  const [panel, setPanel] = useState<null | "purchase" | "cooperation">(null);
   const router = useRouter();
 
   const [name, setName] = useState(item.name);
@@ -514,18 +515,44 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
               </div>
 
               {!canManage && (
-                <div className="flex flex-wrap gap-2">
-                  <ApplicationForm
-                    companyId={item.companyId}
-                    allowInvestment={false}
-                    triggerLabel="Оставить заявку"
-                    defaultMessage={`Здравствуйте! Пишу из SAPNUM по поводу «${item.name}»: `}
-                  />
-                  <MessageButton
-                    otherUserId={item.companyOwnerId}
-                    label="Написать о товаре"
-                    draft={`Здравствуйте! Пишу из SAPNUM. Подскажите, пожалуйста, про «${item.name}»`}
-                  />
+                <div className="space-y-3">
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setPanel(panel === "purchase" ? null : "purchase")}
+                      className="rounded-lg border border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper px-5 py-2 text-sm text-white dark:text-ink hover:opacity-90"
+                    >
+                      {item.priceOnRequest || !item.priceText ? "Запросить цену" : "Заказать"}
+                    </button>
+                    <MessageButton
+                      otherUserId={item.companyOwnerId}
+                      label="Задать вопрос"
+                      draft={`Здравствуйте! Пишу из SAPNUM. Подскажите, пожалуйста, про «${item.name}»`}
+                    />
+                  </div>
+
+                  {panel && (
+                    <ApplicationForm
+                      key={panel}
+                      companyId={item.companyId}
+                      allowInvestment={false}
+                      mode={panel}
+                      itemName={item.name}
+                      defaultOpen
+                      onClose={() => setPanel(null)}
+                      defaultMessage={panel === "cooperation" ? `Здравствуйте! Пишу из SAPNUM по поводу «${item.name}»: ` : ""}
+                    />
+                  )}
+
+                  {panel !== "cooperation" && (
+                    <button
+                      type="button"
+                      onClick={() => setPanel("cooperation")}
+                      className="text-xs text-neutral-500 dark:text-neutral-400 underline hover:text-neutral-900 dark:hover:text-paper"
+                    >
+                      Дилерам и для сотрудничества →
+                    </button>
+                  )}
                 </div>
               )}
             </>
