@@ -22,6 +22,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     imageUrl?: string;
     images?: string[];
     specs?: { label?: string; value?: string }[];
+    category?: string | null;
   };
   try {
     body = await req.json();
@@ -62,6 +63,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       ...(body.imageUrl ? { image_url: body.imageUrl } : {}),
       ...(body.images ? { images: body.images } : {}),
       ...(specs ? { specs } : {}),
+      ...(body.category !== undefined ? { category: body.category?.trim().slice(0, 60) || null } : {}),
     })
     .eq("id", id);
 

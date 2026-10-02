@@ -24,6 +24,7 @@ export async function POST(req: Request) {
     imageUrl?: string;
     images?: string[];
     specs?: { label?: string; value?: string }[];
+    category?: string;
   };
   try {
     body = await req.json();
@@ -64,6 +65,7 @@ export async function POST(req: Request) {
       image_url: body.imageUrl || null,
       images: body.images && body.images.length > 0 ? body.images : body.imageUrl ? [body.imageUrl] : [],
       specs,
+      category: body.category?.trim().slice(0, 60) || null,
     })
     .select("id")
     .single();

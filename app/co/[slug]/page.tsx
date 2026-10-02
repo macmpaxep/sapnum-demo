@@ -14,10 +14,10 @@ export default async function CompanyPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ add?: string }>;
+  searchParams: Promise<{ add?: string; category?: string }>;
 }) {
   const { slug } = await params;
-  const { add } = await searchParams;
+  const { add, category } = await searchParams;
   const company = await getCompanyBySlug(slug);
   if (!company) notFound();
 
@@ -85,6 +85,7 @@ export default async function CompanyPage({
           items={catalogItems}
           canManage={company.isOwnerOrAdmin}
           autoOpen={add === "1" && company.isOwnerOrAdmin}
+          initialCategory={category ?? null}
         />
       </div>
 

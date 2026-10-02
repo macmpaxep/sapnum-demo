@@ -1,0 +1,3311 @@
+{
+  "company": {
+    "name": "ARTDEC",
+    "legalName": "ТОО «Art Dec»",
+    "industry": "Производство полимерного декора",
+    "website": "https://art-dec.kz",
+    "description": "Завод полимерного декора в Каскелене (Алматинская область). С 2020 года производим молдинги, плинтуса, декоративные панели, галтели, карнизы и подложку под ламинат из полистирола и дюрополимера. Собственное производство, склад при заводе, доставка по Алматы и регионам.\n\nКонтакт для связи: +7 707 580 5152"
+  },
+  "owner": {
+    "email": "magcanit+artdec@gmail.com",
+    "displayName": "ARTDEC",
+    "username": "artdec"
+  },
+  "items": [
+    {
+      "slug": "gs2",
+      "sku": "GS2",
+      "name": "Стеновая панель ARTDEC GS2",
+      "description": "Стеновая панель ARTDEC GS2\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "GS2"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×120×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/gs2.webp",
+        "https://art-dec.kz/cutouts/gs2.webp",
+        "https://art-dec.kz/interiors/gs2-1.webp",
+        "https://art-dec.kz/interiors/gs2-2.webp",
+        "https://art-dec.kz/interiors/gs2-3.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a201",
+      "sku": "A201",
+      "name": "Стеновая панель ARTDEC A201",
+      "description": "Стеновая панель ARTDEC A201\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A201"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×11 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a201.webp",
+        "https://art-dec.kz/cutouts/a201.webp",
+        "https://art-dec.kz/interiors/a201-1.webp",
+        "https://art-dec.kz/interiors/a201-2.webp",
+        "https://art-dec.kz/interiors/a201-3.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a913",
+      "sku": "A913",
+      "name": "Стеновая панель ARTDEC A913",
+      "description": "Стеновая панель ARTDEC A913\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A913"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×180×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a913.webp",
+        "https://art-dec.kz/cutouts/a913.webp",
+        "https://art-dec.kz/interiors/a913-1.webp",
+        "https://art-dec.kz/interiors/a913-2.webp",
+        "https://art-dec.kz/interiors/a913-3.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a903",
+      "sku": "A903",
+      "name": "Стеновая панель ARTDEC A903",
+      "description": "Стеновая панель ARTDEC A903\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A903"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×180×10 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a903.webp",
+        "https://art-dec.kz/cutouts/a903.webp",
+        "https://art-dec.kz/interiors/a903-1.webp",
+        "https://art-dec.kz/interiors/a903-2.webp",
+        "https://art-dec.kz/interiors/a903-3.webp",
+        "https://art-dec.kz/interiors/a903-b-1.webp",
+        "https://art-dec.kz/interiors/a903-b-2.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a906",
+      "sku": "A906",
+      "name": "Стеновая панель ARTDEC A906",
+      "description": "Стеновая панель ARTDEC A906\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A906"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×180×10 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a906.webp",
+        "https://art-dec.kz/cutouts/a906.webp",
+        "https://art-dec.kz/interiors/a906-1.webp",
+        "https://art-dec.kz/interiors/a906-2.webp",
+        "https://art-dec.kz/interiors/a906-3.webp",
+        "https://art-dec.kz/interiors/a906-b-1.webp",
+        "https://art-dec.kz/interiors/a906-b-2.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a910",
+      "sku": "A910",
+      "name": "Стеновая панель ARTDEC A910",
+      "description": "Стеновая панель ARTDEC A910\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A910"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×180×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a910.webp",
+        "https://art-dec.kz/cutouts/a910.webp",
+        "https://art-dec.kz/interiors/a910-1.webp",
+        "https://art-dec.kz/interiors/a910-2.webp",
+        "https://art-dec.kz/interiors/a910-3.webp",
+        "https://art-dec.kz/interiors/a910-b-1.webp",
+        "https://art-dec.kz/interiors/a910-b-2.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a912",
+      "sku": "A912",
+      "name": "Стеновая панель ARTDEC A912",
+      "description": "Стеновая панель ARTDEC A912\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A912"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×180×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a912.webp",
+        "https://art-dec.kz/cutouts/a912.webp",
+        "https://art-dec.kz/interiors/a912-1.webp",
+        "https://art-dec.kz/interiors/a912-2.webp",
+        "https://art-dec.kz/interiors/a912-3.webp",
+        "https://art-dec.kz/interiors/a912-b-1.webp",
+        "https://art-dec.kz/interiors/a912-b-2.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a916",
+      "sku": "A916",
+      "name": "Стеновая панель ARTDEC A916",
+      "description": "Стеновая панель ARTDEC A916\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A916"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×180×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a916.webp",
+        "https://art-dec.kz/cutouts/a916.webp",
+        "https://art-dec.kz/interiors/a916-1.webp",
+        "https://art-dec.kz/interiors/a916-2.webp",
+        "https://art-dec.kz/interiors/a916-3.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a920",
+      "sku": "A920",
+      "name": "Стеновая панель ARTDEC A920",
+      "description": "Стеновая панель ARTDEC A920\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A920"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×180×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a920.webp",
+        "https://art-dec.kz/cutouts/a920.webp",
+        "https://art-dec.kz/interiors/a920-1.webp",
+        "https://art-dec.kz/interiors/a920-2.webp",
+        "https://art-dec.kz/interiors/a920-3.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "gs1",
+      "sku": "GS1",
+      "name": "Стеновая панель ARTDEC GS1",
+      "description": "Стеновая панель ARTDEC GS1\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "GS1"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×120×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/gs1.webp",
+        "https://art-dec.kz/cutouts/gs1.webp",
+        "https://art-dec.kz/interiors/gs1-1.webp",
+        "https://art-dec.kz/interiors/gs1-2.webp",
+        "https://art-dec.kz/interiors/gs1-3.webp",
+        "https://art-dec.kz/interiors/gs1-b-1.webp",
+        "https://art-dec.kz/interiors/gs1-b-2.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a904-3",
+      "sku": "A904/3",
+      "name": "Стеновая панель ARTDEC A904/3",
+      "description": "Стеновая панель ARTDEC A904/3\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A904/3"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×150×10 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a904-3.webp",
+        "https://art-dec.kz/cutouts/a904-3.webp",
+        "https://art-dec.kz/interiors/a904-1.webp",
+        "https://art-dec.kz/interiors/a904-2.webp",
+        "https://art-dec.kz/interiors/a904-3.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a907",
+      "sku": "A907",
+      "name": "Стеновая панель ARTDEC A907",
+      "description": "Стеновая панель ARTDEC A907\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A907"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×180×10 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a907.webp",
+        "https://art-dec.kz/cutouts/a907.webp",
+        "https://art-dec.kz/interiors/a907-1.webp",
+        "https://art-dec.kz/interiors/a907-2.webp",
+        "https://art-dec.kz/interiors/a907-3.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "gs3",
+      "sku": "GS3",
+      "name": "Стеновая панель ARTDEC GS3",
+      "description": "Стеновая панель ARTDEC GS3\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "GS3"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×120×13 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/gs3.webp",
+        "https://art-dec.kz/cutouts/gs3.webp",
+        "https://art-dec.kz/interiors/gs3-1.webp",
+        "https://art-dec.kz/interiors/gs3-2.webp",
+        "https://art-dec.kz/interiors/gs3-3.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a902",
+      "sku": "A902",
+      "name": "Стеновая панель ARTDEC A902",
+      "description": "Стеновая панель ARTDEC A902\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A902"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×130×10 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a902.webp",
+        "https://art-dec.kz/cutouts/a902.webp",
+        "https://art-dec.kz/interiors/a902-1.webp",
+        "https://art-dec.kz/interiors/a902-2.webp",
+        "https://art-dec.kz/interiors/a902-3.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a905",
+      "sku": "A905",
+      "name": "Стеновая панель ARTDEC A905",
+      "description": "Стеновая панель ARTDEC A905\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A905"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×200×14 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a905.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a908",
+      "sku": "A908",
+      "name": "Стеновая панель ARTDEC A908",
+      "description": "Стеновая панель ARTDEC A908\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A908"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×180×14 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a908.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a915",
+      "sku": "A915",
+      "name": "Стеновая панель ARTDEC A915",
+      "description": "Стеновая панель ARTDEC A915\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A915"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×150×9 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a915.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a201-2",
+      "sku": "A201/2",
+      "name": "Стеновая панель ARTDEC A201/2",
+      "description": "Стеновая панель ARTDEC A201/2\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A201/2"
+        },
+        {
+          "label": "Размер",
+          "value": "2400×100×11 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a201-2.webp"
+      ],
+      "category": "Декоративные панели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a165",
+      "sku": "A165",
+      "name": "Стеновой молдинг ARTDEC A165",
+      "description": "Стеновой молдинг ARTDEC A165\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A165"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×30×10 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a165.webp",
+        "https://art-dec.kz/cutouts/a165.webp",
+        "https://art-dec.kz/interiors/molding-2-3-1.webp",
+        "https://art-dec.kz/interiors/molding-2-3-2.webp",
+        "https://art-dec.kz/interiors/molding-2-3-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a002-2",
+      "sku": "A002/2",
+      "name": "Стеновой молдинг ARTDEC A002/2",
+      "description": "Стеновой молдинг ARTDEC A002/2\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A002/2"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×40×19 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a002-2.webp",
+        "https://art-dec.kz/cutouts/a002-2.webp",
+        "https://art-dec.kz/interiors/molding-1-3-1.webp",
+        "https://art-dec.kz/interiors/molding-1-3-2.webp",
+        "https://art-dec.kz/interiors/molding-1-3-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a002",
+      "sku": "A002",
+      "name": "Стеновой молдинг ARTDEC A002",
+      "description": "Стеновой молдинг ARTDEC A002\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A002"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×40×19 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a002.webp",
+        "https://art-dec.kz/cutouts/a002.webp",
+        "https://art-dec.kz/interiors/molding-1-1-1.webp",
+        "https://art-dec.kz/interiors/molding-1-1-2.webp",
+        "https://art-dec.kz/interiors/molding-1-1-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a10",
+      "sku": "A10",
+      "name": "Стеновой молдинг ARTDEC A10",
+      "description": "Стеновой молдинг ARTDEC A10\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A10"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×26×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a10.webp",
+        "https://art-dec.kz/cutouts/a10.webp",
+        "https://art-dec.kz/interiors/molding-4-2-1.webp",
+        "https://art-dec.kz/interiors/molding-4-2-2.webp",
+        "https://art-dec.kz/interiors/molding-4-2-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a130",
+      "sku": "A130",
+      "name": "Стеновой молдинг ARTDEC A130",
+      "description": "Стеновой молдинг ARTDEC A130\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A130"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×15×8 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a130.webp",
+        "https://art-dec.kz/cutouts/a130.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a150",
+      "sku": "A150",
+      "name": "Стеновой молдинг ARTDEC A150",
+      "description": "Стеновой молдинг ARTDEC A150\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A150"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×79×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a150.webp",
+        "https://art-dec.kz/cutouts/a150.webp",
+        "https://art-dec.kz/interiors/molding-7-2-1.webp",
+        "https://art-dec.kz/interiors/molding-7-2-2.webp",
+        "https://art-dec.kz/interiors/molding-7-2-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a151",
+      "sku": "A151",
+      "name": "Стеновой молдинг ARTDEC A151",
+      "description": "Стеновой молдинг ARTDEC A151\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A151"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×50×22 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a151.webp",
+        "https://art-dec.kz/cutouts/a151.webp",
+        "https://art-dec.kz/interiors/molding-7-3-1.webp",
+        "https://art-dec.kz/interiors/molding-7-3-2.webp",
+        "https://art-dec.kz/interiors/molding-7-3-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a152",
+      "sku": "A152",
+      "name": "Стеновой молдинг ARTDEC A152",
+      "description": "Стеновой молдинг ARTDEC A152\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A152"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×85×25 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a152.webp",
+        "https://art-dec.kz/cutouts/a152.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a156",
+      "sku": "A156",
+      "name": "Стеновой молдинг ARTDEC A156",
+      "description": "Стеновой молдинг ARTDEC A156\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A156"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×50×10 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a156.webp",
+        "https://art-dec.kz/cutouts/a156.webp",
+        "https://art-dec.kz/interiors/molding-5-2-1.webp",
+        "https://art-dec.kz/interiors/molding-5-2-2.webp",
+        "https://art-dec.kz/interiors/molding-5-2-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a157-2",
+      "sku": "A157/2",
+      "name": "Стеновой молдинг ARTDEC A157/2",
+      "description": "Стеновой молдинг ARTDEC A157/2\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A157/2"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×30×13 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a157-2.webp",
+        "https://art-dec.kz/cutouts/a157-2.webp",
+        "https://art-dec.kz/interiors/molding-1-5-1.webp",
+        "https://art-dec.kz/interiors/molding-1-5-2.webp",
+        "https://art-dec.kz/interiors/molding-1-5-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a157",
+      "sku": "A157",
+      "name": "Стеновой молдинг ARTDEC A157",
+      "description": "Стеновой молдинг ARTDEC A157\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A157"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×30×13 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a157.webp",
+        "https://art-dec.kz/cutouts/a157.webp",
+        "https://art-dec.kz/interiors/molding-1-4-1.webp",
+        "https://art-dec.kz/interiors/molding-1-4-2.webp",
+        "https://art-dec.kz/interiors/molding-1-4-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a161",
+      "sku": "A161",
+      "name": "Стеновой молдинг ARTDEC A161",
+      "description": "Стеновой молдинг ARTDEC A161\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A161"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×59×21 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a161.webp",
+        "https://art-dec.kz/cutouts/a161.webp",
+        "https://art-dec.kz/interiors/molding-5-3-1.webp",
+        "https://art-dec.kz/interiors/molding-5-3-2.webp",
+        "https://art-dec.kz/interiors/molding-5-3-3.webp",
+        "https://art-dec.kz/interiors/molding-5-4-1.webp",
+        "https://art-dec.kz/interiors/molding-5-4-2.webp",
+        "https://art-dec.kz/interiors/molding-5-4-3.webp",
+        "https://art-dec.kz/interiors/molding-7-1-1.webp",
+        "https://art-dec.kz/interiors/molding-7-1-2.webp",
+        "https://art-dec.kz/interiors/molding-7-1-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a25",
+      "sku": "A25",
+      "name": "Стеновой молдинг ARTDEC A25",
+      "description": "Стеновой молдинг ARTDEC A25\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A25"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×19×9 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a25.webp",
+        "https://art-dec.kz/cutouts/a25.webp",
+        "https://art-dec.kz/interiors/molding-4-1-1.webp",
+        "https://art-dec.kz/interiors/molding-4-1-2.webp",
+        "https://art-dec.kz/interiors/molding-4-1-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a301",
+      "sku": "A301",
+      "name": "Стеновой молдинг ARTDEC A301",
+      "description": "Стеновой молдинг ARTDEC A301\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A301"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×42×16 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a301.webp",
+        "https://art-dec.kz/cutouts/a301.webp",
+        "https://art-dec.kz/interiors/a301-a602-1.webp",
+        "https://art-dec.kz/interiors/a301-a602-2.webp",
+        "https://art-dec.kz/interiors/a301-a602-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a35",
+      "sku": "A35",
+      "name": "Стеновой молдинг ARTDEC A35",
+      "description": "Стеновой молдинг ARTDEC A35\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A35"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×25×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a35.webp",
+        "https://art-dec.kz/cutouts/a35.webp",
+        "https://art-dec.kz/interiors/molding-1-1-1.webp",
+        "https://art-dec.kz/interiors/molding-1-1-2.webp",
+        "https://art-dec.kz/interiors/molding-1-1-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a400",
+      "sku": "A400",
+      "name": "Стеновой молдинг ARTDEC A400",
+      "description": "Стеновой молдинг ARTDEC A400\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A400"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×44×16 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a400.webp",
+        "https://art-dec.kz/cutouts/a400.webp",
+        "https://art-dec.kz/interiors/molding-6-2-1.webp",
+        "https://art-dec.kz/interiors/molding-6-2-2.webp",
+        "https://art-dec.kz/interiors/molding-6-2-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a601",
+      "sku": "A601",
+      "name": "Стеновой молдинг ARTDEC A601",
+      "description": "Стеновой молдинг ARTDEC A601\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A601"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×96×25 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a601.webp",
+        "https://art-dec.kz/cutouts/a601.webp",
+        "https://art-dec.kz/interiors/molding-5-1-1.webp",
+        "https://art-dec.kz/interiors/molding-5-1-2.webp",
+        "https://art-dec.kz/interiors/molding-5-1-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a602",
+      "sku": "A602",
+      "name": "Стеновой молдинг ARTDEC A602",
+      "description": "Стеновой молдинг ARTDEC A602\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A602"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×20×10 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a602.webp",
+        "https://art-dec.kz/cutouts/a602.webp",
+        "https://art-dec.kz/interiors/a301-a602-1.webp",
+        "https://art-dec.kz/interiors/a301-a602-2.webp",
+        "https://art-dec.kz/interiors/a301-a602-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a605",
+      "sku": "A605",
+      "name": "Стеновой молдинг ARTDEC A605",
+      "description": "Стеновой молдинг ARTDEC A605\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A605"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×22×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a605.webp",
+        "https://art-dec.kz/cutouts/a605.webp",
+        "https://art-dec.kz/interiors/molding-3-1-1.webp",
+        "https://art-dec.kz/interiors/molding-3-1-2.webp",
+        "https://art-dec.kz/interiors/molding-3-1-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a608",
+      "sku": "A608",
+      "name": "Стеновой молдинг ARTDEC A608",
+      "description": "Стеновой молдинг ARTDEC A608\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A608"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×22×11 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a608.webp",
+        "https://art-dec.kz/cutouts/a608.webp",
+        "https://art-dec.kz/interiors/molding-3-2-1.webp",
+        "https://art-dec.kz/interiors/molding-3-2-2.webp",
+        "https://art-dec.kz/interiors/molding-3-2-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a611-2",
+      "sku": "A611/2",
+      "name": "Стеновой молдинг ARTDEC A611/2",
+      "description": "Стеновой молдинг ARTDEC A611/2\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A611/2"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×30×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a611-2.webp",
+        "https://art-dec.kz/cutouts/a611-2.webp",
+        "https://art-dec.kz/interiors/molding-2-1-1.webp",
+        "https://art-dec.kz/interiors/molding-2-1-2.webp",
+        "https://art-dec.kz/interiors/molding-2-1-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a611",
+      "sku": "A611",
+      "name": "Стеновой молдинг ARTDEC A611",
+      "description": "Стеновой молдинг ARTDEC A611\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A611"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×30×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a611.webp",
+        "https://art-dec.kz/cutouts/a611.webp",
+        "https://art-dec.kz/interiors/molding-2-2-1.webp",
+        "https://art-dec.kz/interiors/molding-2-2-2.webp",
+        "https://art-dec.kz/interiors/molding-2-2-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a23",
+      "sku": "A23",
+      "name": "Стеновой молдинг ARTDEC A23",
+      "description": "Стеновой молдинг ARTDEC A23\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A23"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×38×15 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a23.webp",
+        "https://art-dec.kz/cutouts/a23.webp",
+        "https://art-dec.kz/interiors/molding-6-1-1.webp",
+        "https://art-dec.kz/interiors/molding-6-1-2.webp",
+        "https://art-dec.kz/interiors/molding-6-1-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a302",
+      "sku": "A302",
+      "name": "Стеновой молдинг ARTDEC A302",
+      "description": "Стеновой молдинг ARTDEC A302\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A302"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×60×25 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a302.webp",
+        "https://art-dec.kz/cutouts/a302.webp",
+        "https://art-dec.kz/interiors/molding-6-3-1.webp",
+        "https://art-dec.kz/interiors/molding-6-3-2.webp",
+        "https://art-dec.kz/interiors/molding-6-3-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a35-2",
+      "sku": "A35/2",
+      "name": "Стеновой молдинг ARTDEC A35/2",
+      "description": "Стеновой молдинг ARTDEC A35/2\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A35/2"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×25×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a35-2.webp",
+        "https://art-dec.kz/cutouts/a35-2.webp",
+        "https://art-dec.kz/interiors/molding-1-3-1.webp",
+        "https://art-dec.kz/interiors/molding-1-3-2.webp",
+        "https://art-dec.kz/interiors/molding-1-3-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a354",
+      "sku": "A354",
+      "name": "Стеновой молдинг ARTDEC A354",
+      "description": "Стеновой молдинг ARTDEC A354\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A354"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×67×26 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a354.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a611-3",
+      "sku": "A611/3",
+      "name": "Стеновой молдинг ARTDEC A611/3",
+      "description": "Стеновой молдинг ARTDEC A611/3\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A611/3"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×30×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a611-3.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a611-4",
+      "sku": "A611/4",
+      "name": "Стеновой молдинг ARTDEC A611/4",
+      "description": "Стеновой молдинг ARTDEC A611/4\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A611/4"
+        },
+        {
+          "label": "Размер",
+          "value": "3000×30×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a611-4.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad002",
+      "sku": "AD002",
+      "name": "Стеновой молдинг ARTDEC AD002",
+      "description": "Стеновой молдинг ARTDEC AD002\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD002"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×40×17 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad002.webp"
+      ],
+      "category": "Молдинги",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a122",
+      "sku": "A122",
+      "name": "Напольный плинтус ARTDEC A122",
+      "description": "Напольный плинтус ARTDEC A122\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A122"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×78×21 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a122.webp",
+        "https://art-dec.kz/cutouts/a122.webp",
+        "https://art-dec.kz/interiors/a122-1.webp",
+        "https://art-dec.kz/interiors/a122-2.webp",
+        "https://art-dec.kz/interiors/a122-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a137",
+      "sku": "A137",
+      "name": "Напольный плинтус ARTDEC A137",
+      "description": "Напольный плинтус ARTDEC A137\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A137"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a137.webp",
+        "https://art-dec.kz/cutouts/a137.webp",
+        "https://art-dec.kz/interiors/a137-1.webp",
+        "https://art-dec.kz/interiors/a137-2.webp",
+        "https://art-dec.kz/interiors/a137-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a31",
+      "sku": "A31",
+      "name": "Напольный плинтус ARTDEC A31",
+      "description": "Напольный плинтус ARTDEC A31\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A31"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×138×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a31.webp",
+        "https://art-dec.kz/cutouts/a31.webp",
+        "https://art-dec.kz/interiors/a31-1.webp",
+        "https://art-dec.kz/interiors/a31-2.webp",
+        "https://art-dec.kz/interiors/a31-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a005",
+      "sku": "A005",
+      "name": "Напольный плинтус ARTDEC A005",
+      "description": "Напольный плинтус ARTDEC A005\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A005"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×14 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a005.webp",
+        "https://art-dec.kz/cutouts/a005.webp",
+        "https://art-dec.kz/interiors/a005-1.webp",
+        "https://art-dec.kz/interiors/a005-2.webp",
+        "https://art-dec.kz/interiors/a005-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a15",
+      "sku": "A15",
+      "name": "Напольный плинтус ARTDEC A15",
+      "description": "Напольный плинтус ARTDEC A15\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A15"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×99×14 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a15.webp",
+        "https://art-dec.kz/cutouts/a15.webp",
+        "https://art-dec.kz/interiors/a15-1.webp",
+        "https://art-dec.kz/interiors/a15-2.webp",
+        "https://art-dec.kz/interiors/a15-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a33",
+      "sku": "A33",
+      "name": "Напольный плинтус ARTDEC A33",
+      "description": "Напольный плинтус ARTDEC A33\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A33"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×65×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a33.webp",
+        "https://art-dec.kz/cutouts/a33.webp",
+        "https://art-dec.kz/interiors/a33-1.webp",
+        "https://art-dec.kz/interiors/a33-2.webp",
+        "https://art-dec.kz/interiors/a33-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a50",
+      "sku": "A50",
+      "name": "Напольный плинтус ARTDEC A50",
+      "description": "Напольный плинтус ARTDEC A50\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A50"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×126×16 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a50.webp",
+        "https://art-dec.kz/cutouts/a50.webp",
+        "https://art-dec.kz/interiors/a50-1.webp",
+        "https://art-dec.kz/interiors/a50-2.webp",
+        "https://art-dec.kz/interiors/a50-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a49",
+      "sku": "A49",
+      "name": "Напольный плинтус ARTDEC A49",
+      "description": "Напольный плинтус ARTDEC A49\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A49"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×13 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a49.webp",
+        "https://art-dec.kz/cutouts/a49.webp",
+        "https://art-dec.kz/interiors/a49-1.webp",
+        "https://art-dec.kz/interiors/a49-2.webp",
+        "https://art-dec.kz/interiors/a49-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a55",
+      "sku": "A55",
+      "name": "Напольный плинтус ARTDEC A55",
+      "description": "Напольный плинтус ARTDEC A55\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A55"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×18 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a55.webp",
+        "https://art-dec.kz/cutouts/a55.webp",
+        "https://art-dec.kz/interiors/a55-1.webp",
+        "https://art-dec.kz/interiors/a55-2.webp",
+        "https://art-dec.kz/interiors/a55-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a153",
+      "sku": "A153",
+      "name": "Напольный плинтус ARTDEC A153",
+      "description": "Напольный плинтус ARTDEC A153\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A153"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×95×14 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a153.webp",
+        "https://art-dec.kz/cutouts/a153.webp",
+        "https://art-dec.kz/interiors/a153-1.webp",
+        "https://art-dec.kz/interiors/a153-2.webp",
+        "https://art-dec.kz/interiors/a153-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a701",
+      "sku": "A701",
+      "name": "Напольный плинтус ARTDEC A701",
+      "description": "Напольный плинтус ARTDEC A701\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A701"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×14 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a701.webp",
+        "https://art-dec.kz/cutouts/a701.webp",
+        "https://art-dec.kz/interiors/a701-1.webp",
+        "https://art-dec.kz/interiors/a701-2.webp",
+        "https://art-dec.kz/interiors/a701-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a702",
+      "sku": "A702",
+      "name": "Напольный плинтус ARTDEC A702",
+      "description": "Напольный плинтус ARTDEC A702\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A702"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×150×22 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a702.webp",
+        "https://art-dec.kz/cutouts/a702.webp",
+        "https://art-dec.kz/interiors/a702-1.webp",
+        "https://art-dec.kz/interiors/a702-2.webp",
+        "https://art-dec.kz/interiors/a702-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a706",
+      "sku": "A706",
+      "name": "Напольный плинтус ARTDEC A706",
+      "description": "Напольный плинтус ARTDEC A706\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A706"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×13 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a706.webp",
+        "https://art-dec.kz/cutouts/a706.webp",
+        "https://art-dec.kz/interiors/a706-1.webp",
+        "https://art-dec.kz/interiors/a706-2.webp",
+        "https://art-dec.kz/interiors/a706-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a88",
+      "sku": "A88",
+      "name": "Напольный плинтус ARTDEC A88",
+      "description": "Напольный плинтус ARTDEC A88\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A88"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×12 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a88.webp",
+        "https://art-dec.kz/cutouts/a88.webp",
+        "https://art-dec.kz/interiors/a88-1.webp",
+        "https://art-dec.kz/interiors/a88-2.webp",
+        "https://art-dec.kz/interiors/a88-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a004",
+      "sku": "A004",
+      "name": "Напольный плинтус ARTDEC A004",
+      "description": "Напольный плинтус ARTDEC A004\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A004"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×119×14 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a004.webp",
+        "https://art-dec.kz/cutouts/a004.webp",
+        "https://art-dec.kz/interiors/a004-1.webp",
+        "https://art-dec.kz/interiors/a004-2.webp",
+        "https://art-dec.kz/interiors/a004-3.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a703",
+      "sku": "A703",
+      "name": "Напольный плинтус ARTDEC A703",
+      "description": "Напольный плинтус ARTDEC A703\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A703"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×15 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a703.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a704",
+      "sku": "A704",
+      "name": "Напольный плинтус ARTDEC A704",
+      "description": "Напольный плинтус ARTDEC A704\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A704"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×15 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a704.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a705",
+      "sku": "A705",
+      "name": "Напольный плинтус ARTDEC A705",
+      "description": "Напольный плинтус ARTDEC A705\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A705"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×14 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a705.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a707",
+      "sku": "A707",
+      "name": "Напольный плинтус ARTDEC A707",
+      "description": "Напольный плинтус ARTDEC A707\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A707"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×15 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a707.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a11-80",
+      "sku": "A11-80",
+      "name": "Напольный плинтус ARTDEC A11-80 с LED-подсветкой",
+      "description": "Напольный плинтус ARTDEC A11-80 с LED-подсветкой\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A11-80"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a11-80.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a11-100",
+      "sku": "A11-100",
+      "name": "Напольный плинтус ARTDEC A11-100 с LED-подсветкой",
+      "description": "Напольный плинтус ARTDEC A11-100 с LED-подсветкой\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A11-100"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a11-100.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a12-100",
+      "sku": "A12-100",
+      "name": "Напольный плинтус ARTDEC A12-100 с LED-подсветкой",
+      "description": "Напольный плинтус ARTDEC A12-100 с LED-подсветкой\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A12-100"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×18 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a12-100.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ap70",
+      "sku": "AP70",
+      "name": "Напольный плинтус ARTDEC AP70",
+      "description": "Напольный плинтус ARTDEC AP70\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AP70"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×70×14 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ap70.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ap1-100",
+      "sku": "AP1-100",
+      "name": "Напольный плинтус ARTDEC AP1-100",
+      "description": "Напольный плинтус ARTDEC AP1-100\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AP1-100"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×17 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ap1-100.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a105",
+      "sku": "A105",
+      "name": "Напольный плинтус ARTDEC A105",
+      "description": "Напольный плинтус ARTDEC A105\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A105"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×108×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a105.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a80l",
+      "sku": "A80L",
+      "name": "Напольный плинтус ARTDEC A80L",
+      "description": "Напольный плинтус ARTDEC A80L\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A80L"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a80l.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a100l",
+      "sku": "A100L",
+      "name": "Напольный плинтус ARTDEC A100L",
+      "description": "Напольный плинтус ARTDEC A100L\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A100L"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a100l.webp"
+      ],
+      "category": "Плинтуса",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad1",
+      "sku": "AD1",
+      "name": "Потолочная галтель ARTDEC AD1",
+      "description": "Потолочная галтель ARTDEC AD1\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD1"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×50×50 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad1.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad2",
+      "sku": "AD2",
+      "name": "Потолочная галтель ARTDEC AD2",
+      "description": "Потолочная галтель ARTDEC AD2\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD2"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×30 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad2.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad3",
+      "sku": "AD3",
+      "name": "Потолочная галтель ARTDEC AD3",
+      "description": "Потолочная галтель ARTDEC AD3\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD3"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×45 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad3.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad4",
+      "sku": "AD4",
+      "name": "Потолочная галтель ARTDEC AD4",
+      "description": "Потолочная галтель ARTDEC AD4\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD4"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×60×40 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad4.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad5",
+      "sku": "AD5",
+      "name": "Потолочная галтель ARTDEC AD5",
+      "description": "Потолочная галтель ARTDEC AD5\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD5"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×110×45 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad5.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad6",
+      "sku": "AD6",
+      "name": "Потолочная галтель ARTDEC AD6",
+      "description": "Потолочная галтель ARTDEC AD6\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD6"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×70×35 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad6.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad7",
+      "sku": "AD7",
+      "name": "Потолочная галтель ARTDEC AD7",
+      "description": "Потолочная галтель ARTDEC AD7\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD7"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×90×80 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad7.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad8",
+      "sku": "AD8",
+      "name": "Потолочная галтель ARTDEC AD8",
+      "description": "Потолочная галтель ARTDEC AD8\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD8"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×76×76 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad8.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad9",
+      "sku": "AD9",
+      "name": "Потолочная галтель ARTDEC AD9",
+      "description": "Потолочная галтель ARTDEC AD9\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD9"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×85 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad9.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad10",
+      "sku": "AD10",
+      "name": "Потолочная галтель ARTDEC AD10",
+      "description": "Потолочная галтель ARTDEC AD10\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD10"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×40 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad10.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad11",
+      "sku": "AD11",
+      "name": "Потолочная галтель ARTDEC AD11",
+      "description": "Потолочная галтель ARTDEC AD11\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD11"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×90×75 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad11.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad12",
+      "sku": "AD12",
+      "name": "Потолочная галтель ARTDEC AD12",
+      "description": "Потолочная галтель ARTDEC AD12\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD12"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×70×70 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad12.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad13",
+      "sku": "AD13",
+      "name": "Потолочная галтель ARTDEC AD13",
+      "description": "Потолочная галтель ARTDEC AD13\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD13"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×80×80 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad13.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad14",
+      "sku": "AD14",
+      "name": "Потолочная галтель ARTDEC AD14",
+      "description": "Потолочная галтель ARTDEC AD14\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD14"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×105×35 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad14.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad16",
+      "sku": "AD16",
+      "name": "Потолочная галтель ARTDEC AD16",
+      "description": "Потолочная галтель ARTDEC AD16\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD16"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×85×55 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad16.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad17",
+      "sku": "AD17",
+      "name": "Потолочная галтель ARTDEC AD17",
+      "description": "Потолочная галтель ARTDEC AD17\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD17"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×50×30 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad17.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ad18",
+      "sku": "AD18",
+      "name": "Потолочная галтель ARTDEC AD18",
+      "description": "Потолочная галтель ARTDEC AD18\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "AD18"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×70×45 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ad18.webp"
+      ],
+      "category": "Галтели",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a503",
+      "sku": "A503",
+      "name": "Потолочный карниз ARTDEC A503",
+      "description": "Потолочный карниз ARTDEC A503\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A503"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×100×50 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a503.webp",
+        "https://art-dec.kz/cutouts/a503.webp"
+      ],
+      "category": "Карнизы",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a38",
+      "sku": "A38",
+      "name": "Потолочный карниз ARTDEC A38",
+      "description": "Потолочный карниз ARTDEC A38\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A38"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×20×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a38.webp"
+      ],
+      "category": "Карнизы",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a172",
+      "sku": "A172",
+      "name": "Потолочный карниз ARTDEC A172",
+      "description": "Потолочный карниз ARTDEC A172\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A172"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×71×71 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a172.webp"
+      ],
+      "category": "Карнизы",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a504",
+      "sku": "A504",
+      "name": "Потолочный карниз ARTDEC A504",
+      "description": "Потолочный карниз ARTDEC A504\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A504"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×180×20 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a504.webp"
+      ],
+      "category": "Карнизы",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "a511",
+      "sku": "A511",
+      "name": "Потолочный карниз ARTDEC A511",
+      "description": "Потолочный карниз ARTDEC A511\n\nИзделие ставится на монтажный клей. Стыки заполняются акриловым герметиком — он красится, в отличие от силикона. Красить только составами на водной основе.",
+      "specs": [
+        {
+          "label": "Модель",
+          "value": "A511"
+        },
+        {
+          "label": "Размер",
+          "value": "2000×172×121 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Дюрополимер"
+        },
+        {
+          "label": "Цвет",
+          "value": "белый"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/a511.webp"
+      ],
+      "category": "Карнизы",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ul2",
+      "name": "Подложка под ламинат 2 мм",
+      "description": "Подложка-гармошка под ламинат. Упаковка — 8,4 м² (1,05 × 8 м).",
+      "specs": [
+        {
+          "label": "Размер",
+          "value": "8,4 м² (1,05 × 8 м)"
+        },
+        {
+          "label": "Толщина",
+          "value": "2 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Плотность",
+          "value": "35 кг/м³"
+        },
+        {
+          "label": "Срок службы",
+          "value": "не менее 25 лет"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ul2.webp"
+      ],
+      "category": "Подложка под ламинат",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ul2-p",
+      "name": "Подложка под ламинат 2 мм, перфорированная",
+      "description": "Перфорированная подложка-гармошка под тёплый пол: отверстия дают лучшую вентиляцию. Упаковка — 8,4 м² (1,05 × 8 м).",
+      "specs": [
+        {
+          "label": "Размер",
+          "value": "8,4 м² (1,05 × 8 м)"
+        },
+        {
+          "label": "Толщина",
+          "value": "2 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Плотность",
+          "value": "35 кг/м³"
+        },
+        {
+          "label": "Срок службы",
+          "value": "не менее 25 лет"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ul2-p.webp"
+      ],
+      "category": "Подложка под ламинат",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ul3",
+      "name": "Подложка под ламинат 3 мм",
+      "description": "Подложка-гармошка под ламинат. Упаковка — 8,4 м² (1,05 × 8 м).",
+      "specs": [
+        {
+          "label": "Размер",
+          "value": "8,4 м² (1,05 × 8 м)"
+        },
+        {
+          "label": "Толщина",
+          "value": "3 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Плотность",
+          "value": "35 кг/м³"
+        },
+        {
+          "label": "Срок службы",
+          "value": "не менее 25 лет"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ul3.webp"
+      ],
+      "category": "Подложка под ламинат",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    },
+    {
+      "slug": "ul3-p",
+      "name": "Подложка под ламинат 3 мм, перфорированная",
+      "description": "Перфорированная подложка-гармошка под тёплый пол: отверстия дают лучшую вентиляцию. Упаковка — 8,4 м² (1,05 × 8 м).",
+      "specs": [
+        {
+          "label": "Размер",
+          "value": "8,4 м² (1,05 × 8 м)"
+        },
+        {
+          "label": "Толщина",
+          "value": "3 мм"
+        },
+        {
+          "label": "Материал",
+          "value": "Вспененный полистирол"
+        },
+        {
+          "label": "Плотность",
+          "value": "35 кг/м³"
+        },
+        {
+          "label": "Срок службы",
+          "value": "не менее 25 лет"
+        }
+      ],
+      "images": [
+        "https://art-dec.kz/catalog/ul3-p.webp"
+      ],
+      "category": "Подложка под ламинат",
+      "type": "product",
+      "priceOnRequest": true,
+      "currency": "KZT"
+    }
+  ]
+}

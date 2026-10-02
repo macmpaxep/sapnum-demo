@@ -25,6 +25,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
   const [priceOnRequest, setPriceOnRequest] = useState(item.priceOnRequest);
   const [currency, setCurrency] = useState<CatalogCurrency>(item.currency);
   const [description, setDescription] = useState(item.description ?? "");
+  const [category, setCategory] = useState(item.category ?? "");
   const [specs, setSpecs] = useState<CatalogSpec[]>(item.specs.length > 0 ? item.specs : [{ label: "", value: "" }, { label: "", value: "" }]);
   const [images, setImages] = useState<string[]>(item.images.length > 0 ? item.images : item.imageUrl ? [item.imageUrl] : []);
   const [uploading, setUploading] = useState(false);
@@ -189,6 +190,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
         images,
         imageUrl: images[0],
         specs: filledSpecs,
+        category,
       }),
     });
     const data = await res.json().catch(() => ({}));
@@ -209,6 +211,7 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
     setPriceOnRequest(item.priceOnRequest);
     setCurrency(item.currency);
     setDescription(item.description ?? "");
+    setCategory(item.category ?? "");
     setImages(item.images.length > 0 ? item.images : item.imageUrl ? [item.imageUrl] : []);
     setSpecs(item.specs.length > 0 ? item.specs : [{ label: "", value: "" }, { label: "", value: "" }]);
     setError(null);
@@ -313,6 +316,11 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
             <span className="inline-block rounded-full border border-neutral-200 dark:border-line px-2 py-0.5 text-[11px] uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
               {item.type === "product" ? "Товар" : "Услуга"}
             </span>
+            {item.category && (
+              <span className="ml-1.5 inline-block rounded-full bg-neutral-100 dark:bg-line px-2 py-0.5 text-[11px] text-neutral-600 dark:text-neutral-300">
+                {item.category}
+              </span>
+            )}
             <Link
               href={`/co/${item.companySlug}`}
               className="ml-2 text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper hover:underline"
@@ -328,6 +336,13 @@ export default function ItemDetail({ item, canManage }: { item: CatalogItem; can
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Название"
                 className="block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-3 py-2 text-xl font-semibold"
+              />
+              <input
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                maxLength={60}
+                placeholder="Категория (напр. Плинтуса)"
+                className="block w-full border border-neutral-300 dark:border-line bg-white dark:bg-panel px-3 py-2 text-sm"
               />
 
               <label className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">

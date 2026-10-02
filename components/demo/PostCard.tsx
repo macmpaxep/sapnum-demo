@@ -300,6 +300,42 @@ export default function PostCard({ post, linkToPost = true }: { post: FeedPost; 
         content && <p className="mt-3 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">{content}</p>
       )}
 
+      {post.collection && post.collection.items.length > 0 && (
+        <div className="mt-3">
+          <div className="grid grid-cols-3 gap-1.5">
+            {post.collection.items.map((item, idx) => {
+              const isLast = idx === post.collection!.items.length - 1;
+              const hidden = post.collection!.total - post.collection!.items.length;
+              const showMore = isLast && hidden > 0;
+              const href = showMore && post.collection!.companySlug
+                ? `/co/${post.collection!.companySlug}?category=${encodeURIComponent(post.collection!.category)}`
+                : `/item/${item.id}`;
+              return (
+                <Link key={item.id} href={href} className="group relative block aspect-square overflow-hidden rounded-lg border border-neutral-200 dark:border-line bg-neutral-50 dark:bg-panel">
+                  {item.imageUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={item.imageUrl} alt={item.name} loading="lazy" className="h-full w-full object-contain p-1.5" />
+                  )}
+                  {showMore ? (
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-sm font-semibold text-white">+{hidden}</span>
+                  ) : (
+                    <span className="absolute inset-x-0 bottom-0 truncate bg-white/85 dark:bg-ink/85 px-1.5 py-0.5 text-[10px] text-neutral-700 dark:text-neutral-200">{item.name}</span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+          {post.collection.companySlug && (
+            <Link
+              href={`/co/${post.collection.companySlug}?category=${encodeURIComponent(post.collection.category)}`}
+              className="mt-2 inline-block text-xs text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-paper hover:underline"
+            >
+              Смотреть все {post.collection.total} в категории «{post.collection.category}» →
+            </Link>
+          )}
+        </div>
+      )}
+
       {post.mediaUrls.length > 0 && (
         <div className={`mt-3 grid gap-2 ${post.mediaUrls.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
           {post.mediaUrls.map((url) => (

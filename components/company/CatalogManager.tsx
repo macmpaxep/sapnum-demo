@@ -16,11 +16,13 @@ export default function CatalogManager({
   items,
   canManage,
   autoOpen = false,
+  initialCategory = null,
 }: {
   companyId: string;
   items: CatalogItem[];
   canManage: boolean;
   autoOpen?: boolean;
+  initialCategory?: string | null;
 }) {
   const [open, setOpen] = useState(autoOpen);
   const formRef = useRef<HTMLDivElement>(null);
@@ -34,6 +36,8 @@ export default function CatalogManager({
   const [priceOnRequest, setPriceOnRequest] = useState(false);
   const [currency, setCurrency] = useState<CatalogCurrency>("KZT");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string | null>(initialCategory);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [extraFiles, setExtraFiles] = useState<File[]>([]);
   const [specs, setSpecs] = useState<CatalogSpec[]>([
@@ -50,6 +54,11 @@ export default function CatalogManager({
   const [descSpecsExtracting, setDescSpecsExtracting] = useState(false);
   const [descSpecsDismissedAt, setDescSpecsDismissedAt] = useState<number | null>(null);
   const router = useRouter();
+
+  const categories = useMemo(
+    () => Array.from(new Set(items.map((i) => i.category).filter((c): c is string => Boolean(c)))).sort(),
+    [items]
+  );
 
   const descSpecsBlockStart = useMemo(() => findSpecsBlockStart(description), [description]);
   const showDescSpecsSuggestion = descSpecsBlockStart !== null && descSpecsBlockStart !== descSpecsDismissedAt;
@@ -172,6 +181,7 @@ export default function CatalogManager({
           imageUrl,
           images,
           specs: filledSpecs,
+          category,
         }),
       });
 
@@ -185,6 +195,7 @@ export default function CatalogManager({
       setPriceOnRequest(false);
       setCurrency("KZT");
       setDescription("");
+      setCategory("");
       setImageFile(null);
       setExtraFiles([]);
       setSpecs([
@@ -260,8 +271,9 @@ export default function CatalogManager({
     router.refresh();
   }
 
-  const products = items.filter((i) => i.type === "product");
-  const services = items.filter((i) => i.type === "service");
+  const visibleItems = activeCategory ? items.filter((i) => i.category === activeCategory) : items;
+  const products = visibleItems.filter((i) => i.type === "product");
+  const services = visibleItems.filter((i) => i.type === "service");
 
   return (
     <div className="space-y-6">
@@ -300,6 +312,19 @@ export default function CatalogManager({
                 placeholder="Название"
                 className="block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
               />
+              <input
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                list="catalog-categories"
+                maxLength={60}
+                placeholder="Категория (напр. Плинтуса) — необязательно"
+                className="block w-full border border-neutral-300 dark:border-line px-3 py-2 text-sm"
+              />
+              <datalist id="catalog-categories">
+                {categories.map((c) => (
+                  <option key={c} value={c} />
+                ))}
+              </datalist>
               <label className="flex items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400">
                 <input type="checkbox" checked={priceOnRequest} onChange={(e) => setPriceOnRequest(e.target.checked)} />
                 Цена по запросу
@@ -505,6 +530,36 @@ export default function CatalogManager({
               </div>
             </form>
           )}
+        </div>
+      )}
+
+      {categories.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setActiveCategory(null)}
+            className={`rounded-full border px-3 py-1 text-xs ${
+              activeCategory === null
+                ? "border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper text-white dark:text-ink"
+                : "border-neutral-200 dark:border-line text-neutral-600 dark:text-neutral-400 hover:border-neutral-400"
+            }`}
+          >
+            Все ({items.length})
+          </button>
+          {categories.map((c) => (
+            <button
+              key={c}
+              type="button"
+              onClick={() => setActiveCategory(c)}
+              className={`rounded-full border px-3 py-1 text-xs ${
+                activeCategory === c
+                  ? "border-neutral-900 dark:border-paper bg-neutral-900 dark:bg-paper text-white dark:text-ink"
+                  : "border-neutral-200 dark:border-line text-neutral-600 dark:text-neutral-400 hover:border-neutral-400"
+              }`}
+            >
+              {c} ({items.filter((i) => i.category === c).length})
+            </button>
+          ))}
         </div>
       )}
 

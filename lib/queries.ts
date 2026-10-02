@@ -2,6 +2,13 @@ import { getSupabaseAdmin } from "@/lib/supabase";
 import { getCurrentUser } from "@/lib/auth";
 import { feedPosts as mockFeedPosts } from "@/lib/demo-data";
 
+export type PostCollection = {
+  category: string;
+  total: number;
+  companySlug: string | null;
+  items: { id: string; name: string; imageUrl: string | null }[];
+};
+
 export type FeedPost = {
   id: string;
   authorId: string;
@@ -23,10 +30,11 @@ export type FeedPost = {
   likedByMe: boolean;
   savedByMe: boolean;
   isMine: boolean;
+  collection: PostCollection | null;
 };
 
 const POST_SELECT =
-  "id, author_id, body, media_urls, topic, created_at, view_count, catalog_item_id, profiles!posts_author_id_fkey(display_name, username), companies(name, industry, slug), post_likes(user_id), post_comments(id)";
+  "id, author_id, company_id, collection_category, body, media_urls, topic, created_at, view_count, catalog_item_id, profiles!posts_author_id_fkey(display_name, username), companies(name, industry, slug), post_likes(user_id), post_comments(id)";
 
 function timeAgo(iso: string) {
   const diffMs = Date.now() - new Date(iso).getTime();
@@ -63,6 +71,7 @@ function mockTextPosts(): FeedPost[] {
       likedByMe: false,
       savedByMe: false,
       isMine: false,
+      collection: null,
     }));
 }
 
@@ -93,6 +102,7 @@ function mapRow(post: any, viewerId: string | null, savedPostIds: Set<string>, r
     likedByMe: viewerId ? likes.some((l) => l.user_id === viewerId) : false,
     savedByMe: savedPostIds.has(post.id),
     isMine: viewerId === post.author_id,
+    collection: null,
   };
 }
 
@@ -113,6 +123,49 @@ async function loadRepostCounts(
     if (target) counts.set(target, (counts.get(target) ?? 0) + 1);
   }
   return counts;
+}
+
+
+const COLLECTION_PREVIEW = 6;
+
+// A "collection" post stores only (company, category); the preview tiles are
+// read live so new items added to the category show up without new posts.
+async function attachCollections(
+  supabase: NonNullable<ReturnType<typeof getSupabaseAdmin>>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rows: any[],
+  posts: FeedPost[]
+): Promise<void> {
+  const wanted = new Map<string, { companyId: string; category: string }>();
+  for (const r of rows) {
+    if (r.collection_category && r.company_id) {
+      wanted.set(`${r.company_id}|${r.collection_category}`, { companyId: r.company_id, category: r.collection_category });
+    }
+  }
+  if (wanted.size === 0) return;
+
+  const results = new Map<string, { total: number; items: PostCollection["items"] }>();
+  await Promise.all(
+    Array.from(wanted.entries()).map(async ([key, { companyId, category }]) => {
+      const { data, count } = await supabase
+        .from("catalog_items")
+        .select("id, name, image_url, images", { count: "exact" })
+        .eq("company_id", companyId)
+        .eq("category", category)
+        .order("created_at", { ascending: true })
+        .limit(COLLECTION_PREVIEW);
+      results.set(key, {
+        total: count ?? data?.length ?? 0,
+        items: (data ?? []).map((i) => ({ id: i.id, name: i.name, imageUrl: i.image_url ?? i.images?.[0] ?? null })),
+      });
+    })
+  );
+
+  posts.forEach((post, idx) => {
+    const r = rows[idx];
+    const res = r.collection_category && r.company_id ? results.get(`${r.company_id}|${r.collection_category}`) : null;
+    if (res) post.collection = { category: r.collection_category, total: res.total, items: res.items, companySlug: post.companySlug };
+  });
 }
 
 export async function getFeedPosts(filters?: { topic?: string; authorId?: string }): Promise<FeedPost[]> {
@@ -143,7 +196,9 @@ export async function getFeedPosts(filters?: { topic?: string; authorId?: string
 
   const repostCounts = await loadRepostCounts(supabase, postIds);
 
-  return data.map((post) => mapRow(post, viewer?.id ?? null, savedPostIds, repostCounts));
+  const mapped = data.map((post) => mapRow(post, viewer?.id ?? null, savedPostIds, repostCounts));
+  await attachCollections(supabase, data, mapped);
+  return mapped;
 }
 
 export async function getPostById(id: string): Promise<FeedPost | null> {
@@ -164,5 +219,7 @@ export async function getPostById(id: string): Promise<FeedPost | null> {
 
   const repostCounts = await loadRepostCounts(supabase, [id]);
 
-  return mapRow(post, viewer?.id ?? null, savedPostIds, repostCounts);
+  const mapped = mapRow(post, viewer?.id ?? null, savedPostIds, repostCounts);
+  await attachCollections(supabase, [post], [mapped]);
+  return mapped;
 }
