@@ -1,15 +1,8 @@
+import { shortTypeLabel } from "@/lib/applicationTypes";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { getMyApplications } from "@/lib/applications";
-
-const TYPE_LABELS: Record<string, string> = {
-  partnership: "Партнёрство",
-  distributor: "Дистрибьютор",
-  commercial_offer: "Коммерческое предложение",
-  investment: "Инвестиции",
-  purchase: "Заказ / запрос цены",
-};
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "На рассмотрении",
@@ -38,7 +31,7 @@ export default async function ApplicationsPage() {
         {applications.map((a) => (
           <div key={a.id} className="rounded-lg border border-neutral-200 dark:border-line p-3">
             <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
-              <span>{TYPE_LABELS[a.type] ?? a.type}</span>
+              <span>{shortTypeLabel(a.type)}</span>
               <span>{STATUS_LABELS[a.status] ?? a.status}</span>
             </div>
             <Link href={`/co/${a.companySlug}`} className="mt-1 block text-sm font-medium text-neutral-900 dark:text-paper hover:underline">

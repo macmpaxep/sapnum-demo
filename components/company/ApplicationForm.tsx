@@ -1,15 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { APPLICATION_TYPES, COOPERATION_TYPES } from "@/lib/applicationTypes";
 
-const TYPE_LABELS: Record<string, string> = {
-  partnership: "Партнёрство",
-  distributor: "Стать дистрибьютором",
-  commercial_offer: "Коммерческое предложение",
-  investment: "Инвестиции",
-};
-
-// "purchase" is deliberately not in the cooperation list: buyers get their own simpler form.
 
 export default function ApplicationForm({
   companyId,
@@ -33,8 +26,8 @@ export default function ApplicationForm({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   const [quantity, setQuantity] = useState("");
-  const [type, setType] = useState("partnership");
-  const visibleTypes = Object.entries(TYPE_LABELS).filter(([value]) => value !== "investment" || allowInvestment);
+  const [type, setType] = useState<string>("distributor");
+  const visibleTypes = COOPERATION_TYPES.filter((value) => value !== "investment" || allowInvestment);
   const [message, setMessage] = useState(defaultMessage);
   const [amount, setAmount] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -149,18 +142,21 @@ export default function ApplicationForm({
   return (
     <form onSubmit={handleSubmit} className="w-full rounded-lg border border-neutral-200 dark:border-line p-4 space-y-3">
       <div>
-        <label className="text-xs text-neutral-500 dark:text-neutral-400">Тип заявки</label>
+        <label className="text-xs text-neutral-500 dark:text-neutral-400">Чего вы хотите</label>
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
           className="mt-1 block w-full border border-neutral-300 dark:border-line px-2 py-1.5 text-sm"
         >
-          {visibleTypes.map(([value, label]) => (
+          {visibleTypes.map((value) => (
             <option key={value} value={value}>
-              {label}
+              {APPLICATION_TYPES[value].label}
             </option>
           ))}
         </select>
+        <p className="mt-1 text-[11px] text-neutral-400 dark:text-neutral-500">
+          {APPLICATION_TYPES[type as keyof typeof APPLICATION_TYPES]?.hint}
+        </p>
       </div>
 
       {type === "investment" && (

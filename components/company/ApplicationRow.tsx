@@ -1,18 +1,11 @@
 "use client";
 
+import { shortTypeLabel } from "@/lib/applicationTypes";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { CompanyApplication } from "@/lib/companies";
 import MessageButton from "@/components/company/MessageButton";
-
-const TYPE_LABELS: Record<string, string> = {
-  partnership: "Партнёрство",
-  distributor: "Дистрибьютор",
-  commercial_offer: "Коммерческое предложение",
-  investment: "Инвестиции",
-  purchase: "Заказ / запрос цены",
-};
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "На рассмотрении",
@@ -39,7 +32,7 @@ export default function ApplicationRow({ application }: { application: CompanyAp
   return (
     <div className="rounded-lg border border-neutral-200 dark:border-line p-3">
       <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
-        <span>{TYPE_LABELS[application.type] ?? application.type}</span>
+        <span>{shortTypeLabel(application.type)}</span>
         <span>{STATUS_LABELS[status] ?? status}</span>
       </div>
       <div className="mt-1 flex items-center gap-2">
